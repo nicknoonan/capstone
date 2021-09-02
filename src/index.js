@@ -3,7 +3,18 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+// eslint-disable-next-line 
+import TestModel from './models/firstmodel.js';
+import { DB_USER, DB_PASSWORD, DB_COLLECTION } from './secrets';
 
+const mongoose = require('mongoose');
+
+const connectionurl = 'mongodb+srv://devuser:<password>@boonehousinghelp.qcefq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+async function db_connect() {
+  await mongoose.connect('mongodb+srv://devuser:gimmeshelter@boonehousinghelp.qcefq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority');
+}
+
+db_connect();
 ReactDOM.render(
   <React.StrictMode>
     <App />
