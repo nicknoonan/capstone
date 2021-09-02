@@ -5,3 +5,4 @@ const testmodel = new mongoose.Schema({
 
 const TestModel = mongoose.model('TestModel',testmodel);
 
+export { TestModel };

@@ -5,15 +5,14 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 // eslint-disable-next-line 
 import TestModel from './models/firstmodel.js';
-import { DB_USER, DB_PASSWORD, DB_COLLECTION } from './secrets';
+import { DB_USER, DB_PASSWORD, DB_COLLECTION } from './secrets'; 
 const express = require("express");
 const app = express();
 const cors = require("cors");
 const PORT = 3000;
+global.TextEncoder = require("util").TextEncoder;
 const mongoose = require("mongoose");
 app.use(cors());
-
-
 
 const connection = mongoose.connection;
 
@@ -26,18 +25,21 @@ app.listen(PORT, function() {
 });
 
 const connectionurl = 'mongodb+srv://' + DB_USER + ':' + DB_PASSWORD + '@boonehousinghelp.qcefq.mongodb.net/' + DB_COLLECTION + '?retryWrites=true&w=majority';
-async function db_connect() {
+const dbconnect = async function() {
   try {
     await mongoose.connect(connectionurl);  
   }
   catch (error) {
     console.log("Failed to connect to db");
     console.log(error);
+    return false;
   }
   console.log("DB CONNECTION SUCCESSFUL");
+  return true;
 }
 
-db_connect();
+export { dbconnect };
+
 ReactDOM.render(
   <React.StrictMode>
     <App />
@@ -49,3 +51,4 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
