@@ -6,12 +6,35 @@ import reportWebVitals from './reportWebVitals';
 // eslint-disable-next-line 
 import TestModel from './models/firstmodel.js';
 import { DB_USER, DB_PASSWORD, DB_COLLECTION } from './secrets';
+const express = require("express");
+const app = express();
+const cors = require("cors");
+const PORT = 3000;
+const mongoose = require("mongoose");
+app.use(cors());
 
-const mongoose = require('mongoose');
 
-const connectionurl = 'mongodb+srv://devuser:<password>@boonehousinghelp.qcefq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+
+const connection = mongoose.connection;
+
+connection.once("open", function() {
+  console.log("Connection with MongoDB was successful");
+});
+
+app.listen(PORT, function() {
+  console.log("Server is running on Port: " + PORT);
+});
+
+const connectionurl = 'mongodb+srv://' + DB_USER + ':' + DB_PASSWORD + '@boonehousinghelp.qcefq.mongodb.net/' + DB_COLLECTION + '?retryWrites=true&w=majority';
 async function db_connect() {
-  await mongoose.connect('mongodb+srv://devuser:gimmeshelter@boonehousinghelp.qcefq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority');
+  try {
+    await mongoose.connect(connectionurl);  
+  }
+  catch (error) {
+    console.log("Failed to connect to db");
+    console.log(error);
+  }
+  console.log("DB CONNECTION SUCCESSFUL");
 }
 
 db_connect();
