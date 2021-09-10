@@ -4,16 +4,22 @@ const Agency = require('../../models/Agency');
 const Unit = require('../../models/Unit');
 const router = express.Router();
 
+/*
+ *  get_unit: handles get requests for /unit  
+ */
 get_unit = async (req, res) => {
+  //grab unit name from the request body
   let { unit_name } = req.body
+  //check that the request contained a name field
   if (unit_name) {
+    //query the db for a unit document matching the name field and property field
     Unit.findOne({ name: unit_name }, (err, unit) => {
-      if (err) {
+      if (err) { //server error occured during the query
         console.log(err);
         let message = 'server error occured. unable to find unit: ' + unit_name;
         res.status(500).json({message: message});
       }
-      else if (unit) {
+      else if (unit) { //query found a unit document
         res.status(200).json({
           name: unit.name, 
           agency: unit.agency_name, 
@@ -21,65 +27,75 @@ get_unit = async (req, res) => {
           address: unit.address
         });
       }
-      else {
+      else { //query did not find a unit document
         let message = 'unable to find unit: ' + unit_name;
         res.status(400).json({ message: message });
       }
     });
   }
+  //request did not contain a name field
   else {
     let message = 'invalid unit get request';
     res.status(400).json({message: message});
   }
 }
 
+/*
+ *  post_unit: handles post requests for /unit  
+ */
 post_unit = async (req, res) => {
+  //grab unit name, agency name, property name, and address from the request body
   let { unit_name, agency_name, property_name, address } = req.body;
+  //check that the body contained all fields
   if (unit_name && agency_name && property_name && address) {
-    //
-    Unit.findOne({ name: unit_name }, (err, unit) => {
-      if (err) {
+    //query the db for a unit document matching the name field
+    Unit.findOne({ property_name: property_name, name: unit_name }, (err, unit) => {
+      if (err) { //server error occured during query
         console.log(err);
         let message = 'server error occured. unable to find unit: ' + unit_name;
         res.status(500).json({message: message});
       }
-      else if (unit) {
+      else if (unit) { //cannot create duplicate units
         let message = 'unit already exists: ' + unit_name;
         res.status(409).json({message: message});
       }
-      else {
+      else { //unit doesn't exist
+        //query the db for a property document matching the name field
         Property.findOne({ name: property_name }, async (err, property) => {
-          if (err) {
+          if (err) { //server error occured during query
             let message = 'server error occured. unable to post unit: ' + unit_name;
             console.log(message + ' ' + err);
             res.status(500).json({message: message});
           }
-          else if (property) {
+          else if (property) { //request contained a valid property
+            //query the db for an agency document match the agency name field
             Agency.findOne({ name: agency_name }, async (err, agency) => {
-              if (err) {
+              if (err) { //server error occured during query
                 let message = 'server error occured. unable to post unit: ' + unit_name;
                 console.log(message + ' ' + err);
                 res.status(500).json({message: message});
               }
-              else if (agency) {
+              else if (agency) { //request contained a valid agency
+                //create the new unit
                 let name = unit_name
                 const new_unit = new Unit({ name, agency_name, property_name, address });
+                //save the unit
                 try {
                   await new_unit.save();
                   res.status(201).json({unit_name: unit_name, agency_name: agency_name, property_name: property_name, address: address});
                 }
-                catch (error) {
+                catch (error) { //server error occured trying to save the unit
                   res.status(500).json({ message: 'failed to save unit' });
                   console.log('failed to save unit' + error);
                 }
               }
-              else {
+              else { //query did not find a mtching agency document
                 let message = 'unable to find agency: ' + agency_name;
                 res.status(409).json({ message: message });
               }
             });
           }
-          else {
+          else { //query did not find a matching property document
             let message = 'unable to find property: ' + property_name;
             res.status(409).json({ message: message });
           }
@@ -87,7 +103,8 @@ post_unit = async (req, res) => {
       }
     });
   }
-  else {
+  //request did not contain valid fields
+  else { 
     let message = 'invalid unit post request';
     res.status(400).json({message: message});
   }
