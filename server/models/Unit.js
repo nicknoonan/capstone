@@ -1,10 +1,8 @@
 const mongoose = require('mongoose');
 const unit = new mongoose.Schema({
   name: String,
-  agency: String,
-  agencyID: mongoose.Schema.Types.ObjectId,
-  property: String,
-  propertyID: mongoose.Schema.Types.ObjectId,
+  agency_name: String,
+  property_name: String,
   address: String
 });
 

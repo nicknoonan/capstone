@@ -3,6 +3,6 @@ const review = new mongoose.Schema({
   name: String
 });
 
-const review = mongoose.model('review',review);
-module.exports = review;
+const Review = mongoose.model('review',review);
+module.exports = Review;
 

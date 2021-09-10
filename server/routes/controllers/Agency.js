@@ -9,14 +9,14 @@ get_agency = async (req, res) => {
       if (err) {
         console.log(err);
         let message = 'server error occured. unable to find agency: ' + name;
-        res.status(400).json({message: message});
+        res.status(500).json({message: message});
       }
       else if (agency) {
         res.status(200).json({name: agency.name, address: agency.address});
       }
       else {
         let message = 'unable to find agency: ' + name;
-        res.status(400).json({ message: message });
+        res.status(409).json({ message: message });
       }
     });
   }
@@ -44,6 +44,8 @@ post_agency = async (req, res) => {
   else {
     res.status(400).json({ message: 'invalid agency request'});
     console.log('invalid agency post request');
+    console.log(name);
+    console.log(address);
   }
 }
 
