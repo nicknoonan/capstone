@@ -27,5 +27,6 @@ router.get('/unit', get_unit);
 //router handles new user, get user, user login requests
 router.post('/newuser', post_new_user);
 router.get('/user', auth, get_user);
+router.post('/login', post_login);
 
 module.exports = { router };

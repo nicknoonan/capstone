@@ -84,8 +84,57 @@ post_new_user = async (req, res) => {
   }
 }
 
+/*
+ * post_login: given a request containing an email and a password this function will
+ * first check that an account with the provided email actually exists. next hash the
+ * password and compare to that of the hash stored in the db. if the compare is successful
+ * return a token and user object in the response
+ */
 post_login = async (req, res) => {
-
+  //grab email and password fields from request body
+  const { email, password } = req.body;
+  //check that fields are defined
+  if (!(email && password)) {
+    let message = 'invalid login request. must contain all fields';
+    res.status(400).json({ message });
+  }
+  //query the db for a user by the given email
+  User.findOne({ email }, async (err, user) => {
+    if (err) { //server error occured during db query
+      let message = 'server error occured. unable to login user';
+      console.log(message + ' ' + err);
+      res.status(500).json({message});
+    }
+    else if (user) { //query found a user by the given email
+      const is_auth = await bcrypt.compare(password, user.password);
+      if (!is_auth) { //password is incorrect
+        let message = 'invalid credentials';
+        res.status(400).json({message});
+      }
+      //password is correct
+      //generate a new jwt token
+      const token = jwt.sign({id: user._id}, JWT_SECRET, {expiresIn: 3600});
+      if (!token) { //check that the token was successfully generated
+        let message = 'server error occured. unable to login user';
+        console.log(message + ' ' + err);
+        res.status(500).json({message});
+      }
+      //send response with token and user object
+      const res_body = {
+        token,
+        user: {
+          id: user._id,
+          name: user.name,
+          email: user.email
+        }
+      };
+      res.status(200).json(res_body);
+    }
+    else { //query did not find a user by the given email
+      let message = 'invalid credentials';
+      res.status(400).json({message});
+    }
+  });
 }
 
 /*
