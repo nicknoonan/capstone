@@ -108,18 +108,13 @@ get_user = async (req, res) => {
           res.status(500).json({message: message});
         }
         else if (user) { //user found
-          const res_body = {
-            id: user._id,
-            name: user.name,
-            email: user.email
-          }
-          res.status(200).json(res_body);
+          res.status(200).json(user);
         }
         else { //no user found
           let message = 'unable to find user';
           res.status(400).json({ message: message });
         }
-      }).select('-password');
+      }).select('-password -register_date'); //filter out the password, register date
     }
     //server error auth function should have returned an id 
     //or have sent 400-500 error rather than send no id onward
