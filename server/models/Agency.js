@@ -1,7 +1,13 @@
 const mongoose = require('mongoose');
 const agency = new mongoose.Schema({
-  name: String,
-  address: String,
+  name: {
+    type: String,
+    required: true
+  },
+  address: {
+    type: String,
+    required: true
+  }
 });
 
 const Agency = mongoose.model('Agency',agency);

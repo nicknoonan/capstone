@@ -1,9 +1,21 @@
 const mongoose = require('mongoose');
 const unit = new mongoose.Schema({
-  name: String,
-  agency_name: String,
-  property_name: String,
-  address: String
+  name: {
+    type: String,
+    required: true
+  },
+  agency_name: {
+    type: String,
+    required: true
+  },
+  property_name: {
+    type: String,
+    required: true
+  },
+  address: {
+    type: String,
+    required: true
+  }
 });
 
 const Unit = mongoose.model('Unit',unit);
