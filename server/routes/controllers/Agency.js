@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const Agency = require('../../models/Agency');
 const router = express.Router();
 
@@ -58,7 +59,7 @@ post_agency = async (req, res) => {
         //save the agency
         try {
           await new_agency.save();
-          res.status(201).json({name: name, address: address});
+          res.status(201).json({name,address,id: new_agency._id});
           console.log('saved agency to db');
         }
         catch (error) { //server error occured trying to save the agency
@@ -74,4 +75,38 @@ post_agency = async (req, res) => {
   }
 }
 
-module.exports = { get_agency, post_agency };
+delete_agency = async (req, res) => {
+  const { id } = req.params;
+  let message = 'invalid agency id: ' + id;
+  if (id) {
+    let id_slice = id.slice(1);
+    Agency.findById(id_slice, (err, agency) => {
+      if (err) {
+        console.log(err);
+        message = 'server error occured. unable to delete agency';
+        res.status(500).json({message: message});
+      }
+      else if (agency) {
+        Agency.findByIdAndDelete(id_slice, (err, _) => {
+          if (err) {
+            console.log(err);
+            message = 'server error occured. unable to delete agency';
+            res.status(500).json({message: message});
+          }
+          else {
+            message = 'agency deleted';
+            res.status(200).json({message: message});
+          }
+        });
+      }
+      else {
+        res.status(404).json(message);
+      }
+    });
+  }
+  else {
+    res.status(404).json(message);
+  }
+}
+
+module.exports = { get_agency, post_agency, delete_agency };
