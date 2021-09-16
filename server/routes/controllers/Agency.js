@@ -61,16 +61,16 @@ post_agency = async (req, res) => {
       else { //agency does not exist
         //create new agency
         const new_agency = new Agency({ name, address });
-        console.log('saving agency...');
+        //console.log('saving agency...');
         //save the agency
         try {
           await new_agency.save();
           res.status(201).json({name,address,id: new_agency._id});
-          console.log('saved agency to db');
+          //console.log('saved agency to db');
         }
         catch (error) { //server error occured trying to save the agency
           res.status(500).json({ message: error.message });
-          console.log('failed to save agency to db');
+          //console.log('failed to save agency to db');
         }
       }
     });
@@ -93,6 +93,7 @@ delete_agency = async (req, res) => {
     res.status(404)
   }
 }
+
 /*
  *  delete_agency_by_id: handles delete requests for /agency/id:<id>
  */

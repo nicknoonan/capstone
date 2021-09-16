@@ -180,7 +180,9 @@ get_user = async (req, res) => {
     res.status(500).json({message: message});
   }
 }
-
+/*
+ * delete_user: handles delete requests for /user
+ */
 delete_user = async (req, res) => {
   const { id } = req.params;
   if (id) {
@@ -190,6 +192,9 @@ delete_user = async (req, res) => {
     res.status(400);
   }
 }
+/*
+ * delete_user: handles delete requests for /user/id:id
+ */
 delete_user_by_id = async (id, res) => {
   let message = 'invalid user id: ' + id;
   let id_slice = id.slice(1);
@@ -218,4 +223,4 @@ delete_user_by_id = async (id, res) => {
   });
 }
 
-module.exports = { post_new_user, get_user, delete_user };
+module.exports = { post_new_user, get_user, delete_user, post_login };
