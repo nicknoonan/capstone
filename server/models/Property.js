@@ -11,6 +11,10 @@ const property = new mongoose.Schema({
   address: {
     type: String,
     required: true
+  },
+  date_created: {
+    type: Date,
+    default: Date.now
   }
 });
 

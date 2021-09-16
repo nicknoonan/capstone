@@ -181,4 +181,41 @@ get_user = async (req, res) => {
   }
 }
 
-module.exports = { post_new_user, get_user };
+delete_user = async (req, res) => {
+  const { id } = req.params;
+  if (id) {
+    delete_user_by_id(id, res);
+  }
+  else {
+    res.status(400);
+  }
+}
+delete_user_by_id = async (id, res) => {
+  let message = 'invalid user id: ' + id;
+  let id_slice = id.slice(1);
+  User.findById(id_slice, (err, agency) => {
+    if (err) {
+      console.log(err);
+      message = 'server error occured. unable to delete user';
+      res.status(500).json({message: message});
+    }
+    else if (agency) {
+      User.findByIdAndDelete(id_slice, (err, _) => {
+        if (err) {
+          console.log(err);
+          message = 'server error occured. unable to delete user';
+          res.status(500).json({message: message});
+        }
+        else {
+          message = 'user deleted';
+          res.status(200).json({message: message});
+        }
+      });
+    }
+    else {
+      res.status(404).json(message);
+    }
+  });
+}
+
+module.exports = { post_new_user, get_user, delete_user };

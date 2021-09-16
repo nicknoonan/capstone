@@ -21,10 +21,13 @@ get_unit = async (req, res) => {
       }
       else if (unit) { //query found a unit document
         res.status(200).json({
-          name: unit.name, 
-          agency: unit.agency_name, 
-          property: unit.property_name, 
-          address: unit.address
+          id: unit._id,
+          unit: {
+            name: unit.name, 
+            agency: unit.agency_name, 
+            property: unit.property_name, 
+            address: unit.address
+          }
         });
       }
       else { //query did not find a unit document
@@ -82,7 +85,10 @@ post_unit = async (req, res) => {
                 //save the unit
                 try {
                   await new_unit.save();
-                  res.status(201).json({unit_name: unit_name, agency_name: agency_name, property_name: property_name, address: address});
+                  res.status(201).json({
+                    id: new_unit._id,
+                    unit: {unit_name: unit_name, agency_name: agency_name, property_name: property_name, address: address}
+                  });
                 }
                 catch (error) { //server error occured trying to save the unit
                   res.status(500).json({ message: 'failed to save unit' });
@@ -109,5 +115,44 @@ post_unit = async (req, res) => {
     res.status(400).json({message: message});
   }
 }
+/*
+ *  delete_unit: handles delete requests for /unit  
+ */
+delete_unit = async (req, res) => {
+  const { id } = req.params;
+  if (id) {
+    delete_unit_by_id(id, res);
+  }
+  else {
+    res.status(404);
+  }
+}
+delete_unit_by_id = async (id, res) => {
+  let message = 'invalid unit id: ' + id;
+  let id_slice = id.slice(1);
+  Unit.findById(id_slice, (err, agency) => {
+    if (err) {
+      console.log(err);
+      message = 'server error occured. unable to delete unit';
+      res.status(500).json({message: message});
+    }
+    else if (agency) {
+      Unit.findByIdAndDelete(id_slice, (err, _) => {
+        if (err) {
+          console.log(err);
+          message = 'server error occured. unable to delete unit';
+          res.status(500).json({message: message});
+        }
+        else {
+          message = 'unit deleted';
+          res.status(200).json({message: message});
+        }
+      });
+    }
+    else {
+      res.status(404).json(message);
+    }
+  });
+}
 
-module.exports = { get_unit, post_unit };
+module.exports = { get_unit, post_unit, delete_unit };

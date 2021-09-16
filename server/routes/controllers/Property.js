@@ -19,7 +19,14 @@ get_property = async (req, res) => {
         res.status(500).json({message: message});
       }
       else if (property) { //query found a property document
-        res.status(200).json({name: property.name, agency: property.agency_name, address: property.address});
+        res.status(200).json({
+          id: property._id,
+          property: {
+            name: property.name, 
+            agency: property.agency_name, 
+            address: property.address
+          }
+        });
       }
       else { //query did not find a property document
         let message = 'unable to find property: ' + name;
@@ -67,7 +74,10 @@ post_property = async (req, res) => {
             //save the property
             try {
               await new_property.save();
-              res.status(201).json({name: property_name, agency_name: agency_name, address: address});
+              res.status(201).json({
+                id: new_property._id,
+                property: {name: property_name, agency_name: agency_name, address: address}
+              });
               //console.log('saved property to db');
             }
             catch (error) { //server error occured trying to save the property
@@ -90,4 +100,47 @@ post_property = async (req, res) => {
   }
 }
 
-module.exports = { get_property, post_property };
+/*
+ *  delete_property: handles delete requests for /property  
+ */
+delete_property = async (req, res) => {
+  const { id } = req.params;
+  if (id) {
+    delete_property_by_id(id, res);
+  }
+  else {
+    res.status(404);
+  }
+}
+/*
+ *  delete_property_by_id: handles delete requests for /property/id:<id>
+ */
+delete_property_by_id = async (id, res) => {
+  let message = 'invalid property id: ' + id;
+  let id_slice = id.slice(1);
+  Property.findById(id_slice, (err, agency) => {
+    if (err) {
+      console.log(err);
+      message = 'server error occured. unable to delete property';
+      res.status(500).json({message: message});
+    }
+    else if (agency) {
+      Property.findByIdAndDelete(id_slice, (err, _) => {
+        if (err) {
+          console.log(err);
+          message = 'server error occured. unable to delete property';
+          res.status(500).json({message: message});
+        }
+        else {
+          message = 'property deleted';
+          res.status(200).json({message: message});
+        }
+      });
+    }
+    else {
+      res.status(404).json(message);
+    }
+  });
+}
+
+module.exports = { get_property, post_property, delete_property };
