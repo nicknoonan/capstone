@@ -18,10 +18,58 @@ const ObjectId = mongoose.Types.ObjectId;
 /*
  *  get_review: handles get requests for /review
  */
-get_review = async (req, res) => {
-  res.status(501);
+async function get_review(req, res) {
+  const { review_id } = req.body;
+  if (review_id) {
+    await get_review_by_id(review_id).then((response) => {
+      res.status(response.code).json({review: response.review});
+      //console.log(response);
+    }).catch((response) => {
+      //console.log(response);
+      res.status(response.code).json({message: response.message});
+    });
+  } 
+  else {
+    res.status(501);
+  }
 }
-
+/*
+ *  get_review_by_id: handles get requests for /review
+ */
+function get_review_by_id(id) {
+  return new Promise((resolve, reject) => {
+    let review_id;
+    try {
+      review_id = new mongoose.Types.ObjectId(id);
+    }
+    catch {
+      reject({
+        code: 400,
+        message: 'invalid id'
+      });
+    }
+    Review.findById(review_id, (err, review) => {
+      if (err) {
+        reject({
+          code: 500,
+          message: 'server error occured during query'
+        });
+      }
+      else if (review) {
+        resolve({
+          code: 200,
+          review: review
+        });
+      }
+      else {
+        reject({
+          code: 400,
+          message: 'review not found'
+        });
+      }
+    }).select('-__v');
+  });
+}
 /*
  *  post_review: handles post requests for /review
  */
@@ -115,7 +163,6 @@ async function post_review(req, res) {
   }
 }
 
-
 /*
  *  agency_exists: checks to see if review_of exists in the DB
  *  res: function will handle 400/500 response if error occurs
@@ -194,20 +241,59 @@ function unit_exists(id) {
 }
 
 /*
- *  review_exists: checks to see if the review_of associated 
- *  with the user exists in the DB already
+ *  delete_review: handles delete requests for /review
  */
-review_exists = async (usr, rev, res) => {
-  let exists = false;
-
-  return exists;
+async function delete_review(req, res) {
+  let {id} = req.params;
+  if (id) {
+    delete_review_by_id(id).then((response) => {
+      res.status(response.code).json({message: response.message});
+    }).catch((response) => {
+      res.status(response.code).json({message: response.message});
+    });
+  }
+  else {
+    res.status(501);
+  }
 }
 
 /*
- *  delete_review: handles delete requests for /review
+ *  delete_review_by_id: handles delete requests for /review/id:id
  */
-delete_review = async (req, res) => {
-  res.status(501);
+function delete_review_by_id(id) {
+  return new Promise((resolve, reject) => {
+    let review_id;
+    let id_slice = id.slice(1);
+    try {
+      review_id = new mongoose.Types.ObjectId(id_slice);
+    }
+    catch {
+      reject({
+        code: 400,
+        message: 'invalid id'
+      });
+    }
+    Review.findByIdAndDelete(review_id, (err, review) => {
+      if (err) {
+        reject({
+          code: 500,
+          message: 'server error occured while trying to delete review'
+        });
+      }
+      else if (review) {
+        resolve({
+          code: 200,
+          message: 'review deleted'
+        });
+      }
+      else {
+        resolve({
+          code: 400,
+          message: 'review to delete not found'
+        });
+      }
+    });
+  });
 }
 
 module.exports = { get_review, post_review, delete_review };

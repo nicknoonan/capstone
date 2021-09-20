@@ -4,21 +4,29 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const { DB_URL } = require('./secrets');
 const { router } = require('./routes/index.js');
-
+const PORT = 8080;
 //middleware
 const app = express();
 app.use(express.json());
 app.use(cors());
-
 //use router module
 app.use('/', router);
+init();
 
-//conect to the database
-console.log('Trying to connect to db');
-mongoose.connect(DB_URL, {
-	useNewUrlParser: true, 
-	useUnifiedTopology: true 
-}).then(() => console.log("Connected to db")).catch(console.error);
+/*
+ *  init: this function connects to db and tells express app to begin listening for requests at PORT
+ */ 
+async function init() {
+  //wait until conected to the database
+  await mongoose.connect(DB_URL, {useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log("Connected to db")
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
-//listen at port 8080
-app.listen(8080);
+  //listen at PORT
+  console.log('Listening on port ' + PORT + ' for requests');
+  app.listen(PORT);
+}
