@@ -10,16 +10,9 @@ import SignIn from './pages/signin';
 
 function App() {
   return (
-    <Router>
-      <Navbar />
-      <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/about" component={About} />
-        <Route path="/contact" component={Contact} />
-        <Route path="/signin" component={SignIn} />
-        <Route path="/sign-up" component={SignUp} />
-      </Switch>
-    </Router>
+    <div>
+      <h1>app</h1>
+    </div>
   );
 }
 
