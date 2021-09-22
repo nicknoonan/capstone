@@ -1,8 +1,6 @@
-const express = require('express');
 const Property = require('../../models/Property');
 const Agency = require('../../models/Agency');
 const Unit = require('../../models/Unit');
-const router = express.Router();
 
 /*
  *  get_unit: handles get requests for /unit  

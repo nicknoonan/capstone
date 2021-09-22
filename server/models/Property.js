@@ -20,4 +20,3 @@ const property = new mongoose.Schema({
 
 const Property = mongoose.model('Property',property);
 module.exports = Property;
-

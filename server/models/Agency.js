@@ -16,4 +16,3 @@ const agency = new mongoose.Schema({
 
 const Agency = mongoose.model('Agency',agency);
 module.exports = Agency;
-

@@ -1,7 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const Agency = require('../../models/Agency');
-const router = express.Router();
 
 /*
  *  get_agency: handles get requests for /agency  
