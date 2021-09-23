@@ -3,12 +3,18 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+
+// Imported Browser Router
 import { BrowserRouter } from 'react-router-dom';
+
+
 
 // Imported the browser router from the react
 // router dom
 // Then samwitched the <App /> inbetween the
 // <React.StrictMode>
+
+// For footer
 
 ReactDOM.render(
   <React.StrictMode>
