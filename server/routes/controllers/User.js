@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+const { reject, resolve } = require('core-js/fn/promise');
 const jwt = require('jsonwebtoken');
 const auth = require('../../middleware/auth');
 // User Model
@@ -194,8 +195,37 @@ delete_user = async (req, res) => {
  * delete_user: handles delete requests for /user/id:id
  */
 delete_user_by_id = async (id, res) => {
-  let message = 'invalid user id: ' + id;
-  let id_slice = id.slice(1);
+  let user_id;
+    let id_slice = id.slice(1);
+    try {
+      user_id = new mongoose.Types.ObjectId(id_slice);
+    }
+    catch {
+      return reject({
+        status: 400,
+        message: 'invalid id'
+      });
+    }
+  User.findByIdAndDelete(user_id, (err, user) => {
+    if (err) {
+      reject({
+        status: 500,
+        message: 'server error'
+      });
+    }
+    else if (user) {
+      resolve({
+        status: 200,
+        message: 'user deleted' 
+      });
+    }
+    else {
+      reject({
+        status: 400,
+        message: 'user not found. no user deleted'
+      });
+    }
+  });
   User.findById(id_slice, (err, agency) => {
     if (err) {
       console.log(err);

@@ -1,44 +1,156 @@
 const Property = require('../../models/Property');
 const Agency = require('../../models/Agency');
 const Unit = require('../../models/Unit');
+const mongoose = require('mongoose');
 
 /*
  *  get_unit: handles get requests for /unit  
  */
 get_unit = async (req, res) => {
-  //grab unit name from the request body
-  let { unit_name } = req.body
-  //check that the request contained a name field
-  if (unit_name) {
-    //query the db for a unit document matching the name field and property field
-    Unit.findOne({ name: unit_name }, (err, unit) => {
-      if (err) { //server error occured during the query
-        console.log(err);
-        let message = 'server error occured. unable to find unit: ' + unit_name;
-        res.status(500).json({message: message});
-      }
-      else if (unit) { //query found a unit document
-        res.status(200).json({
-          id: unit._id,
-          unit: {
-            name: unit.name, 
-            agency: unit.agency_name, 
-            property: unit.property_name, 
-            address: unit.address
-          }
-        });
-      }
-      else { //query did not find a unit document
-        let message = 'unable to find unit: ' + unit_name;
-        res.status(400).json({ message: message });
-      }
+  //grab property name from request body
+  let { name, id } = req.body;
+
+  if (!(name || id)) {
+    let message = 'invalid get unit request';
+    return res.status(400).json({ message: message });
+  }
+
+  //unit request contained a name field
+  //return all units
+  if (name == 'all') {
+    get_all_units().then((response) => {
+      return res.status(response.status).json({ unit: response.unit });
+    }).catch((response) => {
+      return res.status(response.status).json({ message: response.message });
+    });
+  } 
+  //return units matching name
+  else if (name) {
+    get_unit_by_name(name).then((response) => {
+      return res.status(response.status).json({ unit: response.unit });
+    }).catch((response) => {
+      return res.status(response.status).json({ message: response.message });
     });
   }
-  //request did not contain a name field
-  else {
-    let message = 'invalid unit get request';
-    res.status(400).json({message: message});
+
+  //unit request contained an id field
+  //return units matching id
+  if (id) {
+    get_unit_by_id(id).then((response) => {
+      return res.status(response.status).json({ unit: response.unit });
+    }).catch((response) => {
+      return res.status(response.status).json({ message: response.message });
+    });
   }
+}
+/*
+ *  get_unit_by_name:
+ */
+async function get_unit_by_name(name) {
+  return new Promise((resolve, reject) => {
+    //query the db for a unit document matching name
+    Unit.findOne({name}, (err, unit) => {
+      if (err) { //server error occured
+        let response = {
+          status: 500,
+          message: 'server error'
+        };
+        reject(response);
+      }
+      else if (unit) { //matching unit doc was found
+        let response = {
+          status: 200,
+          unit
+        };
+        resolve(response);
+      }
+      else { //no matching unit doc was found
+        let response = {
+          status: 400,
+          message: 'property not found'
+        };
+        reject(response);
+      }
+    }).select('-date_created'); //filter out the date_created field
+  });
+}
+
+/*
+ *  get_unit_by_id:
+ */
+async function get_unit_by_id(id) {
+  return new Promise((resolve, reject) => {
+    //convert id to a mongoose object id
+    var objid;
+    try {
+      objid = new mongoose.Types.ObjectId(id);
+    }
+    catch (err) {
+      //console.log(err);
+      let response = {
+        status: 400,
+        message: 'invalid id'
+      }
+      reject(response);
+    }
+    //query the db for a unit doc matching id
+    Unit.findById(objid, (err, unit) => {
+      if (err) { //server error occured
+        let response = {
+          status: 500,
+          message: 'server error'
+        };
+        reject(response);
+      }
+      else if (unit) { //matching unit doc was found
+        let response = {
+          status: 200,
+          unit
+        };
+        resolve(response);
+      }
+      else { //no matching unit doc was found
+        let response = {
+          status: 400,
+          message: 'no unit found'
+        };
+        reject(response);
+      }
+    }).select("-date_created"); //filter out the date_created field
+  });
+}
+
+/*
+ *  get_all_units:
+ */
+async function get_all_units() {
+  return new Promise((resolve, reject) => {
+    //query the db for all units by passing {}
+    //all unit docs will match to {}
+    Unit.find({}, async (err, unit) => {
+      if (err) { //server error occured
+        let response = {
+          status: 500,
+          message: 'server error'
+        };
+        reject(response);
+      }
+      else if (unit) { //matching unit docs were found
+        let response = {
+          status: 200,
+          unit
+        };
+        resolve(response);
+      }
+      else { //no unit docs were found
+        let response = {
+          status: 400,
+          message: 'no unit found'
+        }
+        reject(response);
+      }
+    }).select("-date_created"); //filter out date_created field
+  });
 }
 
 /*
@@ -119,37 +231,49 @@ post_unit = async (req, res) => {
 delete_unit = async (req, res) => {
   const { id } = req.params;
   if (id) {
-    delete_unit_by_id(id, res);
+    delete_unit_by_id(id).then((response) => {
+      res.status(response.status).json({message: response.message});
+    }).catch((response) => {
+      res.status(response.status).json({message: response.message});
+    });
   }
   else {
     res.status(404);
   }
 }
-delete_unit_by_id = async (id, res) => {
-  let message = 'invalid unit id: ' + id;
-  let id_slice = id.slice(1);
-  Unit.findById(id_slice, (err, agency) => {
-    if (err) {
-      console.log(err);
-      message = 'server error occured. unable to delete unit';
-      res.status(500).json({message: message});
+delete_unit_by_id = async (id) => {
+  return new Promise((resolve, reject) => {
+    let review_id;
+    let id_slice = id.slice(1);
+    try {
+      review_id = new mongoose.Types.ObjectId(id_slice);
     }
-    else if (agency) {
-      Unit.findByIdAndDelete(id_slice, (err, _) => {
-        if (err) {
-          console.log(err);
-          message = 'server error occured. unable to delete unit';
-          res.status(500).json({message: message});
-        }
-        else {
-          message = 'unit deleted';
-          res.status(200).json({message: message});
-        }
+    catch {
+      return reject({
+        status: 400,
+        message: 'invalid id'
       });
     }
-    else {
-      res.status(404).json(message);
-    }
+    Unit.findByIdAndDelete(review_id, (err, unit) => {
+      if (err) {
+        reject({
+          status: 500,
+          message: 'server error occured.'
+        });
+      }
+      else if (unit) {
+        resolve({
+          status: 200,
+          message: 'unit deleted'
+        });
+      }
+      else {
+        reject({
+          status: 400,
+          message: 'unit not found. no unit deleted'
+        });
+      }
+    });
   });
 }
 
