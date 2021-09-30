@@ -24,4 +24,3 @@ const review = new mongoose.Schema({
 
 const Review = mongoose.model('review',review);
 module.exports = Review;
-

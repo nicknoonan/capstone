@@ -1,0 +1,10 @@
+body {
+    background-color: white;
+}
+.inline-item {
+  background-color: red;
+  display: inline;
+  border: 1px solid black;
+  padding: 3px;
+  width: fit-content;
+}

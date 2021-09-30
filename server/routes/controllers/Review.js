@@ -7,13 +7,9 @@ const Property = require('../../models/Property');
 const Unit = require('../../models/Unit');
 const Review = require('../../models/Review');
 
-const router = express.Router();
-
 const REVIEW_AGENCY_T = 'agency_t';
 const REVIEW_PROPERTY_T = 'property_t';
 const REVIEW_UNIT_T = 'unit_t';
-
-const ObjectId = mongoose.Types.ObjectId;
 
 /*
  *  get_review: handles get requests for /review

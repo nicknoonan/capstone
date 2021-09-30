@@ -16,6 +16,18 @@ const unit = new mongoose.Schema({
     type: String,
     required: true
   },
+  num_bed: {
+    type: Number,
+    required: true
+  },
+  num_bath: {
+    type: Number,
+    required: true
+  },
+  rating: {
+    type: Number,
+    required: true
+  },
   date_created: {
     type: Date,
     default: Date.now
@@ -24,4 +36,3 @@ const unit = new mongoose.Schema({
 
 const Unit = mongoose.model('Unit',unit);
 module.exports = Unit;
-

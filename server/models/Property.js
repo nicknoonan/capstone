@@ -12,6 +12,22 @@ const property = new mongoose.Schema({
     type: String,
     required: true
   },
+  website: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true
+  },
+  phone: {
+    type: String,
+    required: true
+  },
+  rating: {
+    type: Number,
+    required: true
+  },
   date_created: {
     type: Date,
     default: Date.now
@@ -20,4 +36,3 @@ const property = new mongoose.Schema({
 
 const Property = mongoose.model('Property',property);
 module.exports = Property;
-
