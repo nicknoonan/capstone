@@ -1,26 +1,26 @@
-import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Home from './pages';
-import About from './pages/about';
-import Contact from './pages/contact';
-import SignUp from './pages/signup';
-import SignIn from './pages/signin';
+import logo from './logo.svg';
+import './App.css';
+import Home from './pages/Home'
+import About from './pages/About'
+import Browse from './pages/Browse';
+import Review from './pages/Review';
+import { Route, Link } from "react-router-dom";
+import NavBar from './components/NavBar/NavBar';
+import Footer from './components/Footer/Footer';
 
-class App extends React.Component {
-  static getDerivedStateFromProps(props, state) {
-    
-  }
-  construct() {
 
-  }
-
-  render () {
-    return (
-      <div>
-        <h1>app</h1>
-      </div>
-    );
-  }
+// Included home and about in App's div
+function App() {
+  return (
+    <div className="App">
+      <NavBar />
+      <Route classname="route" exact path="/" component={Home} />
+      <Route classname="route" exact path="/about" component={About} />
+      <Route classname="route" exact path="/browse" component={Browse} />
+      <Route classname="route" exact path="/review" component={Review} />
+      <Footer />
+    </div>
+  );
 }
 
 export default App;

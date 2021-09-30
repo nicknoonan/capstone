@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
  */
 get_unit = async (req, res) => {
   //grab property name from request body
-  let { name, id } = req.body;
+  let { name, id } = req.query;
 
   if (!(name || id)) {
     let message = 'invalid get unit request';
@@ -67,7 +67,7 @@ async function get_unit_by_name(name) {
       else { //no matching unit doc was found
         let response = {
           status: 400,
-          message: 'property not found'
+          message: 'unit not found'
         };
         reject(response);
       }
@@ -158,7 +158,7 @@ async function get_all_units() {
  */
 post_unit = async (req, res) => {
   //grab unit name, agency name, property name, and address from the request body
-  let { unit_name, agency_name, property_name, address } = req.body;
+  let { unit_name, agency_name, property_name, address, num_bed, num_bath, rating } = req.body;
   //check that the body contained all fields
   if (unit_name && agency_name && property_name && address) {
     //query the db for a unit document matching the name field
@@ -191,13 +191,20 @@ post_unit = async (req, res) => {
               else if (agency) { //request contained a valid agency
                 //create the new unit
                 let name = unit_name
-                const new_unit = new Unit({ name, agency_name, property_name, address });
+                const new_unit = new Unit({
+                  name: unit_name, 
+                  agency_name: agency_name, 
+                  property_name: property_name, 
+                  address: address,
+                  num_bed: num_bed, 
+                  num_bath: num_bath, 
+                  rating: rating 
+                });
                 //save the unit
                 try {
                   await new_unit.save();
                   res.status(201).json({
-                    id: new_unit._id,
-                    unit: {unit_name: unit_name, agency_name: agency_name, property_name: property_name, address: address}
+                    id: new_unit._id
                   });
                 }
                 catch (error) { //server error occured trying to save the unit

@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs');
-const { reject, resolve } = require('core-js/fn/promise');
+//const { reject, resolve } = require('core-js/fn/promise');
 const jwt = require('jsonwebtoken');
 const auth = require('../../middleware/auth');
 // User Model

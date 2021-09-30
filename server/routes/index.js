@@ -15,29 +15,29 @@ router.post('/', post_sample_model);
 router.get('/', get_sample_model);
 
 //router handles agency post, delete, get request
-router.post('/agency', auth, post_agency);
-router.get('/agency', auth, get_agency);
-router.delete('/agency/id:id', admin_auth, delete_agency);
+router.post('/api/agency', auth, post_agency);
+router.get('/api/agency', get_agency);
+router.delete('/api/agency/id:id', admin_auth, delete_agency);
 
 //router handles property post, delete, get request
-router.post('/property', auth, post_property);
-router.get('/property', auth, get_property);
-router.delete('/property/id:id', admin_auth, delete_property);
+router.post('/api/property', auth, post_property);
+router.get('/api/property', get_property);
+router.delete('/api/property/id:id', admin_auth, delete_property);
 
 //router handles unit post, delete, get request
-router.post('/unit', auth, post_unit);
-router.get('/unit', auth, get_unit);
-router.delete('/unit/id:id', admin_auth, delete_unit);
+router.post('/api/unit', auth, post_unit);
+router.get('/api/unit', get_unit);
+router.delete('/api/unit/id:id', admin_auth, delete_unit);
 
 //router handles review post, delete, get request
-router.post('/review', auth, post_review);
-router.get('/review', auth, get_review);
-router.delete('/review/id:id', admin_auth, delete_review);
+router.post('/api/review', auth, post_review);
+router.get('/api/review', auth, get_review);
+router.delete('/api/review/id:id', admin_auth, delete_review);
 
 //router handles new user, get user, delete user, user login requests
-router.post('/newuser', post_new_user);
-router.get('/user', auth, get_user);
-router.post('/login', post_login);
-router.delete('/user/id:id', admin_auth, delete_user);
+router.post('/api/newuser', post_new_user);
+router.get('/api/user', auth, get_user);
+router.post('/api/login', post_login);
+router.delete('/api/user/id:id', admin_auth, delete_user);
 
 module.exports = { router };

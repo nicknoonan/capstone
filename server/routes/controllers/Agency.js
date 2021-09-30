@@ -7,10 +7,12 @@ const Agency = require('../../models/Agency');
  */
 async function get_agency(req, res) {
   //grab agency name from request body
-  let { name, id } = req.body;
+  let { name, id } = req.query;
   
   if (!(name || id)) {
     let message = 'invalid get agency request';
+    //console.log(message);
+    //console.log(req.query);
     return res.status(400).json({ message: message });
   }
 
@@ -154,7 +156,7 @@ async function get_agency_by_name(name) {
  */
 post_agency = async (req, res) => {
   //grab name and address from the request body
-  let { name, address } = req.body;
+  let { name, address, website, email, phone, rating } = req.body;
   //make sure the request body contained name and address fields
   if (name && address) {
     //query the db for an agency document matching the name field
@@ -170,12 +172,12 @@ post_agency = async (req, res) => {
       }
       else { //agency does not exist
         //create new agency
-        const new_agency = new Agency({ name, address });
+        const new_agency = new Agency({ name, address, website, email, phone, rating });
         //console.log('saving agency...');
         //save the agency
         try {
           await new_agency.save();
-          res.status(201).json({name,address,id: new_agency._id});
+          res.status(201).json({id: new_agency._id});
           //console.log('saved agency to db');
         }
         catch (error) { //server error occured trying to save the agency

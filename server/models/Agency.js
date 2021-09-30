@@ -8,6 +8,26 @@ const agency = new mongoose.Schema({
     type: String,
     required: true
   },
+  website: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true
+  },
+  phone: {
+    type: String,
+    required: true
+  },
+  date_est: {
+    type: Date,
+    required: false
+  },
+  rating: {
+    type: Number,
+    required: true
+  },
   date_created: {
     type: Date,
     default: Date.now

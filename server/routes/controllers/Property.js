@@ -7,10 +7,10 @@ const mongoose = require('mongoose');
  */
 async function get_property(req, res) {
   //grab property name from request body
-  let { name, id } = req.body;
+  let { name, id } = req.query;
 
   if (!(name || id)) {
-    let message = 'invalid get agency request';
+    let message = 'invalid get property request';
     return res.status(400).json({ message: message });
   }
 
@@ -154,7 +154,7 @@ async function get_property_by_id(id) {
  */
 post_property = async (req, res) => {
   //grab property name, agency name, and address from the request body
-  let { property_name, agency_name, address} = req.body;
+  let { property_name, agency_name, address, website, email, phone, rating } = req.body;
   //check that the request contained all fields
   if (property_name && agency_name && address) {
     //query the db for a property document matching the name field
@@ -179,13 +179,12 @@ post_property = async (req, res) => {
           else if (agency) { //request contained a valid agency
             //create new property
             let name = property_name;
-            const new_property = new Property({ name, agency_name, address});
+            const new_property = new Property({ name, agency_name, address, website, email, phone, rating });
             //save the property
             try {
               await new_property.save();
               res.status(201).json({
-                id: new_property._id,
-                property: {name: property_name, agency_name: agency_name, address: address}
+                id: new_property._id
               });
               //console.log('saved property to db');
             }
