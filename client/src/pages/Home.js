@@ -1,14 +1,9 @@
 import React from "react";
 
 function Home() {
-    return (
-        <div>
-            <h1>Welcome to Boone Houseing Help</h1>
-        </div>
-    );
   return (
     <div>
-      <h1>Welcome to boone housing help</h1>
+      <h1>Welcome to Boone Houseing Help</h1>
     </div>
   );
 }

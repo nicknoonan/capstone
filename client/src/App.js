@@ -9,38 +9,6 @@ import { Route, Link } from "react-router-dom";
 import NavBar from './components/NavBar/NavBar';
 import Footer from './components/Footer/Footer';
 
-// Importing Pages
-import Home from './pages/Home'
-import About from './pages/About'
-import Contact from './pages/Contact'
-
-// Importing Router for Pathing
-import { Route, Link } from "react-router-dom";
-
-// Importing NavBar
-import NavBar from './components/NavBar';
-
-// Importing Footer
-import { FooterContainer } from './containers/Footer'
-
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-      <NavBar />
-      <Route exact path="/" component={Home} />
-      <Route exact path="/about" component={About} />
-      <Route exact path="/contact" component={Contact} />
-      <FooterContainer />
-  </div>
-    );
-    
-
-  }
-}
-
-export default App;
-
 // Included home and about in App's div
 function App() {
   return (

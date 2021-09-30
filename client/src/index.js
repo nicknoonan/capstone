@@ -2,33 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { GlobalStyles } from './global-styles'
 import App from './App';
-//import reportWebVitals from './reportWebVitals';
-
-
-import { BrowserRouter } from 'react-router-dom';
-
-ReactDOM.render(
-   <> 
-    <GlobalStyles />
-    <React.StrictMode>
-        <BrowserRouter>
-            <App/> 
-        </BrowserRouter>
-    </React.StrictMode>
-    </>
-    ,
-document.getElementById('root')
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-
-// Imported Browser Router
 import { BrowserRouter } from 'react-router-dom';
-
-
-
 // Imported the browser router from the react
 // router dom
 // Then samwitched the <App /> inbetween the
