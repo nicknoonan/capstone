@@ -17,6 +17,9 @@ function NavBar(){
             <Li>
                 <Link style={{textDecoration: 'none'}} to="/review">Review</Link>
             </Li>
+            <Li>
+                <Link style={{textDecoration: 'none'}} to="/login">Login</Link>
+            </Li>
         </Ul>
     );
 }
