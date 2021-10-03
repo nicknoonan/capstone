@@ -1,0 +1,5 @@
+1. npm install start -> For npm start to start the App
+
+2. npm install axios -> For axios stuff
+
+3. npm install nodemon (server directory)
