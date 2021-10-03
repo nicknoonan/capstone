@@ -1,5 +1,7 @@
 node_modules
 client/package-lock.json
 server/package-lock.json
+client/package.json
+server/package.json
 server/secrets.js
 secrets.js
