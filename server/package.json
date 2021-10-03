@@ -22,7 +22,7 @@
     "mod": "0.0.0",
     "mongoose": "^6.0.5",
     "node": "^16.9.1",
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.13"
   },
   "devDependencies": {
     "jest": "^27.1.1"
