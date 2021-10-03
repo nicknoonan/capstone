@@ -108,7 +108,7 @@ post_login = async (req, res) => {
       const is_auth = await bcrypt.compare(password, user.password);
       if (!is_auth) { //password is incorrect
         let message = 'invalid credentials';
-        res.status(400).json({message});
+        res.status(409).json({message});
       }
       //password is correct
       //generate a new jwt token
@@ -145,7 +145,7 @@ get_user = async (req, res) => {
   //lets be sure to catch any errors
   try {
     //grab id from req
-    let id = req.user.id;
+    let id = req.query.id;
     //check that the request contained an id
     if (id) {
       //query the db to search for a user by the given id

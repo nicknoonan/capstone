@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = require('../secrets.js');
 
 module.exports = (req, res, next) => {
-  const token = req.header('x-auth-token');
+  const token = req.header('authtoken');
 
   // Check for token
   if (!token)

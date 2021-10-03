@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET, ADMIN_EMAIL } = require('../secrets.js');
 module.exports = (req, res, next) => {
-  const token = req.header('x-auth-token');
+  const token = req.header('authtoken');
   // Check for token
   if (!token) {
     return res.status(401).json({ message: 'No token, authorization denied' });
