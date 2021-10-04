@@ -1,6 +1,6 @@
 import React from 'react';
 import { Ul, Li } from './AgencyStyles';
-import get_all_agencies from '../../api/Agency';
+import { get_all_agencies } from '../../api/Agency';
 import PropTypes from 'prop-types';
 import {
   Card, CardImg, CardText, CardBody,
@@ -11,10 +11,20 @@ import {
 
       
     
-
 class Agency extends React.Component {
+  
+  
+
 
   render() {
+
+    let spacetoU = this.props.agency.name;
+    spacetoU = spacetoU.replace(/ /g,"_");
+    //let linktoAgency = "http://localhost:3000/Agency?name=" + spacetoU;
+    let linktoAgency = "http://localhost:3000/Agency?name=" + this.props.agency.name;
+     
+
+
     return(
       <>
               <Card border="primary" style={{ width: '42rem' }}>
@@ -26,7 +36,7 @@ class Agency extends React.Component {
                   <Nav variant="tabs" defaultActiveKey="#first">
                     
                     <Nav.Item>
-                      <Nav.Link href="http://localhost:3000/Agency">name: {this.props.agency.name}</Nav.Link>
+                      <Nav.Link href={linktoAgency}>name: {this.props.agency.name}</Nav.Link>
                     </Nav.Item>
 
                     <Nav.Item>

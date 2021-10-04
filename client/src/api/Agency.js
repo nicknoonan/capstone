@@ -46,4 +46,4 @@ async function get_agency_by_id(id) {
   });
 }
 
-export default get_all_agencies;
+export {get_all_agencies,get_agency_by_id,get_agency_by_name};
