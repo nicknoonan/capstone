@@ -11,7 +11,8 @@ class LoginForm extends React.Component {
       password: '',
       isAuth: false,
       isSessionAuth: false,
-      isWaiting: false
+      isWaiting: false,
+      loading: true,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -28,20 +29,25 @@ class LoginForm extends React.Component {
       console.log(err);
       return;
     }
-    if (!localuser) {
-      return;
-    }
-    get_user(localuser.id, localuser.token)
+    if (localuser) {
+      get_user(localuser.id, localuser.token)
       .then((res) => {
-        if(res.data._id) {
-          this.setState({isAuth: true});
+        if (res.data._id) {
+          this.setState({loading:false});
           this.setState({isSessionAuth: true});
+          this.setState({isAuth: true});
+          setTimeout(() => {
+            window.location = '/';
+          }, 1500);
         }
         console.log(res);
       })
       .catch((err) => {
         console.log(err);
-    });
+        this.setState({loading:false});
+      });
+    }
+    this.setState({loading:false});
   }
   handleChange(event) {
     this.setState({value: event.target.value});
@@ -73,9 +79,11 @@ class LoginForm extends React.Component {
         };
         //console.log(user);
         localStorage.setItem('user',JSON.stringify(user));
-        
         this.setState({isAuth: true});
         this.setState({isWaiting: false});
+        setTimeout(() => {
+          if (this.state.isAuth) { window.location = '/' };
+        }, 1500);
       })
       .catch((err) => {
         console.log(err);
@@ -86,7 +94,14 @@ class LoginForm extends React.Component {
     event.preventDefault();
   }
   render() {
-    if (this.state.isWaiting) {
+    if (this.state.loading) {
+      return (
+        <>
+          loading...
+        </>
+      );
+    }
+    else if (this.state.isWaiting) {
       return(
         <div>
           authenticating...
@@ -114,7 +129,7 @@ class LoginForm extends React.Component {
     else if (!this.state.isSessionAuth) {
       return(
         <div>
-          login successful
+          login successful redirecting to home...
           <button onClick={this.handleClear}>
             clear
           </button>
@@ -124,7 +139,7 @@ class LoginForm extends React.Component {
     else {
       return(
         <div>
-          already logged in
+          already logged in redirecting to home...
           <button onClick={this.handleClear}>
             clear
           </button>

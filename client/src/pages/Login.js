@@ -20,13 +20,6 @@ class Login extends React.Component {
         </div>
       );
     }
-    else {
-      return (
-        <div>
-          <h1>already logged in</h1>
-        </div>
-      );
-    }
   }
 };
 
