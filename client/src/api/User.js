@@ -44,5 +44,25 @@ async function get_user(id, token) {
   });
 }
 
-export { login_user, get_user };
+async function sign_up_user(user) {
+  return new Promise((resolve, reject) => {
+    if (!(user.email && user.name && user.password)) {
+      reject({message: 'invalid user'});
+    }
+    axios.post('/api/newuser', {
+      name: user.name,
+      email: user.email,
+      password: user.password,
+    })
+    .then((res) => {
+      resolve(res);
+    })
+    .catch((err) => {
+      reject(err);
+    })
+  });
+  
+}
+
+export { login_user, get_user, sign_up_user };
 

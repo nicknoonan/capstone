@@ -5,6 +5,7 @@ import About from './pages/About'
 import Browse from './pages/Browse';
 import Review from './pages/Review';
 import Login from './pages/Login';
+import Signup from './pages/Signup';
 import { Route, Link } from "react-router-dom";
 import NavBar from './components/NavBar/NavBar';
 import Footer from './components/Footer/Footer';
@@ -23,6 +24,7 @@ function App() {
       <Route classname="route" exact path="/browse" component={Browse} />
       <Route classname="route" exact path="/review" component={Review} />
       <Route classname="route" exact path="/login" component={Login} />
+      <Route classname="route" exact path="/signup" component={Signup} />
       <Route classname="route" exact path="/agency" component={Agency} />
       <Route classname="route" exact path="/property" component={Property} />
       <Route classname="route" exact path="/unit" component={Unit} />
