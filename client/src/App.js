@@ -8,6 +8,10 @@ import Login from './pages/Login';
 import { Route, Link } from "react-router-dom";
 import NavBar from './components/NavBar/NavBar';
 import Footer from './components/Footer/Footer';
+import Agency from './pages/Agency';
+import Property from './pages/Property';
+import Unit from './pages/Unit';
+
 
 // Included home and about in App's div
 function App() {
@@ -19,6 +23,9 @@ function App() {
       <Route classname="route" exact path="/browse" component={Browse} />
       <Route classname="route" exact path="/review" component={Review} />
       <Route classname="route" exact path="/login" component={Login} />
+      <Route classname="route" exact path="/agency" component={Agency} />
+      <Route classname="route" exact path="/property" component={Property} />
+      <Route classname="route" exact path="/unit" component={Unit} />
       <Footer />
     </div>
   );

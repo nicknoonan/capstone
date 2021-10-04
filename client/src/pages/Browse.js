@@ -5,13 +5,14 @@ import PropTypes from 'prop-types';
 import {AgencyList} from "../components/Agency/Agency";
 import {PropertyList} from "../components/Property/Property";
 import {UnitList} from "../components/Unit/Unit";
-
+import Card from "../components/Cards/AgencyCard"
 
 class Browse extends React.Component {
   render() {
     return (
       <div>
-        <h1>Browse boonehousing help</h1>
+        <h1>Browse Boone Housing Help</h1>
+        {/* <Card /> */}
         <AgencyList />
         <PropertyList />
         <UnitList />
