@@ -4,7 +4,7 @@ import { get_all_agencies } from '../../api/Agency';
 import PropTypes from 'prop-types';
 import {
   Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Button, Nav, Row, Col
+  CardTitle, CardSubtitle, Button, Nav, Row, Col, Container
 } from 'react-bootstrap';
 
 
@@ -12,55 +12,60 @@ import {
       
     
 class Agency extends React.Component {
-  
-  
-
 
   render() {
 
     let spacetoU = this.props.agency.name;
     spacetoU = spacetoU.replace(/ /g,"_");
-    //let linktoAgency = "http://localhost:3000/Agency?name=" + spacetoU;
     let linktoAgency = "http://localhost:3000/Agency?name=" + this.props.agency.name;
-     
-
+    
 
     return(
       <>
-              <Card border="primary" style={{ width: '42rem' }}>
+              <Container>
                 
-              <Card.Img variant="top" src="https://via.placeholder.com/50x25" />
-
-                <Card.Header>
+                <Row className="justify-content-md-center">
                   
-                  <Nav variant="tabs" defaultActiveKey="#first">
-                    
-                    <Nav.Item>
-                      <Nav.Link href={linktoAgency}>name: {this.props.agency.name}</Nav.Link>
-                    </Nav.Item>
+                  <Col md='auto'>
 
-                    <Nav.Item>
-                      <Nav.Link href="#link">website: {this.props.agency.website}</Nav.Link>
-                    </Nav.Item>
+                  <Card border="primary" style={{width: '40rem'}}> 
+                  <Card.Img variant="top" src="https://via.placeholder.com/10x5" />
 
-                    <Nav.Item>
-                      <Nav.Link href="#address">{this.props.agency.address}</Nav.Link>
-                    </Nav.Item>
+                  <Card.Header>
+                    <Nav variant="pills" defaultActiveKey="#first">
+                        <Nav.Link href={linktoAgency}>
+                            {this.props.agency.name}
+                        </Nav.Link>
+                    </Nav>
+                  </Card.Header>
 
-                </Nav>
-                </Card.Header>
+                      
 
-                    
+                      <Card.Body>
+                        <Container>
+                          <Row>
+                              <Col sm><Card.Text>Rating: {this.props.agency.rating}</Card.Text></Col>
+                              <Col sm><Card.Text>Address: {this.props.agency.address}</Card.Text></Col>
+                          </Row>
 
-                    <Card.Body>
-                    <Card.Text>rating: {this.props.agency.rating}</Card.Text>
-                    <Card.Text>email: {this.props.agency.email}</Card.Text>
-                    <Card.Text>phone: {this.props.agency.phone}</Card.Text>
-                    <Card.Text>est: {this.props.agency.est}</Card.Text>
-                    </Card.Body>
+                          <Row>
+                              <Col sm><Card.Text>Website: {this.props.agency.website}</Card.Text></Col> 
+                              <Col sm><Card.Text>Email: {this.props.agency.email}</Card.Text></Col>
+                          </Row>
 
-                </Card>
-                <br />
+                          <Row>  
+                            <Col sm><Card.Text>Phone: {this.props.agency.phone}</Card.Text></Col>
+                            <Col sm><Card.Text>Est: {this.props.agency.est}</Card.Text></Col>
+                          </Row>
+                        </Container>
+                                              </Card.Body>
+
+                  </Card>
+                  <br /> 
+                </Col>
+                </Row>
+              </Container>
+              
       </>
       // <div>
       //   <Ul>
@@ -114,21 +119,12 @@ class AgencyList extends React.Component {
       console.log("rendered");
       console.log(agencies);
       const listItems = agencies.map((agency) => 
-        <li><Agency agency={agency}/></li>
+        <Agency agency={agency}/>
       );
       return (
         <div>
           <h1>Agency List</h1>
-          <Row xs={1} md={2} className="g-4">
-            {Array.from({ length: 2 }).map((_, idx) => (
-              <Col>
-                <Card>
-                  <ul>{listItems}</ul>
-                </Card>
-              </Col>
-            ))}
-          </Row>
-           
+            {listItems}
         </div>
       );
     }

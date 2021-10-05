@@ -1,6 +1,6 @@
 import React from 'react';
 import { Ul, Li } from './PropertyStyles';
-import get_all_properties from '../../api/Property';
+import {get_all_properties} from '../../api/Property';
 import {
   Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button, Nav, Row, Col
@@ -8,6 +8,11 @@ import {
 
 class Property extends React.Component {
   render() {
+    
+    let spacetoU = this.props.property.name;
+    spacetoU = spacetoU.replace(/ /g,"_");
+    let linktoProperty = "http://localhost:3000/Property?name=" + this.props.property.name;
+    
     return(
       <>
               <Card border="primary" style={{ width: '42rem' }}>
@@ -19,7 +24,7 @@ class Property extends React.Component {
                   <Nav variant="tabs" defaultActiveKey="#first">
                     
                     <Nav.Item>
-                      <Nav.Link href="http://localhost:3000/Property">name: {this.props.property.name}</Nav.Link>
+                      <Nav.Link href={linktoProperty}>name: {this.props.property.name}</Nav.Link>
                     </Nav.Item>
 
                     <Nav.Item>
@@ -46,18 +51,6 @@ class Property extends React.Component {
                 </Card>
                 <br />
       </>
-      // <div>
-      //   <Ul>
-      //     <Li><p1>name: {this.props.property.name}</p1></Li>
-      //     <Li><p1>rating: {this.props.property.rating}</p1></Li>
-      //     <Li><p1>address: {this.props.property.address}</p1></Li>
-      //     <Li><p1>website: {this.props.property.website}</p1></Li>
-      //     <Li><p1>email: {this.props.property.email}</p1></Li>
-      //     <Li><p1>phone: {this.props.property.phone}</p1></Li>
-      //     <Li><p1>phone: {this.props.property.agency}</p1></Li>
-      //     <Li><p1>est: {this.props.property.est}</p1></Li>
-      //   </Ul> 
-      // </div>
     );
   }
 }

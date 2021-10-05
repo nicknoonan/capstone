@@ -46,4 +46,4 @@ async function get_property_by_id(id) {
   });
 }
 
-export default get_all_properties;
+export  {get_all_properties, get_property_by_name};
