@@ -107,7 +107,22 @@ export default function SignupForm(props) {
   else {
     return (
       <>
-         
+        <h2>sign up form</h2>
+        <form>
+          <label>
+            name:
+            <input type="text" value={name} onChange={handleName} />
+          </label>
+          <label>
+            email:
+            <input type="text" value={email} onChange={handleEmail} />
+          </label>
+          <label>
+            password:
+            <input type="password" value={password} onChange={handlePassword} />
+          </label>
+          <button onClick={handleSubmit}>submit</button>
+        </form>
       </>
     );
   }
