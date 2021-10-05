@@ -51,67 +51,67 @@ class Browse extends React.Component {
 
   render() {
     
-    if(options.value = "agency") {
-      return (
-        <>
-            <div>
-            <h1>Browsing Agencies</h1>
+    // if(options.value = "agency") {
+    //   return (
+    //     <>
+    //         <div>
+    //         <h1>Browsing Agencies</h1>
     
-            <div className="select-container">
-              <select value={this.state.item} onChange={this.handleChange}>
+    //         <div className="select-container">
+    //           <select value={this.state.item} onChange={this.handleChange}>
                 
-                {options.map((option) => (
-                  <option value={option.value}>{option.label}</option>
-                ))}
+    //             {options.map((option) => (
+    //               <option value={option.value}>{option.label}</option>
+    //             ))}
     
-              </select>
-            </div>
+    //           </select>
+    //         </div>
     
-            <AgencyList />
-          </div>
-        </>
-      );
-    } else if (options.value = "unit") {
-      return (
-        <>
-            <div>
-            <h1>Browsing Units</h1>
+    //         <AgencyList />
+    //       </div>
+    //     </>
+    //   );
+    // } else if (options.value = "unit") {
+    //   return (
+    //     <>
+    //         <div>
+    //         <h1>Browsing Units</h1>
     
-            <div className="select-container">
-              <select value={this.state.item} onChange={this.handleChange}>
+    //         <div className="select-container">
+    //           <select value={this.state.item} onChange={this.handleChange}>
                 
-                {options.map((option) => (
-                  <option value={option.value}>{option.label}</option>
-                ))}
+    //             {options.map((option) => (
+    //               <option value={option.value}>{option.label}</option>
+    //             ))}
     
-              </select>
-            </div>
+    //           </select>
+    //         </div>
 
-            <UnitList />
-          </div>
-        </>
-      );
-    } else if (options.value = "property") {
-      return (
-        <>
-            <div>
-            <h1>Browsing Properties</h1>
+    //         <UnitList />
+    //       </div>
+    //     </>
+    //   );
+    // } else if (options.value = "property") {
+    //   return (
+    //     <>
+    //         <div>
+    //         <h1>Browsing Properties</h1>
     
-            <div className="select-container">
-              <select value={this.state.item} onChange={this.handleChange}>
+    //         <div className="select-container">
+    //           <select value={this.state.item} onChange={this.handleChange}>
                 
-                {options.map((option) => (
-                  <option value={option.value}>{option.label}</option>
-                ))}
+    //             {options.map((option) => (
+    //               <option value={option.value}>{option.label}</option>
+    //             ))}
     
-              </select>
-            </div>
+    //           </select>
+    //         </div>
     
-            <PropertyList />
-          </div>
-        </>
-      );
-    } else {
+    //         <PropertyList />
+    //       </div>
+    //     </>
+    //   );
+    // } else {
         return (
           <div>
             <h1>Browse Boone Housing Help</h1>
@@ -131,7 +131,7 @@ class Browse extends React.Component {
             <UnitList />
           </div>
         );
-    }
+    //}
     
   }
 }

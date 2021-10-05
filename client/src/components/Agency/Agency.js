@@ -12,15 +12,11 @@ import {
       
     
 class Agency extends React.Component {
-  
-  
-
 
   render() {
 
     let spacetoU = this.props.agency.name;
     spacetoU = spacetoU.replace(/ /g,"_");
-    //let linktoAgency = "http://localhost:3000/Agency?name=" + spacetoU;
     let linktoAgency = "http://localhost:3000/Agency?name=" + this.props.agency.name;
     
 
@@ -32,31 +28,37 @@ class Agency extends React.Component {
                   
                   <Col md='auto'>
 
-                  <Card border="primary" style={{width: '25rem'}}> 
-                  <Card.Img variant="top" src="https://via.placeholder.com/25x15" />
+                  <Card border="primary" style={{width: '40rem'}}> 
+                  <Card.Img variant="top" src="https://via.placeholder.com/10x5" />
 
                   <Card.Header>
-                    
-                    <Nav variant="tabs" defaultActiveKey="#first">
-                      
-                      <Nav.Item>
-                        <Nav.Link href={linktoAgency}>name: {this.props.agency.name}</Nav.Link>
-                      </Nav.Item>
-
-                  </Nav>
+                    <Nav variant="pills" defaultActiveKey="#first">
+                        <Nav.Link href={linktoAgency}>
+                            {this.props.agency.name}
+                        </Nav.Link>
+                    </Nav>
                   </Card.Header>
 
                       
 
                       <Card.Body>
-                        <Container></Container>
-                        <Card.Text>rating: {this.props.agency.rating}</Card.Text>
-                        <Card.Text>address: {this.props.agency.address}</Card.Text>
-                        <Card.Text>website: {this.props.agency.website}</Card.Text>
-                        <Card.Text>email: {this.props.agency.email}</Card.Text>
-                        <Card.Text>phone: {this.props.agency.phone}</Card.Text>
-                        <Card.Text>est: {this.props.agency.est}</Card.Text>
-                      </Card.Body>
+                        <Container>
+                          <Row>
+                              <Col sm><Card.Text>Rating: {this.props.agency.rating}</Card.Text></Col>
+                              <Col sm><Card.Text>Address: {this.props.agency.address}</Card.Text></Col>
+                          </Row>
+
+                          <Row>
+                              <Col sm><Card.Text>Website: {this.props.agency.website}</Card.Text></Col> 
+                              <Col sm><Card.Text>Email: {this.props.agency.email}</Card.Text></Col>
+                          </Row>
+
+                          <Row>  
+                            <Col sm><Card.Text>Phone: {this.props.agency.phone}</Card.Text></Col>
+                            <Col sm><Card.Text>Est: {this.props.agency.est}</Card.Text></Col>
+                          </Row>
+                        </Container>
+                                              </Card.Body>
 
                   </Card>
                   <br /> 
