@@ -14,7 +14,7 @@ function Agency(props) {
     isLoading: true,
     // isError: false
   };
-  let errorMessage = '';
+//  let errorMessage = '';
   const [name, setName] = useState(initialState.name);
   const [website, setWebsite] = useState(initialState.website);
   const [address, setAddress] = useState(initialState.address);

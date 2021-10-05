@@ -4,7 +4,7 @@ import { get_all_agencies } from '../../api/Agency';
 import PropTypes from 'prop-types';
 import {
   Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Button, Nav, Row, Col
+  CardTitle, CardSubtitle, Button, Nav, Row, Col, Container
 } from 'react-bootstrap';
 
 
@@ -22,45 +22,48 @@ class Agency extends React.Component {
     spacetoU = spacetoU.replace(/ /g,"_");
     //let linktoAgency = "http://localhost:3000/Agency?name=" + spacetoU;
     let linktoAgency = "http://localhost:3000/Agency?name=" + this.props.agency.name;
-     
-
+    
 
     return(
       <>
-              <Card border="primary" style={{ width: '42rem' }}>
+              <Container>
                 
-              <Card.Img variant="top" src="https://via.placeholder.com/50x25" />
-
-                <Card.Header>
+                <Row className="justify-content-md-center">
                   
-                  <Nav variant="tabs" defaultActiveKey="#first">
+                  <Col md='auto'>
+
+                  <Card border="primary" style={{width: '25rem'}}> 
+                  <Card.Img variant="top" src="https://via.placeholder.com/25x15" />
+
+                  <Card.Header>
                     
-                    <Nav.Item>
-                      <Nav.Link href={linktoAgency}>name: {this.props.agency.name}</Nav.Link>
-                    </Nav.Item>
+                    <Nav variant="tabs" defaultActiveKey="#first">
+                      
+                      <Nav.Item>
+                        <Nav.Link href={linktoAgency}>name: {this.props.agency.name}</Nav.Link>
+                      </Nav.Item>
 
-                    <Nav.Item>
-                      <Nav.Link href="#link">website: {this.props.agency.website}</Nav.Link>
-                    </Nav.Item>
+                  </Nav>
+                  </Card.Header>
 
-                    <Nav.Item>
-                      <Nav.Link href="#address">{this.props.agency.address}</Nav.Link>
-                    </Nav.Item>
+                      
 
-                </Nav>
-                </Card.Header>
+                      <Card.Body>
+                        <Container></Container>
+                        <Card.Text>rating: {this.props.agency.rating}</Card.Text>
+                        <Card.Text>address: {this.props.agency.address}</Card.Text>
+                        <Card.Text>website: {this.props.agency.website}</Card.Text>
+                        <Card.Text>email: {this.props.agency.email}</Card.Text>
+                        <Card.Text>phone: {this.props.agency.phone}</Card.Text>
+                        <Card.Text>est: {this.props.agency.est}</Card.Text>
+                      </Card.Body>
 
-                    
-
-                    <Card.Body>
-                    <Card.Text>rating: {this.props.agency.rating}</Card.Text>
-                    <Card.Text>email: {this.props.agency.email}</Card.Text>
-                    <Card.Text>phone: {this.props.agency.phone}</Card.Text>
-                    <Card.Text>est: {this.props.agency.est}</Card.Text>
-                    </Card.Body>
-
-                </Card>
-                <br />
+                  </Card>
+                  <br /> 
+                </Col>
+                </Row>
+              </Container>
+              
       </>
       // <div>
       //   <Ul>
@@ -114,21 +117,12 @@ class AgencyList extends React.Component {
       console.log("rendered");
       console.log(agencies);
       const listItems = agencies.map((agency) => 
-        <li><Agency agency={agency}/></li>
+        <Agency agency={agency}/>
       );
       return (
         <div>
           <h1>Agency List</h1>
-          <Row xs={1} md={2} className="g-4">
-            {Array.from({ length: 2 }).map((_, idx) => (
-              <Col>
-                <Card>
-                  <ul>{listItems}</ul>
-                </Card>
-              </Col>
-            ))}
-          </Row>
-           
+            {listItems}
         </div>
       );
     }
