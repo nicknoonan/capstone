@@ -26,7 +26,8 @@ class LoginForm extends React.Component {
       localuser = JSON.parse(localStorage.getItem('user'));
     }
     catch (err) {
-      console.log(err);
+      //console.log(err);
+      this.setState({loading:false});
       return;
     }
     if (localuser) {

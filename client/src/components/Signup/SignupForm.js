@@ -33,6 +33,7 @@ export default function SignupForm(props) {
     }
     catch (err) {
       console.log(err);
+      setLoading(false);
       return;
     }
     if (localuser) {
