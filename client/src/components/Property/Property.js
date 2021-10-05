@@ -3,7 +3,7 @@ import { Ul, Li } from './PropertyStyles';
 import {get_all_properties} from '../../api/Property';
 import {
   Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Button, Nav, Row, Col
+  CardTitle, CardSubtitle, Button, Nav, Row, Col, Container
 } from 'react-bootstrap';
 
 class Property extends React.Component {
@@ -15,41 +15,50 @@ class Property extends React.Component {
     
     return(
       <>
-              <Card border="primary" style={{ width: '42rem' }}>
-                
-              <Card.Img variant="top" src="https://via.placeholder.com/50x25" />
+        <Container>
+          <Row className="justify-content-md-center">
+            <Col md='auto'>
+            
+            <Card border="primary" style={{ width: '40rem' }}>
 
-                <Card.Header>
-                  
-                  <Nav variant="tabs" defaultActiveKey="#first">
-                    
-                    <Nav.Item>
-                      <Nav.Link href={linktoProperty}>name: {this.props.property.name}</Nav.Link>
-                    </Nav.Item>
+                <Card.Img variant="top" src="https://via.placeholder.com/10x5" />
+  
+                  <Card.Header>
+                    <Nav variant="pills" defaultActiveKey="#first">
+                        <Nav.Link href={linktoProperty}>
+                          {this.props.property.name}
+                        </Nav.Link>
+                    </Nav>
+                  </Card.Header>
+  
+                      
+  
+                      <Card.Body>
+                        <Container>
+                          <Row>
+                            <Col><Card.Text>Rating: {this.props.property.rating}</Card.Text></Col>
+                            <Col><Card.Text>Address: {this.props.property.address}</Card.Text></Col>
+                          </Row>
 
-                    <Nav.Item>
-                      <Nav.Link href="#link">website: {this.props.property.website}</Nav.Link>
-                    </Nav.Item>
+                          <Row>
+                            <Col><Card.Text>Website: {this.props.property.website}</Card.Text></Col>
+                            <Col><Card.Text>email: {this.props.property.email}</Card.Text></Col>
+                          </Row>
 
-                    <Nav.Item>
-                      <Nav.Link href="#address">{this.props.property.address}</Nav.Link>
-                    </Nav.Item>
-
-                </Nav>
-                </Card.Header>
-
-                    
-
-                    <Card.Body>
-                    <Card.Text>rating: {this.props.property.rating}</Card.Text>
-                    <Card.Text>email: {this.props.property.email}</Card.Text>
-                    <Card.Text>phone: {this.props.property.phone}</Card.Text>
-                    <Card.Text>Agency phone: {this.props.property.agency}</Card.Text>
-                    <Card.Text>est: {this.props.property.est}</Card.Text>
-                    </Card.Body>
-
-                </Card>
-                <br />
+                          <Row>
+                            <Col><Card.Text>phone: {this.props.property.phone}</Card.Text></Col>
+                            <Col><Card.Text>est: {this.props.property.est}</Card.Text></Col>
+                          </Row>
+                        </Container>
+                      
+                      {/* <Card.Text>Agency phone: {this.props.property.agency}</Card.Text> */}
+                      </Card.Body>
+  
+                  </Card>
+                  <br />
+            </Col>
+          </Row>
+        </Container>
       </>
     );
   }

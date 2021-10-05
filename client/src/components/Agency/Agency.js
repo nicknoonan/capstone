@@ -67,26 +67,6 @@ class Agency extends React.Component {
               </Container>
               
       </>
-      // <div>
-      //   <Ul>
-      //     <Li><p1>name: {this.props.agency.name}</p1></Li>
-      //     <Li><p1>rating: {this.props.agency.rating}</p1></Li>
-      //     <Li><p1>address: {this.props.agency.address}</p1></Li>
-      //     <Li><p1>website: {this.props.agency.website}</p1></Li>
-      //     <Li><p1>email: {this.props.agency.email}</p1></Li>
-      //     <Li><p1>phone: {this.props.agency.phone}</p1></Li>
-      //     <Li><p1>est: {this.props.agency.est}</p1></Li>
-      //   </Ul>        
-      // </div>
-
-
-
-                // <Card.Text>rating: {this.props.agency.rating}</Card.Text>
-                // <Card.Text>address: {this.props.agency.address}</Card.Text>
-                // <Card.Text>website: {this.props.agency.website}</Card.Text>
-                // <Card.Text>email: {this.props.agency.email}</Card.Text>
-                // <Card.Text>phone: {this.props.agency.phone}</Card.Text>
-                // <Card.Text>est: {this.props.agency.est}</Card.Text>
     );
   }
 }
