@@ -58,13 +58,13 @@ class Agency extends React.Component {
                             <Col sm><Card.Text>Est: {this.props.agency.est}</Card.Text></Col>
                           </Row>
                         </Container>
-                                              </Card.Body>
-
+                      </Card.Body>
                   </Card>
                   <br /> 
+
                 </Col>
-                </Row>
-              </Container>
+              </Row>
+            </Container>
               
       </>
     );

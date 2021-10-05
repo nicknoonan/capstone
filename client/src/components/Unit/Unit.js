@@ -3,7 +3,7 @@ import { Ul, Li } from './UnitStyles';
 import {get_all_units} from '../../api/Unit';
 import {
   Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Button, Nav, Row, Col
+  CardTitle, CardSubtitle, Button, Nav, Row, Col, Container
 } from 'react-bootstrap';
 
 class Unit extends React.Component {
@@ -16,40 +16,48 @@ class Unit extends React.Component {
     
     return(
       <>
-              <Card border="primary" style={{ width: '42rem' }}>
+          <Container>
+            <Row className="justify-content-md-center">
+              <Col md='auto'>
+
+              <Card border="primary" style={{width: '42rem'}}>
                 
-              <Card.Img variant="top" src="https://via.placeholder.com/50x25" />
+                <Card.Img variant="top" src="https://via.placeholder.com/10x5" />
+  
+                  <Card.Header>
+                    <Nav variant="tabs" defaultActiveKey="#first">
+                        <Nav.Link href={linktoAgency}>
+                          {this.props.unit.name}
+                        </Nav.Link>
+                  </Nav>
+                  </Card.Header>
+  
+                      <Card.Body>
+                        <Container>
+                          <Row>
+                            <Col sm><Card.Text>Rating: {this.props.unit.rating}</Card.Text></Col>
+                            <Col sm><Card.Text>Address: {this.props.unit.address}</Card.Text></Col>
+                          </Row>
 
-                <Card.Header>
+                          <Row>
+                            <Col sm><Card.Text>Website: {this.props.unit.website}</Card.Text></Col>
+                            <Col sm><Card.Text>Email: {this.props.unit.email}</Card.Text></Col>
+                          </Row>
+                          
+                          <Row>
+                            <Col sm><Card.Text>Phone: {this.props.unit.phone}</Card.Text></Col>
+                            <Col sm><Card.Text>Est: {this.props.unit.est}</Card.Text></Col>
+                          </Row>
+                        </Container>
+                      </Card.Body>
+  
+                  </Card>
+                  <br />
                   
-                  <Nav variant="tabs" defaultActiveKey="#first">
-                    
-                    <Nav.Item>
-                      <Nav.Link href={linktoAgency}>name: {this.props.unit.name}</Nav.Link>
-                    </Nav.Item>
-
-                    <Nav.Item>
-                      <Nav.Link href="#link">website: {this.props.unit.website}</Nav.Link>
-                    </Nav.Item>
-
-                    <Nav.Item>
-                      <Nav.Link href="#address">{this.props.unit.address}</Nav.Link>
-                    </Nav.Item>
-
-                </Nav>
-                </Card.Header>
-
-                    
-
-                    <Card.Body>
-                    <Card.Text>rating: {this.props.unit.rating}</Card.Text>
-                    <Card.Text>email: {this.props.unit.email}</Card.Text>
-                    <Card.Text>phone: {this.props.unit.phone}</Card.Text>
-                    <Card.Text>est: {this.props.unit.est}</Card.Text>
-                    </Card.Body>
-
-                </Card>
-                <br />
+              </Col>
+            </Row>
+          </Container>
+              
       </>
     );
   }

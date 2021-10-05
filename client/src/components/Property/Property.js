@@ -36,18 +36,18 @@ class Property extends React.Component {
                       <Card.Body>
                         <Container>
                           <Row>
-                            <Col><Card.Text>Rating: {this.props.property.rating}</Card.Text></Col>
-                            <Col><Card.Text>Address: {this.props.property.address}</Card.Text></Col>
+                            <Col sm><Card.Text>Rating: {this.props.property.rating}</Card.Text></Col>
+                            <Col sm><Card.Text>Address: {this.props.property.address}</Card.Text></Col>
                           </Row>
 
                           <Row>
-                            <Col><Card.Text>Website: {this.props.property.website}</Card.Text></Col>
-                            <Col><Card.Text>email: {this.props.property.email}</Card.Text></Col>
+                            <Col sm><Card.Text>Website: {this.props.property.website}</Card.Text></Col>
+                            <Col sm><Card.Text>email: {this.props.property.email}</Card.Text></Col>
                           </Row>
 
                           <Row>
-                            <Col><Card.Text>phone: {this.props.property.phone}</Card.Text></Col>
-                            <Col><Card.Text>est: {this.props.property.est}</Card.Text></Col>
+                            <Col sm><Card.Text>phone: {this.props.property.phone}</Card.Text></Col>
+                            <Col sm><Card.Text>est: {this.props.property.est}</Card.Text></Col>
                           </Row>
                         </Container>
                       
