@@ -71,8 +71,8 @@ function get_review_by_id(id) {
  */
 async function post_review(req, res) {
   //check that the request format is valid
-  const { review_type, review_of, review_body, review_user } = req.body;
-  if (!(review_type && review_of && review_body && review_user)) {
+  const { review_type, review_of, review_body, review_user, rating } = req.body;
+  if (!(review_type && review_of && review_body && review_user, rating)) {
     let message = 'invalid post review request';
     res.status(400).json({ message: message });
     return;
@@ -141,7 +141,8 @@ async function post_review(req, res) {
           review_type, 
           review_of, 
           review_body, 
-          user: review_user
+          user: review_user,
+          rating
         });
         //try to save the new review
         try {
@@ -151,6 +152,7 @@ async function post_review(req, res) {
         }
         catch (error) { //server error occured trying to save the review
           let message = 'unable to save new review';
+          console.log(error);
           res.status(500).json({ message: message });
           return;
         }

@@ -1,6 +1,8 @@
 import { get_unit_by_name } from '../api/Unit';
 import { useLocation } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
+import NewReviewForm from '../components/Review/NewReviewForm';
+
 
 function Unit(props) {
   const initialState = {
@@ -12,6 +14,7 @@ function Unit(props) {
     phone: "",
     est: "",
     isLoading: true,
+    id: ""
     // isError: false
   };
 
@@ -24,6 +27,7 @@ function Unit(props) {
   const [phone, setPhone] = useState(initialState.phone);
   const [est, setEst] = useState(initialState.est);
   const [isLoading, setIsLoading] = useState(initialState.isLoading);
+  const [id, setId] = useState(initialState.id);
 //   const [isError, setError] = useState(initialState.isError);
   
   const search = useLocation().search;
@@ -43,6 +47,7 @@ function Unit(props) {
         setEmail(unit.email);
         setPhone(unit.phone);
         setEst(unit.est);
+        setId(unit._id);
         setIsLoading(false);
         // setError(false);
       }).catch((err) => {
@@ -72,6 +77,7 @@ function Unit(props) {
         <h3>{website}</h3>
         <h3>{address}</h3>
         <h3>{rating}</h3>
+        <NewReviewForm enabled={true} review_type={"unit_t"} review_of={id}></NewReviewForm>
       </>
     );
   }
