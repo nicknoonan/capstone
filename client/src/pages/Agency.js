@@ -3,6 +3,9 @@ import { useLocation } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import '../App.css';
 import NewReviewForm from '../components/Review/NewReviewForm';
+import {
+  Row, Col, Container
+} from 'react-bootstrap';
 
 function Agency(props) {
   const initialState = {
@@ -76,12 +79,37 @@ function Agency(props) {
     return (
       <>
         <h1 className='infoPage'>{name}</h1>;
-        <h3>{website}</h3>
-        <h3>{address}</h3>
-        <h3>{email}</h3>
-        <h3>{phone}</h3>
-        <h3>{rating}</h3>
+        <Container>
+          <Col>
+
+            <Row>
+              <h3>{website}</h3>
+              <h3>{address}</h3>
+            </Row>
+
+            {/* <Row>
+              <h3>{address}</h3>
+            </Row> */}
+
+          </Col>
+
+          <Col>
+          
+            <Row>
+              <h3>{email}</h3>
+            </Row>
+
+            <Row>
+             <h3>{phone}</h3>
+            </Row>
+
+            <Row>
+            <h3>{rating}</h3>
+            </Row>
+          </Col>
+        </Container>
         <NewReviewForm enabled={true} review_type={"agency_t"} review_of={id}></NewReviewForm>
+
       </>
     );
   }

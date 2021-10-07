@@ -29,7 +29,7 @@ class Agency extends React.Component {
                   <Col md='auto'>
 
                   <Card border="primary" style={{width: '40rem'}}> 
-                  <Card.Img variant="top" src="https://via.placeholder.com/10x5" />
+                  <Card.Img variant="top" src="https://via.placeholder.com/200x100" />
 
                   <Card.Header>
                     <Nav variant="pills" defaultActiveKey="#first">
