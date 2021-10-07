@@ -7,9 +7,9 @@ import Signup from '../../pages/Signup';
 export default function SignupForm(props) {
 
   const initialState = {
-    name: 'nick',
-    email: 'nick@email.com',
-    password: 'pass',
+    name: '',
+    email: '',
+    password: '',
     submitting: false,
     userCreated: false,
     loading: true,

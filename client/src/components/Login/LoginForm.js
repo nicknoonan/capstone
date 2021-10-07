@@ -7,7 +7,7 @@ class LoginForm extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      username: 'nicknoonan86@gmail.com',
+      username: '',
       password: '',
       isAuth: false,
       isSessionAuth: false,
