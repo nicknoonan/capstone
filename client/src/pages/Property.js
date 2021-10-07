@@ -1,19 +1,10 @@
-// // import React from 'react'
-
-// // function Property() {
-// //     return (
-// //         <>
-// //             <h1>Property Page</h1>
-// //         </>
-// //     )
-// // }
-
-// export default Property
-
 import { get_property_by_name } from '../api/Property';
 import { useLocation } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import NewReviewForm from '../components/Review/NewReviewForm';
+import {
+  Row, Col, Container
+} from 'react-bootstrap';
 
 function Property(props) {
   const initialState = {
@@ -80,12 +71,38 @@ function Property(props) {
   else {
     return (
       <>
-        <h1>Property Page</h1>
-        <h3>{name}</h3>
-        <h3>{website}</h3>
-        <h3>{address}</h3>
-        <h3>{rating}</h3>
-        <NewReviewForm enabled={true} review_type={"property_t"} review_of={id}></NewReviewForm>
+        <h1 className='infoPage'>{name}</h1>;
+        <Container>
+          <Col>
+
+            <Row>
+              <h3>{website}</h3>
+              <h3>{address}</h3>
+            </Row>
+
+            {/* <Row>
+              <h3>{address}</h3>
+            </Row> */}
+
+          </Col>
+
+          <Col>
+          
+            <Row>
+              <h3>{email}</h3>
+            </Row>
+
+            <Row>
+             <h3>{phone}</h3>
+            </Row>
+
+            <Row>
+            <h3>{rating}</h3>
+            </Row>
+          </Col>
+        </Container>
+        <NewReviewForm enabled={true} review_type={"agency_t"} review_of={id}></NewReviewForm>
+
       </>
     );
   }

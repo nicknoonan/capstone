@@ -21,7 +21,7 @@ class Property extends React.Component {
             
             <Card border="primary" style={{ width: '40rem' }}>
 
-                <Card.Img variant="top" src="https://via.placeholder.com/10x5" />
+                <Card.Img variant="top" src="https://via.placeholder.com/200x100" />
   
                   <Card.Header>
                     <Nav variant="pills" defaultActiveKey="#first">
@@ -92,12 +92,12 @@ class PropertyList extends React.Component {
       console.log("rendered");
       console.log(properties);
       const listItems = properties.map((property) => 
-        <li><Property property={property}/></li>
+        <Property property={property}/>
       );
       return (
         <div>
           <h1>Property List</h1>
-          <ul className="default-list">{listItems}</ul> 
+          {listItems}
         </div>
       );
     }
