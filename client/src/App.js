@@ -12,13 +12,43 @@ import Footer from './components/Footer/Footer';
 import Agency from './pages/Agency';
 import Property from './pages/Property';
 import Unit from './pages/Unit';
+import { useEffect, useState } from 'react';
+import { get_user } from './api/User'
 
 
 // Included home and about in App's div
 function App() {
+  const initialState = {
+    isLoggedIn: false
+  };
+  const [isLoggedIn, setIsLoggedIn] = useState(initialState.isLoggedIn);
+  useEffect(() => {
+    let localuser;
+    try {
+      localuser = JSON.parse(localStorage.getItem('user'));
+    }
+    catch (err) {
+      //console.log(err);
+      //this.setState({loading:false});
+      return;
+    }
+    if (localuser) {
+      get_user(localuser.id, localuser.token)
+      .then((res) => {
+        if (res.data._id) {
+          setIsLoggedIn(true);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        //this.setState({loading:false});
+      });
+    }
+    //this.setState({loading:false});
+  },[]);
   return (
     <div className="App">
-      <NavBar />
+      <NavBar isLoggedIn={isLoggedIn}/>
       <Route classname="route" exact path="/" component={Home} />
       <Route classname="route" exact path="/about" component={About} />
       <Route classname="route" exact path="/browse" component={Browse} />

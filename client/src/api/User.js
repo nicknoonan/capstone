@@ -38,7 +38,7 @@ async function get_user(id, token) {
       resolve(res);
     })
     .catch((err) => {
-      console.log(err);
+      console.log(err.message);
       reject(err);
     });
   });
@@ -63,6 +63,7 @@ async function sign_up_user(user) {
   });
   
 }
+
 
 export { login_user, get_user, sign_up_user };
 
