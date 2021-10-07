@@ -75,10 +75,11 @@ function Agency(props) {
   else {
     return (
       <>
-        <h1>Agency Page</h1>
-        <h3>{name}</h3>
+        <h1 className='infoPage'>{name}</h1>;
         <h3>{website}</h3>
         <h3>{address}</h3>
+        <h3>{email}</h3>
+        <h3>{phone}</h3>
         <h3>{rating}</h3>
         <NewReviewForm enabled={true} review_type={"agency_t"} review_of={id}></NewReviewForm>
       </>
