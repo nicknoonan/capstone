@@ -15,7 +15,6 @@ class Login extends React.Component {
     if (!this.state.isLoggedIn) {
       return (
         <div>
-          <h1>login page</h1>
           <LoginForm/>
         </div>
       );
