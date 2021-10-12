@@ -5,57 +5,7 @@ import {
   Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button, Nav, Row, Col, Container
 } from 'react-bootstrap';
-
-
-// class LoginBox extends React.Component {
-
-//   constructor(props) {
-//     super(props);
-//     this.state = {};
-//   }
-
-//   submitLogin(e) {}
-
-//   render() {
-//     return (
-      // <div className="inner-container">
-      //   <div className="header">
-      //     Login
-      //   </div>
-      //   <div className="box">
-
-      //     <div className="input-group">
-      //       <label htmlFor="username">Username</label>
-      //       <input
-      //         type="text"
-      //         name="username"
-      //         className="login-input"
-      //         placeholder="Username"/>
-      //     </div>
-
-      //     <div className="input-group">
-      //       <label htmlFor="password">Password</label>
-      //       <input
-      //         type="password"
-      //         name="password"
-      //         className="login-input"
-      //         placeholder="Password"/>
-      //     </div>
-
-      //     <button
-      //       type="button"
-      //       className="login-btn"
-      //       onClick={this
-      //       .submitLogin
-      //       .bind(this)}>Login</button>
-
-      //   </div>
-      // </div>
-//     );
-//   }
-
-// }
-
+import Box from '@material-ui/core/Box';
 class LoginForm extends React.Component {
   constructor(props){
     super(props);
@@ -164,47 +114,93 @@ class LoginForm extends React.Component {
     }
     else if (!this.state.isAuth) {
       return(
-        <div>
+        // <div>
           
           
-          <Card>
-            <h2>Sign In</h2>
-            <form onSubmit={this.handleSubmit}>
+        //   <Card>
+        //     <h2>Sign In</h2>
+        //     <form onSubmit={this.handleSubmit}>
               
-              <Container>
-                <Col>
-                  <Row sm>
-                    <h4>Email</h4>
-                    <label>
-                      <input type="text" value={this.state.username} onChange={this.handleUsername} />
-                    </label>
+        //       <Container>
+        //         <Col>
+        //           <Row sm>
+        //             <h4>Email</h4>
+        //             <label>
+        //               <input type="text" value={this.state.username} onChange={this.handleUsername} />
+        //             </label>
 
-                      {/* <div className="input-group">
-                      <label htmlFor="username">Username:</label>
-                      <input
-                        type="text"
-                        name="username"
-                        className="login-input"
-                        placeholder="Username"/>
-                      </div> */}
+        //               {/* <div className="input-group">
+        //               <label htmlFor="username">Username:</label>
+        //               <input
+        //                 type="text"
+        //                 name="username"
+        //                 className="login-input"
+        //                 placeholder="Username"/>
+        //               </div> */}
 
-                    <h4>Password</h4>
-                    <label>
-                     <input type="password" value={this.state.password} onChange={this.handlePassword} />
-                    </label>
-                  </Row>
+        //             <h4>Password</h4>
+        //             <label>
+        //              <input type="password" value={this.state.password} onChange={this.handlePassword} />
+        //             </label>
+        //           </Row>
 
-                  <Row sm = 'auto'>
-                    <input type="submit" value="Login" />
-                  </Row>
+        //           <Row sm = 'auto'>
+        //             <input type="submit" value="Login" />
+        //           </Row>
 
-                </Col>
-              </Container>
+        //         </Col>
+        //       </Container>
 
             
-            </form>
-          </Card> 
+        //     </form>
+        //   </Card> 
           
+        // </div>
+        
+        <div>
+          <Box>
+              <Row>
+                  <Col>
+                      <h2>Sign In</h2>
+                      <Box
+                        sx={{
+                          bgcolor: 'rgb(238,238,228)',
+                          boxShadow: 1,
+                          borderRadius: 1,
+                          p: 2,
+                          minWidth: 300,
+                        }}
+                      >
+                          {/* Sign in Box */}
+
+                          <h4>Email</h4>
+                              <label>
+                                <input type="text" value={this.state.username} onChange={this.handleUsername} />
+                              </label>
+
+                          <form onSubmit={this.handleSubmit}>
+
+                            <h4>Password</h4>
+                                <label>
+                                <input type="password" value={this.state.password} onChange={this.handlePassword} />
+                                </label>
+                                <h1></h1>
+                                <input type="submit" value="Login"/>
+
+                          </form>
+
+                      </Box>
+                  </Col>
+
+                  <Col>
+                      <Box>
+                          {/* Need to make an account? Box */}
+                          <h2>Need to make an account?</h2>
+                          <Nav.Link href='signup'><input type="submit" value="Sign Up" /></Nav.Link>
+                      </Box>
+                  </Col>
+              </Row>
+          </Box>
         </div>
       );
     }
