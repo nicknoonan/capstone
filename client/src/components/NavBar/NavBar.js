@@ -4,49 +4,6 @@ import { Ul, Li } from './NavBarStyles';
 import './NavBar.css';
 import { Button } from '../Button';
 
-
-// function NavBar(){
-
-//     const [button, setButton] = useState(true)
-//     const showButton = () => {
-//         if(window.innerWidth <= 960) {
-//             setButton(false);
-//         } else {
-//             setButton(true);
-//         }
-//     };
-
-//     window.addEventListener('resize', showButton);
-
-//     return(
-//         <Ul>
-
-//             <Li>
-//                 <Link style={{textDecoration: 'none'}} to="/">Home</Link>
-//              </Li>
-//             <Li>
-//                 <Link style={{textDecoration: 'none'}} to="/about">About</Link>
-//             </Li>
-//             <Li>
-//                 <Link style={{textDecoration: 'none'}} to="/browse">Browse</Link>
-//             </Li>
-//             <Li>
-//                 <Link style={{textDecoration: 'none'}} to="/review">Review</Link>
-//             </Li>
-//             <Li>
-//                 <Link style={{textDecoration: 'none'}} to="/login">Login</Link>
-//             </Li>
-//             <Li>
-//                 {/* If button exists then create our sign up botton */}
-//                 {button && <Button buttonStyle='btn--outline'>SIGN UP</Button>} 
-//             </Li>
-//         </Ul>
-//     );
-// }
-
-// export default NavBar;
-
-
 function Navbar(props) {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
