@@ -1,7 +1,60 @@
 import { thisTypeAnnotation } from '@babel/types';
 import { login_user, get_user } from '../../api/User'
 import React from 'react';
-import Button from 'react-bootstrap/Button';
+import {
+  Card, CardImg, CardText, CardBody,
+  CardTitle, CardSubtitle, Button, Nav, Row, Col, Container
+} from 'react-bootstrap';
+
+
+// class LoginBox extends React.Component {
+
+//   constructor(props) {
+//     super(props);
+//     this.state = {};
+//   }
+
+//   submitLogin(e) {}
+
+//   render() {
+//     return (
+      // <div className="inner-container">
+      //   <div className="header">
+      //     Login
+      //   </div>
+      //   <div className="box">
+
+      //     <div className="input-group">
+      //       <label htmlFor="username">Username</label>
+      //       <input
+      //         type="text"
+      //         name="username"
+      //         className="login-input"
+      //         placeholder="Username"/>
+      //     </div>
+
+      //     <div className="input-group">
+      //       <label htmlFor="password">Password</label>
+      //       <input
+      //         type="password"
+      //         name="password"
+      //         className="login-input"
+      //         placeholder="Password"/>
+      //     </div>
+
+      //     <button
+      //       type="button"
+      //       className="login-btn"
+      //       onClick={this
+      //       .submitLogin
+      //       .bind(this)}>Login</button>
+
+      //   </div>
+      // </div>
+//     );
+//   }
+
+// }
 
 class LoginForm extends React.Component {
   constructor(props){
@@ -112,38 +165,46 @@ class LoginForm extends React.Component {
     else if (!this.state.isAuth) {
       return(
         <div>
-          <h2>login form</h2>
-          <form onSubmit={this.handleSubmit}>
-            <label>
-              username:
-              <input type="text" value={this.state.username} onChange={this.handleUsername} />
-            </label>
-            <label>
-              password:
-              <input type="password" value={this.state.password} onChange={this.handlePassword} />
-            </label>
-            <input type="submit" value="Login" />
-          </form>
-        </div>
-      );
-    }
-    else if (!this.state.isSessionAuth) {
-      return(
-        <div>
-          login successful redirecting to home...
-          <button onClick={this.handleClear}>
-            clear
-          </button>
-        </div>
-      );
-    }
-    else {
-      return(
-        <div>
-          already logged in redirecting to home...
-          <button onClick={this.handleClear}>
-            clear
-          </button>
+          
+          
+          <Card>
+            <h2>Sign In</h2>
+            <form onSubmit={this.handleSubmit}>
+              
+              <Container>
+                <Col>
+                  <Row sm>
+                    <h4>Email</h4>
+                    <label>
+                      <input type="text" value={this.state.username} onChange={this.handleUsername} />
+                    </label>
+
+                      {/* <div className="input-group">
+                      <label htmlFor="username">Username:</label>
+                      <input
+                        type="text"
+                        name="username"
+                        className="login-input"
+                        placeholder="Username"/>
+                      </div> */}
+
+                    <h4>Password</h4>
+                    <label>
+                     <input type="password" value={this.state.password} onChange={this.handlePassword} />
+                    </label>
+                  </Row>
+
+                  <Row sm = 'auto'>
+                    <input type="submit" value="Login" />
+                  </Row>
+
+                </Col>
+              </Container>
+
+            
+            </form>
+          </Card> 
+          
         </div>
       );
     }
