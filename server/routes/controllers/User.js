@@ -118,9 +118,11 @@ post_login = async (req, res) => {
       res.status(500).json({message});
     }
     else if (user) { //query found a user by the given email
+      let error = false;
       const is_auth = await bcrypt.compare(password, user.password);
       if (!is_auth) { //password is incorrect
         let message = 'invalid credentials';
+        error = true;
         res.status(409).json({message});
       }
       //password is correct
@@ -129,6 +131,7 @@ post_login = async (req, res) => {
       if (!token) { //check that the token was successfully generated
         let message = 'server error occured. unable to login user';
         console.log(message + ' ' + err);
+        error = true;
         res.status(500).json({message});
       }
       //send response with token and user object
@@ -140,7 +143,10 @@ post_login = async (req, res) => {
           email: user.email
         }
       };
-      res.status(200).json(res_body);
+      if (!error) {
+        res.status(200).json(res_body);
+      }
+      
     }
     else { //query did not find a user by the given email
       let message = 'invalid credentials';
