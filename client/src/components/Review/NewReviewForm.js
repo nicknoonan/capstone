@@ -10,6 +10,7 @@ export default function NewReviewForm(props) {
     error: false,
     submitting: false,
     complete: false,
+    verified: false,
     rating: 0,
     buttonStatus: [false, false, false, false, false],
     type: '',
@@ -25,6 +26,7 @@ export default function NewReviewForm(props) {
   const [user, setUser] = useState(initialState.user);
   const [submitting, setSubmitting] = useState(initialState.submitting);
   const [complete, setComplete] = useState(initialState.complete);
+  const [verified, setVerified] = useState(initialState.verified);
   useEffect(() => {
     let localuser;
     try {
@@ -45,6 +47,9 @@ export default function NewReviewForm(props) {
           }
           else {
             setError(true);
+          }
+          if (res.data.verified) {
+            setVerified(true);
           }
           console.log(res);
         })
@@ -123,7 +128,14 @@ export default function NewReviewForm(props) {
         <>
           <h3>review recieved! thanks for making boone housing better!</h3>
         </>
-      )
+      );
+    }
+    else if (!verified) {
+      return (
+        <>
+        you must verify your account to submit a review.
+        </>
+      );
     }
     else {
       return (
