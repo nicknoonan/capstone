@@ -210,6 +210,20 @@ class LoginForm extends React.Component {
         </>
       );
     }
+    else if (this.state.isAuth) {
+      return(
+        <>
+        redirecting home.
+        </>
+      );
+    }
+    else {
+      return (
+        <>
+        oops an error occured.
+        </>
+      );
+    }
   }
 }
 
