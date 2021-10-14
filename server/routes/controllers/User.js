@@ -7,6 +7,8 @@ const User = require('../../models/User');
 
 const { JWT_SECRET } = require('../../secrets');
 
+const { new_verify, send_verification_email } = require('./Verify');
+
 /*
  * post_new_user: create a new user given a name, email, and
    password in the request. response will return a jwt token
@@ -55,6 +57,17 @@ post_new_user = async (req, res) => {
       });
       //save the new user model to the db
       const saved_user = await new_user.save();
+
+      //add a verification entry to the db
+      await new_verify(email).catch((err) => {
+        console.log(err);
+      });
+
+      //send a verification email to the user
+      send_verification_email(email).catch((err) => {
+        console.log(err);
+      });
+
       //create a jwt token for the new user
       const token = jwt.sign(
         { id: saved_user._id },

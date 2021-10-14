@@ -26,7 +26,6 @@ export default function SignupForm(props) {
   function handleEmail(event) { setEmail(event.target.value); }
   function handlePassword(event) { setPassword(event.target.value); }
   useEffect(() => {
-    console.log("USE EFFECT CALLED");
     let localuser;
     try {
       localuser = JSON.parse(localStorage.getItem('user'));

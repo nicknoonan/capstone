@@ -6,6 +6,7 @@ const { post_unit, get_unit, delete_unit } = require('./controllers/Unit');
 const { post_new_user, get_user, post_login, delete_user } = require('./controllers/User');
 const { post_review, get_review, delete_review } = require('./controllers/Review');
 const { get_sample_model, post_sample_model } = require('./controllers/sampleroute');
+const { get_verify_user } = require('./controllers/Verify');
 const auth = require('../middleware/auth');
 const admin_auth = require('../middleware/admin_auth');
 const router = express.Router();
@@ -39,5 +40,7 @@ router.post('/api/newuser', post_new_user);
 router.get('/api/user', auth, get_user);
 router.post('/api/login', post_login);
 router.delete('/api/user/id:id', admin_auth, delete_user);
+
+router.get('/api/verify', get_verify_user);
 
 module.exports = { router };
