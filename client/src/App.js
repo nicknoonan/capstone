@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import Home from './pages/Home'
 import About from './pages/About'
@@ -6,7 +5,7 @@ import Browse from './pages/Browse';
 import Review from './pages/Review';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import { Route, Link } from "react-router-dom";
+import { Route } from "react-router-dom";
 import NavBar from './components/NavBar/NavBar';
 import Footer from './components/Footer/Footer';
 import Agency from './pages/Agency';

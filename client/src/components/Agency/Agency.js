@@ -1,10 +1,9 @@
 import React from 'react';
-import { Ul, Li } from './AgencyStyles';
+// import { Ul, Li } from './AgencyStyles';
 import { get_all_agencies } from '../../api/Agency';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import {
-  Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Button, Nav, Row, Col, Container
+  Card, Nav, Row, Col, Container
 } from 'react-bootstrap';
 
 

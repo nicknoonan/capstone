@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from "react-router-dom";
 import { Container,Row,Col,Form ,Button} from 'react-bootstrap';
-import {connect} from 'react-redux';
 import {get_user} from '../../api/User';
+import Box from '@material-ui/core/Box';
 
 
 function UserProfile(props) {
@@ -10,8 +9,8 @@ function UserProfile(props) {
         user_id: "",
         username: "",
         email: "",
-        verified: "",
-        isverified: false,
+        verified: false,
+        isVerified: false,
         isLoading: true,
     };
 
@@ -19,8 +18,8 @@ function UserProfile(props) {
     const [username, setUsername] = useState (initialState.username);
     const [email, setEmail] = useState (initialState.email);
     const [isLoading, setIsLoading] = useState (initialState.isLoading);
-    const [verified, setVarMes] = useState (initialState.verified);
-    const [isverified, setVerified] = useState (initialState.isverified);
+    const [verified, setVerified] = useState (initialState.verified);
+    const [isVerified, setIsVerified] = useState (initialState.isVerified);
 
 
     const localuser = JSON.parse(localStorage.getItem('user'));
@@ -30,8 +29,8 @@ function UserProfile(props) {
             setUser_id(props.user.user_id);
             setUsername(props.user.username);
             setEmail(props.user.email);
-            setVarMes(props.user.verified);
-            setVerified(true);
+            setVerified(props.user.verified);
+            setIsVerified(true);
             setIsLoading(false);
         }
         else {
@@ -40,14 +39,19 @@ function UserProfile(props) {
                 setUser_id(user.data.user_id);
                 setUsername(user.data.name);
                 setEmail(user.data.email);
-                setVarMes(user.data.verified);
-                setVerified(true);
+                setVerified(user.data.verified);
+                if(user.data.verified != true) {
+                    setIsVerified(false);
+                } else {
+                    setIsVerified(true);
+                }
                 setIsLoading(false);
             }).catch((err) => {
                 console.log(err); 
             });
         }
     }, []);
+
 
     if (isLoading) {
         return (
@@ -56,10 +60,32 @@ function UserProfile(props) {
             </>
         )
     }
-    else if(isverified != false) {
+    else if(isVerified != true) {
         return (
             <>
-                <Container>
+                <Box>
+                    <Row>
+                        <Col>
+                            <Box>
+                                <h1>User Profile</h1>
+                                <Row>
+                                    <h4>Username: {username}</h4>
+                                </Row>
+
+                                <Row>
+                                    <h4>Email: {email}</h4>
+                                </Row>
+
+                                <Row>
+                                    <h4>Verified Status: Please check your email, you still need to varify your email!</h4> 
+                                    <h4>You will not be able to make a review until your account has been verified!</h4>
+                                </Row>
+                            </Box>
+                        </Col>
+                    </Row>
+                </Box>
+
+                {/* <Container>
                     <Row>
                         <Col>
                             <h1>User Profile</h1>
@@ -73,40 +99,63 @@ function UserProfile(props) {
                                 </Form.Group>
 
                                 <Form.Group>
-                                    <Form.Label>Verified Status: Need to varify your email!</Form.Label>
+                                    <Form.Label>Verified Status: Please check your email, you still need to varify your email! You will not be able to make a review until your account has been verified!</Form.Label>                                
                                 </Form.Group>
 
                             </Form>
                         </Col>
                     </Row>
-                </Container>
+                </Container> */}
             </>
         )
     }
-    else if (isverified) {
+    else if (isVerified) {
         return (
-            <Container>
-                <Row>
-                    <Col>
-                        <h1>User Profile</h1>
-                        <Form>     
+            <>
+                <Box>
+                    <Row>
+                        <Col>
+                            <Box>
+                                <h1>User Profile</h1>
+                                <Row>
+                                    <h4>Username: {username}</h4>
+                                </Row>
 
-                            <Form.Group>
-                                <Form.Label>Username: {username}</Form.Label>
-                            </Form.Group>
+                                <Row>
+                                    <h4>Email: {email}</h4>
+                                </Row>
 
-                            <Form.Group>
-                                <Form.Label>Email: {email}</Form.Label>
-                            </Form.Group>
+                                <Row>
+                                    <h4>Verified Status: You are verified</h4>
+                                </Row>
+                            </Box>
+                        </Col>
+                    </Row>
+                </Box>
+            </>
 
-                            <Form.Group>
-                                <Form.Label>Verified Status: You are verified</Form.Label>
-                            </Form.Group>
+            // <Container>
+            //     <Row>
+            //         <Col>
+            //             <h1>User Profile</h1>
+            //             <Form>     
 
-                        </Form>
-                    </Col>
-                </Row>
-            </Container>
+            //                 <Form.Group>
+            //                     <Form.Label>Username: {username}</Form.Label>
+            //                 </Form.Group>
+
+            //                 <Form.Group>
+            //                     <Form.Label>Email: {email}</Form.Label>
+            //                 </Form.Group>
+
+            //                 <Form.Group>
+            //                     <Form.Label>Verified Status: You are verified</Form.Label>
+            //                 </Form.Group>
+
+            //             </Form>
+            //         </Col>
+            //     </Row>
+            // </Container>
         )
     }
 }
