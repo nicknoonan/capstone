@@ -12,6 +12,7 @@ function UserProfile(props) {
         email: "",
         id: "",
         isLoading: true,
+        isToken: true,
     };
 
     const [user_id, setUser_id] = useState (initialState.user_id);
@@ -19,18 +20,14 @@ function UserProfile(props) {
     const [email, setEmail] = useState (initialState.email);
     const [id, setId] = useState (initialState.id);
     const [isLoading, setIsLoading] = useState (initialState.isLoading);
+    const [isToken, setIsToken] = useState (initialState.isToken);
 
-
-    const search = useLocation().search;
-
-    // Our state to store fetched cache data
-    const [cacheData, setCacheData] = React.useState();
-  
     const localuser = JSON.parse(localStorage.getItem('user'));
     
     // ID param
     // const idParam = localuser.getItem('id');
     const idParam = 0;
+
     // token param
     // const tokenParam =
     const tokenParam = 0;
