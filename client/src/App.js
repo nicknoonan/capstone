@@ -14,6 +14,7 @@ import Property from './pages/Property';
 import Unit from './pages/Unit';
 import { useEffect, useState } from 'react';
 import { get_user } from './api/User'
+import UserProfile from './components/UserProfile/UserProfile';
 
 
 // Included home and about in App's div
@@ -58,6 +59,7 @@ function App() {
       <Route classname="route" exact path="/agency" component={Agency} />
       <Route classname="route" exact path="/property" component={Property} />
       <Route classname="route" exact path="/unit" component={Unit} />
+      <Route className="route" exact path='/userprofile' component={UserProfile} />
       <Footer />
     </div>
   );

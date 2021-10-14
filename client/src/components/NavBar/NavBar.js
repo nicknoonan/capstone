@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { Ul, Li } from './NavBarStyles';
 import './NavBar.css';
 import { Button } from '../Button';
+import UserProfile from "../UserProfile/UserProfile";
+
 
 function Navbar(props) {
   const [click, setClick] = useState(false);
@@ -54,7 +56,7 @@ function Navbar(props) {
                   Browse
                 </Link>
               </li>
-              <li className='nav-item'>
+              {/* <li className='nav-item'>
                 <Link
                   to='/About'
                   className='nav-links'
@@ -62,12 +64,15 @@ function Navbar(props) {
                 >
                   About
                 </Link>
-              </li>
+              </li> */}
               <li className='nav-item'>
                 
                 <a className='nav-links' onClick={handleLogout}>
                   Logout
                 </a>
+              </li>
+              <li className='nav-item'>
+                <Link to="/userprofile" className='nav-links' onClick={closeMobileMenu}>View Profile</Link>
               </li>
             </ul>
           </div>
