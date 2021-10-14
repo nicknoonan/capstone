@@ -10,39 +10,38 @@ function UserProfile(props) {
         user_id: "",
         username: "",
         email: "",
-        id: "",
+        verified: "",
+        isverified: false,
         isLoading: true,
-        isToken: true,
     };
 
     const [user_id, setUser_id] = useState (initialState.user_id);
     const [username, setUsername] = useState (initialState.username);
     const [email, setEmail] = useState (initialState.email);
-    const [id, setId] = useState (initialState.id);
     const [isLoading, setIsLoading] = useState (initialState.isLoading);
-    const [isToken, setIsToken] = useState (initialState.isToken);
+    const [verified, setVarMes] = useState (initialState.verified);
+    const [isverified, setVerified] = useState (initialState.isverified);
+
 
     const localuser = JSON.parse(localStorage.getItem('user'));
-    
-    // ID param
-    // const idParam = localuser.getItem('id');
-    const idParam = 0;
-
-    // token param
-    // const tokenParam =
-    const tokenParam = 0;
 
     useEffect(() => {
         if (props.user) {
+            setUser_id(props.user.user_id);
+            setUsername(props.user.username);
+            setEmail(props.user.email);
+            setVarMes(props.user.verified);
+            setVerified(true);
             setIsLoading(false);
         }
         else {
-            //console.log("user id param: " + );
-            get_user(idParam,tokenParam).then((user) => {
-                setUser_id(user.user_id);
-                setUsername(user.username);
-                setEmail(user.email);
-                setId(user._id);
+            get_user(localuser.id, localuser.token).then((user) => {
+                console.log(user);
+                setUser_id(user.data.user_id);
+                setUsername(user.data.name);
+                setEmail(user.data.email);
+                setVarMes(user.data.verified);
+                setVerified(true);
                 setIsLoading(false);
             }).catch((err) => {
                 console.log(err); 
@@ -50,39 +49,66 @@ function UserProfile(props) {
         }
     }, []);
 
-    // if (isLoading) {
-    //     return (
-    //         <>
-    //             <h3>loading....</h3>
-    //         </>
-    //     )
-    // }
-    // else {
+    if (isLoading) {
         return (
-            
-    
+            <>
+                <h3>loading....</h3>
+            </>
+        )
+    }
+    else if(isverified != false) {
+        return (
+            <>
+                <Container>
+                    <Row>
+                        <Col>
+                            <h1>User Profile</h1>
+                            <Form>     
+                                <Form.Group>
+                                    <Form.Label>Username: {username}</Form.Label>
+                                </Form.Group>
+
+                                <Form.Group>
+                                    <Form.Label>Email: {email}</Form.Label>
+                                </Form.Group>
+
+                                <Form.Group>
+                                    <Form.Label>Verified Status: Need to varify your email!</Form.Label>
+                                </Form.Group>
+
+                            </Form>
+                        </Col>
+                    </Row>
+                </Container>
+            </>
+        )
+    }
+    else if (isverified) {
+        return (
             <Container>
-                
                 <Row>
                     <Col>
                         <h1>User Profile</h1>
                         <Form>     
+
                             <Form.Group>
-                                <Form.Label>Username</Form.Label>
-                                <Form.Label>{username}</Form.Label>
+                                <Form.Label>Username: {username}</Form.Label>
                             </Form.Group>
 
                             <Form.Group>
-                                <Form.Label>Email</Form.Label>
-                                <Form.Label>{email}</Form.Label>
+                                <Form.Label>Email: {email}</Form.Label>
                             </Form.Group>
+
+                            <Form.Group>
+                                <Form.Label>Verified Status: You are verified</Form.Label>
+                            </Form.Group>
+
                         </Form>
                     </Col>
                 </Row>
             </Container>
         )
-//     }
-
+    }
 }
 
    export default (UserProfile);
