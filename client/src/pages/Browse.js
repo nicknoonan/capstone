@@ -1,11 +1,10 @@
 import React from "react";
-import Agency from "../components/Agency/Agency";
-import get_all_agencies from "../api/Agency";
-import PropTypes from 'prop-types';
 import { AgencyList } from "../components/Agency/Agency";
 import { PropertyList } from "../components/Property/Property";
 import { UnitList } from "../components/Unit/Unit";
-import { Dropdown } from "react-bootstrap";
+// import { Dropdown } from "react-bootstrap";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const options = [
   {
@@ -25,13 +24,13 @@ class Browse extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { item: "agency", };
+    this.state = { item: 'Agency', page: "" };
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(e) {
-    console.log("Filter Applied");
-    this.setState({ item: e.target.value });
+    console.log("item selected");
+    this.setState({ item: e.target.value, page: e.target.value });
   }
 
   selected() {

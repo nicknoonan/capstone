@@ -5,6 +5,7 @@ import NewReviewForm from '../components/Review/NewReviewForm';
 import {
   Row, Col, Container
 } from 'react-bootstrap';
+import UnitReview from '../components/Review/UnitReview';
 
 
 function Unit(props) {
@@ -106,6 +107,7 @@ function Unit(props) {
           </Col>
         </Container>
         <NewReviewForm enabled={true} review_type={"agency_t"} review_of={id}></NewReviewForm>
+        <UnitReview />
 
       </>
     );

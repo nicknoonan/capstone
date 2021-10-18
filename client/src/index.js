@@ -4,7 +4,7 @@ import { GlobalStyles } from './global-styles'
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
+//import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Imported the browser router from the react
 // router dom
