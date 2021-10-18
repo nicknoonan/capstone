@@ -160,7 +160,7 @@ class LoginForm extends React.Component {
           </Box>
         </div>
       );
-    }
+    }  
     else if (this.state.isAuth) {
       return (
         <>
