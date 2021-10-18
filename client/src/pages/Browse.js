@@ -11,14 +11,17 @@ const options = [
   {
     label: "Agency",
     value: "agency",
+    enabled: true
   },
   {
     label: "Unit",
     value: "unit",
+    enabled: false
   },
   {
     label: "Property",
     value: "property",
+    enabled: false
   },
 ];
 class Browse extends React.Component {
@@ -29,90 +32,17 @@ class Browse extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(e) {
+  handleFilterChange(e) {
     console.log("Filter Applied");
     this.setState({ item: e.target.value });
   }
-
-  selected() {
-    this.setState({
-
-    })
-  }
-
-
-
-
-
   render() {
-
-    // if(options.value = "agency") {
-    //   return (
-    //     <>
-    //         <div>
-    //         <h1>Browsing Agencies</h1>
-
-    //         <div className="select-container">
-    //           <select value={this.state.item} onChange={this.handleChange}>
-
-    //             {options.map((option) => (
-    //               <option value={option.value}>{option.label}</option>
-    //             ))}
-
-    //           </select>
-    //         </div>
-
-    //         <AgencyList />
-    //       </div>
-    //     </>
-    //   );
-    // } else if (options.value = "unit") {
-    //   return (
-    //     <>
-    //         <div>
-    //         <h1>Browsing Units</h1>
-
-    //         <div className="select-container">
-    //           <select value={this.state.item} onChange={this.handleChange}>
-
-    //             {options.map((option) => (
-    //               <option value={option.value}>{option.label}</option>
-    //             ))}
-
-    //           </select>
-    //         </div>
-
-    //         <UnitList />
-    //       </div>
-    //     </>
-    //   );
-    // } else if (options.value = "property") {
-    //   return (
-    //     <>
-    //         <div>
-    //         <h1>Browsing Properties</h1>
-
-    //         <div className="select-container">
-    //           <select value={this.state.item} onChange={this.handleChange}>
-
-    //             {options.map((option) => (
-    //               <option value={option.value}>{option.label}</option>
-    //             ))}
-
-    //           </select>
-    //         </div>
-
-    //         <PropertyList />
-    //       </div>
-    //     </>
-    //   );
-    // } else {
     return (
       <div>
         <h1>Browse Boone Housing Help</h1>
 
         <div className="select-container">
-          <select value={this.state.item} onChange={this.handleChange}>
+          <select value={this.state.item} onChange={this.handleFilterChange}>
 
             {options.map((option) => (
               <option value={option.value}>{option.label}</option>
