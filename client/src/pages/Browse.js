@@ -29,7 +29,7 @@ class Browse extends React.Component {
   constructor(props) {
     super(props);
     this.state = { item: "agency", };
-    this.handleChange = this.handleChange.bind(this);
+    this.handleFilterChange = this.handleFilterChange.bind(this);
   }
 
   handleFilterChange(e) {
