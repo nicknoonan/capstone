@@ -63,14 +63,6 @@ class PropertyList extends React.Component {
     };
   }
   componentDidMount() {
-    get_all_properties().then((all_properties) => {
-      this.setState({
-        isLoaded: true,
-        properties: all_properties
-      });
-    }).catch((err) => {
-      console.log(err);
-    })
   }
   render() {
     const { isLoaded } = this.state;
@@ -80,6 +72,14 @@ class PropertyList extends React.Component {
       );
     }
     else {
+      get_all_properties().then((all_properties) => {
+        this.setState({
+          isLoaded: true,
+          properties: all_properties
+        });
+      }).catch((err) => {
+        console.log(err);
+      });
       if (!isLoaded) {
         return <div>loading properties...</div>;
       }

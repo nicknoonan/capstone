@@ -72,14 +72,6 @@ class UnitList extends React.Component {
     };
   }
   componentDidMount() {
-    get_all_units().then((all_units) => {
-      this.setState({
-        isLoaded: true,
-        units: all_units
-      });
-    }).catch((err) => {
-      console.log(err);
-    })
   }
   render() {
     const { isLoaded } = this.state;
@@ -89,6 +81,14 @@ class UnitList extends React.Component {
       );
     }
     else {
+      get_all_units().then((all_units) => {
+        this.setState({
+          isLoaded: true,
+          units: all_units
+        });
+      }).catch((err) => {
+        console.log(err);
+      });
       if (!isLoaded) {
         return <div>loading units...</div>;
       }

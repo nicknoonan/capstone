@@ -60,14 +60,16 @@ class AgencyList extends React.Component {
     };
   }
   componentDidMount() {
-    get_all_agencies().then((all_agencies) => {
-      this.setState({
-        isLoaded: true,
-        agencies: all_agencies
+    if (this.props.enabled) {
+      get_all_agencies().then((all_agencies) => {
+        this.setState({
+          isLoaded: true,
+          agencies: all_agencies
+        });
+      }).catch((err) => {
+        console.log(err);
       });
-    }).catch((err) => {
-      console.log(err);
-    })
+    }
   }
   render() {
     const { isLoaded } = this.state;
