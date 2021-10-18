@@ -16,7 +16,7 @@ async function get_verify_user(req, res) {
   }
   catch (err) {
     let message = 'Token is invalid ' + err + ' : ' + token;
-    res.status(409).json({ message });
+    res.status(400).json({ message });
     error = true;
   }
   if (!error) {
@@ -59,17 +59,6 @@ async function new_verify(email) {
     });
   });
 }
-//const new_agency = new Agency({ name, address, website, email, phone, rating });
-//        //console.log('saving agency...');
-//        //save the agency
-//        try {
-//          await new_agency.save();
-//          res.status(201).json({id: new_agency._id});
-//          //console.log('saved agency to db');
-//        }
-//        catch (error) { //server error occured trying to save the agency
-//          res.status(500).json({ message: error.message });
-//          //console.log('failed to save agency to db');
 
 async function send_verification_email(rec_email) {
   return new Promise(async (resolve, reject) => {
@@ -95,10 +84,10 @@ async function send_verification_email(rec_email) {
         let info = await transporter.sendMail({
           from: '"Boone Housing Help" <' + EMAIL + '>',
           to: rec_email,
-          subject: "Please verify your email",
-          text: "Please verify. " + verification_url
+          subject: "Please verify",
+          text: "Please verify your email address. " + verification_url
         });
-        console.log("Message sent: %s", info.messageId);
+        console.log("Email verification message sent: %s", info.messageId);
         resolve();
       }
       else {
