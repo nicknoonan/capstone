@@ -61,6 +61,17 @@ class AgencyList extends React.Component {
   }
   componentDidMount() {
     if (this.props.enabled) {
+      
+    }
+  }
+  render() {
+    const { isLoaded } = this.state;
+    if (this.props.enabled == false) {
+      return (
+        <></>
+      );
+    }
+    else {
       get_all_agencies().then((all_agencies) => {
         this.setState({
           isLoaded: true,
@@ -69,17 +80,6 @@ class AgencyList extends React.Component {
       }).catch((err) => {
         console.log(err);
       });
-    }
-  }
-  render() {
-    const { isLoaded } = this.state;
-    if (this.props.enabled == false) {
-      return (
-        <>
-        </>
-      );
-    }
-    else {
       if (!isLoaded) {
         return <div>loading agencies...</div>;
       }

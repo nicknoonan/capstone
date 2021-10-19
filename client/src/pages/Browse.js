@@ -23,7 +23,7 @@ const options = [
 ];
 const agency_t = 0;
 const unit_t = 1;
-const property_t = 2
+const property_t = 2;
 const initial_state = {
   filter_item: [true, false, false]
 };
