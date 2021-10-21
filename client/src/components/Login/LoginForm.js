@@ -6,6 +6,7 @@ import {
   CardTitle, CardSubtitle, Button, Nav, Row, Col, Container
 } from 'react-bootstrap';
 import Box from '@material-ui/core/Box';
+import '../../App.css';
 class LoginForm extends React.Component {
   constructor(props){
     super(props);
@@ -161,7 +162,7 @@ class LoginForm extends React.Component {
           <Box>
               <Row>
                   <Col>
-                      <h2>Sign In</h2>
+                      <Box sx={{margin:30}}><h2 className='Pageheader1'>Sign In</h2></Box>
                       <Box
                         sx={{
                           bgcolor: 'rgb(238,238,228)',
@@ -169,23 +170,24 @@ class LoginForm extends React.Component {
                           borderRadius: 1,
                           p: 2,
                           minWidth: 300,
+                          margin: 30,
                         }}
                       >
                           {/* Sign in Box */}
 
-                          <h4>Email</h4>
+                          <h4 className='SignInText'>Email</h4>
                               <label>
-                                <input type="text" value={this.state.username} onChange={this.handleUsername} />
+                                <input className="field" type="text" value={this.state.username} onChange={this.handleUsername} />
                               </label>
 
                           <form onSubmit={this.handleSubmit}>
 
-                            <h4>Password</h4>
+                            <h4 className='SignInText'>Password</h4>
                                 <label>
-                                <input type="password" value={this.state.password} onChange={this.handlePassword} />
+                                <input className="field" type="password" value={this.state.password} onChange={this.handlePassword} />
                                 </label>
                                 <h1></h1>
-                                <input type="submit" value="Login"/>
+                                <input className='button' type="submit" value="Login"/>
 
                           </form>
 
@@ -193,10 +195,13 @@ class LoginForm extends React.Component {
                   </Col>
 
                   <Col>
-                      <Box>
+                      <Box sx={{margin:30}}>
                           {/* Need to make an account? Box */}
-                          <h2>Need to make an account?</h2>
-                          <Nav.Link href='signup'><input type="submit" value="Sign Up" /></Nav.Link>
+                          <h2 className='Pageheader1'>Need an account?</h2>
+                          <Box sx={{margin:30}}>
+                            <h1 className='accountDesc'>Create an account so you can post reviews about housing agencies, rental properties, and rental units that you have experience renting from.</h1>
+                            <Nav.Link href='signup'><input className='button' type="submit" value="Sign Up" /></Nav.Link>
+                          </Box>
                       </Box>
                   </Col>
               </Row>

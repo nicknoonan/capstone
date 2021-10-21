@@ -35,7 +35,6 @@ function Footer() {
           <div class='footer-logo'>
             <Link to='/' className='social-logo'>
               BHH
-              <i class='fab fa-typo3' />
             </Link>
           </div>
           <small class='website-rights'>BHH © 2021</small>

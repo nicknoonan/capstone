@@ -58,6 +58,53 @@
   font-size: 100px;
 }
 
+/* Sign In page CSS */
+
+.Pageheader1 {
+  font-size: 40px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  color: #595622;
+}
+
+.SignInText {
+  font-size: 25px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  color: #595622;
+}
+
+.accountDesc {
+  font-size: 16px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  text-align: justify;
+  ;
+}
+
+.field {
+  width: 300%;
+  height: 30px;
+  border-radius: 4px;
+  position: relative;
+  background-color: rgb(255, 255, 255);
+  transition: 0.3s all;
+}
+
+.signInField {
+  width: 100%;
+}
+
+.button {
+    display: inline-block;
+    width: 100px;
+    height: 2rem;
+    color: #ffffff;
+    border: 0;
+    border-color:#ffffff;
+    background-color: #F6832A;
+    cursor: pointer;
+    font-size: 20px;
+
+}
+
 /* .sign-up {
   background-image: url('https://via.placeholder.com/600');
   background-position: center;

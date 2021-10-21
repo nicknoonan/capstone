@@ -3,6 +3,12 @@ import { login_user, get_user } from '../../api/User'
 import React, { useState, useEffect } from 'react';
 import { sign_up_user } from '../../api/User';
 import Signup from '../../pages/Signup';
+import Box from '@material-ui/core/Box';
+import '../../App.css';
+import {
+  Card, CardImg, CardText, CardBody,
+  CardTitle, CardSubtitle, Button, Nav, Row, Col, Container
+} from 'react-bootstrap';
 
 export default function SignupForm(props) {
 
@@ -107,22 +113,56 @@ export default function SignupForm(props) {
   else {
     return (
       <>
-        <h2>sign up form</h2>
-        <form>
-          <label>
-            name:
-            <input type="text" value={name} onChange={handleName} />
-          </label>
-          <label>
-            email:
-            <input type="text" value={email} onChange={handleEmail} />
-          </label>
-          <label>
-            password:
-            <input type="password" value={password} onChange={handlePassword} />
-          </label>
-          <button onClick={handleSubmit}>submit</button>
-        </form>
+        <Box>
+          <Row>
+            <Col>
+              <Box sx={{margin: 30}}><h2 className='Pageheader1'>Create an Account</h2></Box>
+              <Box 
+              sx={{
+              bgcolor: 'rgb(238,238,228)',
+              boxShadow: 1,
+              borderRadius: 1,
+              p: 2,
+              minWidth: 300,
+              margin: 30,
+              }}>
+
+              <form>
+                
+                <h4 className='SignInText'>Name</h4>
+                <label>
+                  <input className='field' type="text" value={name} onChange={handleName} />
+                </label>
+                
+
+                <h4 className='SignInText'>Email</h4>
+                <label>
+                  <input className='field' type="text" value={email} onChange={handleEmail} />
+                </label>
+                
+
+                <h4 className='SignInText'>Password</h4>
+                <label>
+                  <input className='field' type="password" value={password} onChange={handlePassword} />
+                </label>
+                <h1></h1>
+                <button className='button' onClick={handleSubmit}>Submit</button>
+                
+
+              </form>
+              </Box>
+            </Col>
+
+            <Col>
+              <Box>
+                <Card>
+                  {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
+                </Card>
+              </Box>
+            </Col>
+
+          </Row>
+        </Box>
       </>
     );
   }
