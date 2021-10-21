@@ -7,6 +7,7 @@ const { post_new_user, get_user, post_login, delete_user } = require('./controll
 const { post_review, get_review, delete_review } = require('./controllers/Review');
 const { get_sample_model, post_sample_model } = require('./controllers/sampleroute');
 const { get_verify_user } = require('./controllers/Verify');
+const { post_create_recover, post_update_password } = require('./controllers/Recover');
 const auth = require('../middleware/auth');
 const admin_auth = require('../middleware/admin_auth');
 const router = express.Router();
@@ -42,5 +43,8 @@ router.post('/api/login', post_login);
 router.delete('/api/user/id:id', admin_auth, delete_user);
 
 router.get('/api/verify', get_verify_user);
+
+router.post('/api/recover',post_create_recover);
+router.post('/api/update_password',post_update_password);
 
 module.exports = { router };

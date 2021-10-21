@@ -7,7 +7,7 @@ import {
 } from 'react-bootstrap';
 import Box from '@material-ui/core/Box';
 class LoginForm extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       username: '',
@@ -30,46 +30,46 @@ class LoginForm extends React.Component {
     }
     catch (err) {
       //console.log(err);
-      this.setState({loading:false});
+      this.setState({ loading: false });
       return;
     }
     if (localuser) {
       get_user(localuser.id, localuser.token)
-      .then((res) => {
-        if (res.data._id) {
-          this.setState({loading:false});
-          this.setState({isSessionAuth: true});
-          this.setState({isAuth: true});
-          setTimeout(() => {
-            window.location = '/';
-          }, 1500);
-        }
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-        this.setState({loading:false});
-      });
+        .then((res) => {
+          if (res.data._id) {
+            this.setState({ loading: false });
+            this.setState({ isSessionAuth: true });
+            this.setState({ isAuth: true });
+            setTimeout(() => {
+              window.location = '/';
+            }, 1500);
+          }
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+          this.setState({ loading: false });
+        });
     }
-    this.setState({loading:false});
+    this.setState({ loading: false });
   }
   handleChange(event) {
-    this.setState({value: event.target.value});
+    this.setState({ value: event.target.value });
   }
   handleUsername(event) {
-    this.setState({username: event.target.value});
+    this.setState({ username: event.target.value });
   }
   handlePassword(event) {
-    this.setState({password: event.target.value});
+    this.setState({ password: event.target.value });
   }
   handleClear(event) {
     console.log('clear!');
-    localStorage.setItem('user','');
-    this.setState({isAuth: false});
-    this.setState({isSessionAuth: false});
+    localStorage.setItem('user', '');
+    this.setState({ isAuth: false });
+    this.setState({ isSessionAuth: false });
   }
   handleSubmit(event) {
-    this.setState({isWaiting: true});
+    this.setState({ isWaiting: true });
     //alert('login attempt submitted: ' + this.state.username + ' ' + this.state.password);
     login_user(this.state.username, this.state.password)
       .then((res) => {
@@ -82,9 +82,9 @@ class LoginForm extends React.Component {
           email: res.user.email
         };
         //console.log(user);
-        localStorage.setItem('user',JSON.stringify(user));
-        this.setState({isAuth: true});
-        this.setState({isWaiting: false});
+        localStorage.setItem('user', JSON.stringify(user));
+        this.setState({ isAuth: true });
+        this.setState({ isWaiting: false });
         setTimeout(() => {
           if (this.state.isAuth) { window.location = '/' };
         }, 1500);
@@ -92,9 +92,9 @@ class LoginForm extends React.Component {
       .catch((err) => {
         console.log(err);
         alert('error. please try again later.');
-        this.setState({isWaiting: false});
+        this.setState({ isWaiting: false });
       });
-    
+
     event.preventDefault();
   }
   render() {
@@ -106,119 +106,76 @@ class LoginForm extends React.Component {
       );
     }
     else if (this.state.isWaiting) {
-      return(
+      return (
         <div>
           authenticating...
         </div>
       );
     }
     else if (!this.state.isAuth) {
-      return(
-        // <div>
-          
-          
-        //   <Card>
-        //     <h2>Sign In</h2>
-        //     <form onSubmit={this.handleSubmit}>
-              
-        //       <Container>
-        //         <Col>
-        //           <Row sm>
-        //             <h4>Email</h4>
-        //             <label>
-        //               <input type="text" value={this.state.username} onChange={this.handleUsername} />
-        //             </label>
-
-        //               {/* <div className="input-group">
-        //               <label htmlFor="username">Username:</label>
-        //               <input
-        //                 type="text"
-        //                 name="username"
-        //                 className="login-input"
-        //                 placeholder="Username"/>
-        //               </div> */}
-
-        //             <h4>Password</h4>
-        //             <label>
-        //              <input type="password" value={this.state.password} onChange={this.handlePassword} />
-        //             </label>
-        //           </Row>
-
-        //           <Row sm = 'auto'>
-        //             <input type="submit" value="Login" />
-        //           </Row>
-
-        //         </Col>
-        //       </Container>
-
-            
-        //     </form>
-        //   </Card> 
-          
-        // </div>
-        
+      return (
         <div>
           <Box>
-              <Row>
-                  <Col>
-                      <h2>Sign In</h2>
-                      <Box
-                        sx={{
-                          bgcolor: 'rgb(238,238,228)',
-                          boxShadow: 1,
-                          borderRadius: 1,
-                          p: 2,
-                          minWidth: 300,
-                        }}
-                      >
-                          {/* Sign in Box */}
+            <Row>
+              <Col>
+                <h2>Sign In</h2>
+                <Box
+                  sx={{
+                    bgcolor: 'rgb(238,238,228)',
+                    boxShadow: 1,
+                    borderRadius: 1,
+                    p: 2,
+                    minWidth: 300,
+                  }}
+                >
+                  {/* Sign in Box */}
 
-                          <h4>Email</h4>
-                              <label>
-                                <input type="text" value={this.state.username} onChange={this.handleUsername} />
-                              </label>
+                  <h4>Email</h4>
+                  <label>
+                    <input type="text" value={this.state.username} onChange={this.handleUsername} />
+                  </label>
 
-                          <form onSubmit={this.handleSubmit}>
+                  <form onSubmit={this.handleSubmit}>
 
-                            <h4>Password</h4>
-                                <label>
-                                <input type="password" value={this.state.password} onChange={this.handlePassword} />
-                                </label>
-                                <h1></h1>
-                                <input type="submit" value="Login"/>
+                    <h4>Password</h4>
+                    <label>
+                      <input type="password" value={this.state.password} onChange={this.handlePassword} />
+                    </label>
+                    <h1></h1>
+                    <input type="submit" value="Login" />
+                    <a href='recover'>forget your password?</a>
+                  </form>
 
-                          </form>
+                </Box>
+              </Col>
 
-                      </Box>
-                  </Col>
-
-                  <Col>
-                      <Box>
-                          {/* Need to make an account? Box */}
-                          <h2>Need to make an account?</h2>
-                          <Nav.Link href='signup'><input type="submit" value="Sign Up" /></Nav.Link>
-                      </Box>
-                  </Col>
-              </Row>
+              <Col>
+                <Box>
+                  {/* Need to make an account? Box */}
+                  <h2>Need to make an account?</h2>
+                  <Nav.Link href='signup'><input type="submit" value="Sign Up" /></Nav.Link>
+                </Box>
+              </Col>
+            </Row>
           </Box>
         </div>
       );
     }  
     else if (this.state.isAuth) {
-      return(
+      return (
         <>
-        redirecting home.
+          redirecting home.
         </>
       );
     }
     else {
       return (
         <>
-        oops an error occured.
+          oops an error occured.
         </>
       );
     }
   }
 }
 
-export default LoginForm; 
+export default LoginForm;
