@@ -188,6 +188,8 @@ class LoginForm extends React.Component {
                                 </label>
                                 <h1></h1>
                                 <input className='button' type="submit" value="Login"/>
+                                <a href='recover'>forget your password?</a>
+
 
                           </form>
 

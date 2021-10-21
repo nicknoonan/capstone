@@ -12,6 +12,7 @@ import Agency from './pages/Agency';
 import Property from './pages/Property';
 import Unit from './pages/Unit';
 import Verify from './pages/Verify';
+import RecoverPassword from './pages/RecoverPassword';
 import { useEffect, useState } from 'react';
 import { get_user } from './api/User'
 import UserProfile from './components/UserProfile/UserProfile';
@@ -61,6 +62,7 @@ function App() {
       <Route classname="route" exact path="/unit" component={Unit} />
       <Route className="route" exact path='/userprofile' component={UserProfile} />
       <Route classname="route" exact path="/verify" component={Verify} />
+      <Route classname="route" exact path="/recover" component={RecoverPassword} />
       <Footer />
     </div>
   );
