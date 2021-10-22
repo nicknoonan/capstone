@@ -25,7 +25,7 @@
     "redux-thunk": "^2.3.0",
     "start": "^5.1.0",
     "styled-components": "^5.3.1",
-    "survey-react": "^1.8.72",
+    "survey-react": "^1.8.73",
     "web-vitals": "^1.1.2"
   },
   "scripts": {

@@ -31,7 +31,6 @@ class UnitReview extends Component {
             alert(resultAsString);
         }
 
-
         var json = { "pages": [{ "name": "page1", "elements": [{ "type": "boolean", "name": "LiveBool", "title": "Have you rented from this appartment?", "isRequired": true }, { "type": "boolean", "name": "workOrderBool", "title": "Did you have to fill out any work orders while living here?", "isRequired": true }, { "type": "rating", "name": "workOrderScore", "title": "If so, how efficiently were they carried out?", "isRequired": true }, { "type": "rating", "name": "overallScore", "title": "Overall, how satisfied were you living here?", "isRequired": true }, { "type": "comment", "name": "freeAnswer", "title": "What is your reasoning for your rating?", "isRequired": true }] }] }
 
         var survey = new Survey.Model(json);
