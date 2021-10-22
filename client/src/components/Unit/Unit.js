@@ -9,11 +9,9 @@ import {
 class Unit extends React.Component {
 
   render() {
-
     let spacetoU = this.props.unit.name;
     spacetoU = spacetoU.replace(/ /g, "_");
     let linktoAgency = "http://localhost:3000/Unit?name=" + this.props.unit.name;
-
     return (
       <>
         <Container>
@@ -81,21 +79,21 @@ class UnitList extends React.Component {
       );
     }
     else {
-      get_all_units().then((all_units) => {
-        this.setState({
-          isLoaded: true,
-          units: all_units
-        });
-      }).catch((err) => {
-        console.log(err);
-      });
       if (!isLoaded) {
+        get_all_units().then((all_units) => {
+          this.setState({
+            isLoaded: true,
+            units: all_units
+          });
+        }).catch((err) => {
+          console.log(err);
+        });
         return <div>loading units...</div>;
       }
       else {
         let { units } = this.state;
-        console.log("rendered");
-        console.log(units);
+        //console.log("rendered");
+        //console.log(units);
         const listItems = units.map((unit) =>
           <Unit unit={unit} />
         );

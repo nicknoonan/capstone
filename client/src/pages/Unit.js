@@ -42,7 +42,7 @@ function Unit(props) {
       setIsLoading(false);
     }
     else {
-      console.log("name param: " + nameParam);
+      //console.log("name param: " + nameParam);
       get_unit_by_name(nameParam).then((unit) => {
         setName(unit.name);
         setWebsite(unit.website);
@@ -106,9 +106,9 @@ function Unit(props) {
             </Row>
           </Col>
         </Container>
-        <NewReviewForm enabled={true} review_type={"agency_t"} review_of={id}></NewReviewForm>
+        <NewReviewForm enabled={false} review_type={"agency_t"} review_of={id}></NewReviewForm>
         
-        <UnitReview />
+        <UnitReview unit_id={id}/>
         
 
       </>

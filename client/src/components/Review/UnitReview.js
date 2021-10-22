@@ -2,72 +2,116 @@ import { Component } from "react";
 import 'survey-react/survey.css';
 import * as Survey from "survey-react";
 import ReactDOM from "react-dom";
+import { get_qmodel_by_type } from "../../api/Qmodel";
+import { get_qresults_by_user_id, new_qresult } from "../../api/Qresult";
 
+const UNIT_T = 'unit_t';
 
 class UnitReview extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-
+  constructor(props) {
+    super(props)
+    this.state = {
+      loading: true,
+      survey_json: {},
+      enabled: true,
+      user_id: "",
+      qmodel_id: "",
+      review_of_id: ""
+    }
+    this.onCompleteComponent = this.onCompleteComponent.bind(this)
+  }
+  onCompleteComponent = (sender) => {
+    let survey_result = sender.data;
+    console.log(survey_result);
+    let qresult = {
+      qmodel_id: this.state.qmodel_id,
+      user_id: this.state.user_id,
+      review_of_id: this.state.review_of_id,
+      survey_result: survey_result
+    };
+    console.log(qresult);
+    new_qresult(qresult).then((res) => {
+      this.setState({
+        isComplete: true
+      });
+    }).catch((err) => {
+      alert("error check console");
+      console.log(err);
+      console.log(err.message);
+    });
+    
+  }
+  componentDidMount() {
+    let user_id;
+    let unit_id = this.props.unit_id;
+    try {
+      let localuser = JSON.parse(localStorage.getItem('user'));
+      user_id = localuser.id;
+      this.setState({ user_id: localuser.id });
+    }
+    catch (err) {
+      alert("error check console");
+      console.log(err);
+      return;
+    }
+    get_qmodel_by_type(UNIT_T).then((qmodel) => {
+      get_qresults_by_user_id(user_id).then((qresults) => {
+        qresults.forEach((result) => {
+          //console.log(result);
+          if (result.review_of_id === unit_id) {
+            this.setState({ enabled: false });
+          }
+        });
+        if (this.state.enabled) {
+          this.setState({ 
+            survey_json: qmodel.survey_json, 
+            loading: false,
+            review_of_id: unit_id, 
+            qmodel_id: qmodel._id 
+          });
         }
-        this.onCompleteComponent = this.onCompleteComponent.bind(this)
+      }).catch((err) => {
+        alert("error check console");
+        console.log(err);
+      });
+      
+    }).catch((err) => {
+      alert("error check console");
+      console.log(err);
+    });
+  }
+  render() {
+    if (this.state.enabled) {
+      Survey.StylesManager.applyTheme("orange");
+      var json = this.state.survey_json;
+      var survey = new Survey.Model(json);
+      
+      var surveyRender = (!this.state.isComplete && !this.state.loading) ? (<
+        Survey.Survey json={json}
+        showCompletedPage={false}
+        onComplete={this.onCompleteComponent}
+        Survey model={survey}
+      />
+      ) : null;
+
+      var onSurveyCompletion = (this.state.isComplete && !this.state.loading) ? (
+        <div> Review Submitted </div>
+      ) : null;
+
+      var loadingAnimation = this.state.loading ? (
+        <h3>loading...</h3>
+      ) : null;
+
+      return (
+        <div> {surveyRender} {onSurveyCompletion} {loadingAnimation}</div>
+      );
     }
-    onCompleteComponent = (sender) => {
-        var resultAsString = JSON.stringify(sender.data);
-        console.log(resultAsString)
-        this.setState({
-            isComplete: true
-        })
+    else {
+      return (
+        <></>
+      );
     }
-
-
-
-    render() {
-
-        Survey.StylesManager.applyTheme("orange");
-
-        function onCompleteHandler(sender) {
-            var resultAsString = JSON.stringify(sender.data);
-            alert(resultAsString);
-        }
-
-        var json = { "pages": [{ "name": "page1", "elements": [{ "type": "boolean", "name": "LiveBool", "title": "Have you rented from this appartment?", "isRequired": true }, { "type": "boolean", "name": "workOrderBool", "title": "Did you have to fill out any work orders while living here?", "isRequired": true }, { "type": "rating", "name": "workOrderScore", "title": "If so, how efficiently were they carried out?", "isRequired": true }, { "type": "rating", "name": "overallScore", "title": "Overall, how satisfied were you living here?", "isRequired": true }, { "type": "comment", "name": "freeAnswer", "title": "What is your reasoning for your rating?", "isRequired": true }] }] }
-
-        var survey = new Survey.Model(json);
-        survey.onComplete.add(onCompleteHandler);
-        
-
-        // function sendDataToServer(survey) {
-        //     survey.sendResult('8ec85fc3-a5ff-4dc6-8f8a-9399317ae184');
-        // }
-
-        // var survey = new Survey.Survey(json);
-
-        // survey.onComplete.add(function(sender) {
-        //     document.querySelector('#surveyResult').textContent = "Result JSON:\n" + JSON.stringify(sender.data, null, 3);
-        //     sendDataToServer(survey);
-        // });
-
-        // ReactDOM.render(<Survey.Survey json={ surveyJSON } onComplete={ sendDataToServer } />, document.getElementById("surveyContainer"));
-
-
-        var surveyRender = !this.state.isComplete ? ( <
-            Survey.Survey json = { json }
-            showCompletedPage = { false }
-            onComplete = { this.onCompleteComponent }
-            Survey model = {survey}
-
-            />
-        ) : null
-
-        var onSurveyCompletion = this.state.isComplete ? ( 
-            <div> Review Submitted </div>
-        ) : null;
-
-        return ( 
-            <div> { surveyRender } { onSurveyCompletion } </div>
-        );
-    }
+  }
 }
 
 export default UnitReview;

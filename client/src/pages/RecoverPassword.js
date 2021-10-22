@@ -8,7 +8,7 @@ import { Button } from "react-bootstrap";
 function RecoverPassword(props) {
   const [] = useState();
   //const [auth, setAuth] = useState(false);
-  const [email, setEmail] = useState("nicknoonan86@gmail.com");
+  const [email, setEmail] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
   const [error, setError] = useState(false);
