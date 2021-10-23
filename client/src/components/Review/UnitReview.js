@@ -4,6 +4,7 @@ import * as Survey from "survey-react";
 import ReactDOM from "react-dom";
 import { get_qmodel_by_type } from "../../api/Qmodel";
 import { get_qresults_by_user_id, new_qresult } from "../../api/Qresult";
+import { get_user } from "../../api/User";
 
 const UNIT_T = 'unit_t';
 
@@ -43,49 +44,56 @@ class UnitReview extends Component {
   }
   componentDidMount() {
     let user_id;
+    let user_token;
     let unit_id = this.props.unit_id;
     try {
       let localuser = JSON.parse(localStorage.getItem('user'));
       user_id = localuser.id;
+      user_token = localuser.token;
       this.setState({ user_id: localuser.id });
     }
     catch (err) {
-      alert("error check console");
-      console.log(err);
+      console.log("no local user found " + err);
+      this.setState({ enabled: false });
       return;
     }
-    get_qmodel_by_type(UNIT_T).then((qmodel) => {
-      get_qresults_by_user_id(user_id).then((qresults) => {
-        qresults.forEach((result) => {
-          //console.log(result);
-          if (result.review_of_id === unit_id) {
-            this.setState({ enabled: false });
-          }
-        });
-        if (this.state.enabled) {
-          this.setState({ 
-            survey_json: qmodel.survey_json, 
-            loading: false,
-            review_of_id: unit_id, 
-            qmodel_id: qmodel._id 
+    get_user(user_id, user_token).then((res) => {
+      get_qmodel_by_type(UNIT_T).then((qmodel) => {
+        get_qresults_by_user_id(user_id).then((qresults) => {
+          qresults.forEach((result) => {
+            //console.log(result);
+            if (result.review_of_id === unit_id) {
+              this.setState({ enabled: false });
+            }
           });
-        }
+          if (this.state.enabled) {
+            this.setState({ 
+              survey_json: qmodel.survey_json, 
+              loading: false,
+              review_of_id: unit_id, 
+              qmodel_id: qmodel._id 
+            });
+          }
+        }).catch((err) => {
+          alert("error check console");
+          console.log(err);
+        });
+        
       }).catch((err) => {
         alert("error check console");
         console.log(err);
       });
-      
     }).catch((err) => {
-      alert("error check console");
-      console.log(err);
+      this.setState({ enabled: false });
     });
+    
   }
   render() {
     if (this.state.enabled) {
       Survey.StylesManager.applyTheme("orange");
       var json = this.state.survey_json;
       var survey = new Survey.Model(json);
-      
+
       var surveyRender = (!this.state.isComplete && !this.state.loading) ? (<
         Survey.Survey json={json}
         showCompletedPage={false}

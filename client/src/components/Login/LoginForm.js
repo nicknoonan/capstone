@@ -86,9 +86,7 @@ class LoginForm extends React.Component {
         localStorage.setItem('user',JSON.stringify(user));
         this.setState({isAuth: true});
         this.setState({isWaiting: false});
-        setTimeout(() => {
-          if (this.state.isAuth) { window.location = '/' };
-        }, 1500);
+        if (this.state.isAuth) { window.location = '/'; }
       })
       .catch((err) => {
         console.log(err);

@@ -33,7 +33,7 @@ export default function NewReviewForm(props) {
       localuser = JSON.parse(localStorage.getItem('user'));
     }
     catch (err) {
-      console.log(err);
+      console.log("no local user found " + err);
       return;
     }
     if (localuser) {
