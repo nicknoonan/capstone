@@ -61,7 +61,7 @@ class AgencyList extends React.Component {
   }
   componentDidMount() {
     if (this.props.enabled) {
-      
+
     }
   }
   render() {
@@ -72,21 +72,21 @@ class AgencyList extends React.Component {
       );
     }
     else {
-      get_all_agencies().then((all_agencies) => {
-        this.setState({
-          isLoaded: true,
-          agencies: all_agencies
-        });
-      }).catch((err) => {
-        console.log(err);
-      });
       if (!isLoaded) {
+        get_all_agencies().then((all_agencies) => {
+          this.setState({
+            isLoaded: true,
+            agencies: all_agencies
+          });
+        }).catch((err) => {
+          console.log(err);
+        });
         return <div>loading agencies...</div>;
       }
       else {
         let { agencies } = this.state;
-        console.log("rendered");
-        console.log(agencies);
+        //console.log("rendered");
+        //console.log(agencies);
         const listItems = agencies.map((agency) =>
           <Agency agency={agency} />
         );

@@ -270,4 +270,20 @@ delete_user_by_id = async (id, res) => {
   });
 }
 
+async function user_exists(user_id) {
+  return new Promise((resolve, reject) => {
+    User.findById(user_id, function(err, user) {
+      if (err) {
+        reject(err);
+      }
+      else if (user) {
+        resolve(true);
+      }
+      else {
+        resolve(false);
+      }
+    });
+  });
+}
+
 module.exports = { post_new_user, get_user, delete_user, post_login };

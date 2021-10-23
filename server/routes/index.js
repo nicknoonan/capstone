@@ -8,8 +8,10 @@ const { post_review, get_review, delete_review } = require('./controllers/Review
 const { get_sample_model, post_sample_model } = require('./controllers/sampleroute');
 const { get_verify_user } = require('./controllers/Verify');
 const { post_create_recover, post_update_password } = require('./controllers/Recover');
+const { post_qmodel, get_qmodel } = require('./controllers/Qmodel');
 const auth = require('../middleware/auth');
 const admin_auth = require('../middleware/admin_auth');
+const { post_qresult, get_qresult } = require('./controllers/Qresult');
 const router = express.Router();
 
 // / is currently the sample route
@@ -46,5 +48,11 @@ router.get('/api/verify', get_verify_user);
 
 router.post('/api/recover',post_create_recover);
 router.post('/api/update_password',post_update_password);
+
+router.post('/api/qmodel', post_qmodel);
+router.get('/api/qmodel', get_qmodel);
+
+router.post('/api/qresult', post_qresult);
+router.get('/api/qresult', get_qresult);
 
 module.exports = { router };

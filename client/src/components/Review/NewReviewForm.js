@@ -34,15 +34,15 @@ export default function NewReviewForm(props) {
       localuser = JSON.parse(localStorage.getItem('user'));
     }
     catch (err) {
-      console.log(err);
+      console.log("no local user found " + err);
       return;
     }
     if (localuser) {
       get_user(localuser.id, localuser.token)
         .then((res) => {
           setUser(res.data._id);
-          console.log(props.review_type);
-          console.log("review of: " + props.review_of);
+          //console.log(props.review_type);
+          //console.log("review of: " + props.review_of);
           if (props.review_type && props.review_of) {
             setLoading(false);
           }
@@ -52,7 +52,7 @@ export default function NewReviewForm(props) {
           if (res.data.verified) {
             setVerified(true);
           }
-          console.log(res);
+          //console.log(res);
         })
         .catch((err) => {
           console.log(err);

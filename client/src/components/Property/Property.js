@@ -72,21 +72,21 @@ class PropertyList extends React.Component {
       );
     }
     else {
-      get_all_properties().then((all_properties) => {
-        this.setState({
-          isLoaded: true,
-          properties: all_properties
-        });
-      }).catch((err) => {
-        console.log(err);
-      });
       if (!isLoaded) {
+        get_all_properties().then((all_properties) => {
+          this.setState({
+            isLoaded: true,
+            properties: all_properties
+          });
+        }).catch((err) => {
+          console.log(err);
+        });
         return <div>loading properties...</div>;
       }
       else {
         let { properties } = this.state;
-        console.log("rendered");
-        console.log(properties);
+        //console.log("rendered");
+        //console.log(properties);
         const listItems = properties.map((property) =>
           <Property property={property} />
         );
