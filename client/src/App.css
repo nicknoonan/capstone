@@ -80,7 +80,7 @@
 }
 
 .field {
-  width: 300%;
+  width: justify;
   height: 30px;
   border-radius: 4px;
   position: relative;
@@ -103,6 +103,12 @@
     cursor: pointer;
     font-size: 20px;
 
+}
+
+.passwordButton {
+  text-decoration: none;
+  color: #fff;
+  background-color: #F6832A;
 }
 
 /* .sign-up {

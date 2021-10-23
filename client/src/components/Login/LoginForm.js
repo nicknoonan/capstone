@@ -115,49 +115,7 @@ class LoginForm extends React.Component {
     }
     else if (!this.state.isAuth) {
       return(
-        // <div>
-          
-          
-        //   <Card>
-        //     <h2>Sign In</h2>
-        //     <form onSubmit={this.handleSubmit}>
-              
-        //       <Container>
-        //         <Col>
-        //           <Row sm>
-        //             <h4>Email</h4>
-        //             <label>
-        //               <input type="text" value={this.state.username} onChange={this.handleUsername} />
-        //             </label>
 
-        //               {/* <div className="input-group">
-        //               <label htmlFor="username">Username:</label>
-        //               <input
-        //                 type="text"
-        //                 name="username"
-        //                 className="login-input"
-        //                 placeholder="Username"/>
-        //               </div> */}
-
-        //             <h4>Password</h4>
-        //             <label>
-        //              <input type="password" value={this.state.password} onChange={this.handlePassword} />
-        //             </label>
-        //           </Row>
-
-        //           <Row sm = 'auto'>
-        //             <input type="submit" value="Login" />
-        //           </Row>
-
-        //         </Col>
-        //       </Container>
-
-            
-        //     </form>
-        //   </Card> 
-          
-        // </div>
-        
         <div>
           <Box>
               <Row>
@@ -169,7 +127,7 @@ class LoginForm extends React.Component {
                           boxShadow: 1,
                           borderRadius: 1,
                           p: 2,
-                          minWidth: 300,
+                          minWidth: 'justify',
                           margin: 30,
                         }}
                       >

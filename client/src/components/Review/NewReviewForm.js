@@ -3,6 +3,7 @@ import { get_user } from '../../api/User'
 import React, { useState, useEffect } from 'react';
 import { Button, ButtonGroup } from 'react-bootstrap';
 import { post_review } from '../../api/Review';
+import UnitReview from '../Review/UnitReview';
 
 export default function NewReviewForm(props) {
   const initialState = {
@@ -140,14 +141,15 @@ export default function NewReviewForm(props) {
     else {
       return (
         <>
-          <ButtonGroup className="me-2" aria-label="First group">
+          {/* <ButtonGroup className="me-2" aria-label="First group">
             <Button onClick={handleRating} disabled={buttonStatus[0]} value={1}>1</Button>
             <Button onClick={handleRating} disabled={buttonStatus[1]} value={2}>2</Button>
             <Button onClick={handleRating} disabled={buttonStatus[2]} value={3}>3</Button>
             <Button onClick={handleRating} disabled={buttonStatus[3]} value={4}>4</Button>
             <Button onClick={handleRating} disabled={buttonStatus[4]} value={5}>5</Button>
           </ButtonGroup>
-          <Button onClick={submitReview}>Submit Review</Button>
+          <Button onClick={submitReview}>Submit Review</Button> */}
+          <UnitReview />
         </>
       );
     }

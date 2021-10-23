@@ -1,7 +1,6 @@
 import { Component } from "react";
 import 'survey-react/survey.css';
 import * as Survey from "survey-react";
-import ReactDOM from "react-dom";
 
 
 class UnitReview extends Component {
@@ -36,21 +35,6 @@ class UnitReview extends Component {
 
         var survey = new Survey.Model(json);
         survey.onComplete.add(onCompleteHandler);
-        
-
-        // function sendDataToServer(survey) {
-        //     survey.sendResult('8ec85fc3-a5ff-4dc6-8f8a-9399317ae184');
-        // }
-
-        // var survey = new Survey.Survey(json);
-
-        // survey.onComplete.add(function(sender) {
-        //     document.querySelector('#surveyResult').textContent = "Result JSON:\n" + JSON.stringify(sender.data, null, 3);
-        //     sendDataToServer(survey);
-        // });
-
-        // ReactDOM.render(<Survey.Survey json={ surveyJSON } onComplete={ sendDataToServer } />, document.getElementById("surveyContainer"));
-
 
         var surveyRender = !this.state.isComplete ? ( <
             Survey.Survey json = { json }

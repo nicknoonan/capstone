@@ -2,7 +2,12 @@ import { useLocation } from 'react-router-dom';
 import { React, useState, useEffect } from "react";
 import { recover_pass, update_pass } from "../api/Recover";
 import { Button } from "react-bootstrap";
-
+import {
+  Card, CardImg, CardText, CardBody,
+  CardTitle, CardSubtitle, Nav, Row, Col, Container
+} from 'react-bootstrap';
+import Box from '@material-ui/core/Box';
+import '../App.css';
 
 
 function RecoverPassword(props) {
@@ -123,18 +128,41 @@ function RecoverPassword(props) {
   }
   else if (tokenLink) {
     return (
-      <form>
-        <h3>recover password</h3>
-        <label>
-          new password:
-          <input type="text" value={password} onChange={handlePassword} />
-        </label>
-        <label>
-          confirm password:
-          <input type="text" value={confirmPassword} onChange={handleConfirmPassword} />
-        </label>
-        <Button onClick={handleChangeSubmit}>submit</Button>
-      </form>
+      <Box>
+        <Row>
+
+          <Col>
+            <Box sx={{
+            bgcolor: 'rgb(238,238,228)',
+            boxShadow: 1,
+            borderRadius: 1,
+            p: 2,
+            minWidth: 'justify',
+            margin: 30,
+            }}>
+
+            <form>
+            <h2 className='SignInText'>New Password:</h2>
+            <label>
+              <input className='field' type="text" value={password} onChange={handlePassword} />
+            </label>
+
+            <h2 className='SignInText'>Confirm Password:</h2>
+            <label>
+              <input className='field' type="text" value={confirmPassword} onChange={handleConfirmPassword} />
+            </label>
+            <h1></h1>
+            <Button className='button' onClick={handleChangeSubmit}>submit</Button>
+            </form>
+            </Box>
+          </Col>
+
+          <Col>
+          
+          </Col>
+
+        </Row>
+      </Box>
     );
   }
   else if (!tokenLink) {

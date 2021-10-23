@@ -107,10 +107,7 @@ function Unit(props) {
           </Col>
         </Container>
         <NewReviewForm enabled={true} review_type={"agency_t"} review_of={id}></NewReviewForm>
-        
-        <UnitReview />
-        
-
+        {/* <UnitReview /> */}
       </>
     );
   }
