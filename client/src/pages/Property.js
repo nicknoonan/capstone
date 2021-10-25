@@ -1,6 +1,7 @@
 import { get_property_by_name } from '../api/Property';
 import { useLocation } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
+import PropReview from '../components/Review/PropReview'
 
 import {
   Row, Col, Container
@@ -79,14 +80,6 @@ function Property(props) {
               <h3>{website}</h3>
               <h3>{address}</h3>
             </Row>
-
-            {/* <Row>
-              <h3>{address}</h3>
-            </Row> */}
-
-          </Col>
-
-          <Col>
           
             <Row>
               <h3>{email}</h3>
@@ -101,6 +94,7 @@ function Property(props) {
             </Row>
           </Col>
         </Container>
+        <PropReview property_id={id} property_name={name}/>
 
       </>
     );

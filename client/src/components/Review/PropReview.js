@@ -5,9 +5,9 @@ import { get_qmodel_by_type } from "../../api/Qmodel";
 import { get_qresults_by_user_id, new_qresult } from "../../api/Qresult";
 import { get_user } from "../../api/User";
 
-const UNIT_T = 'unit_t';
+const PROPERTY_T = 'property_t';
 
-class UnitReview extends Component {
+class PropReview extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -27,7 +27,7 @@ class UnitReview extends Component {
       qmodel_id: this.state.qmodel_id,
       user_id: this.state.user_id,
       review_of_id: this.state.review_of_id,
-      review_of_name: this.props.unit_name,
+      review_of_name: this.props.property_name,
       survey_result: survey_result
     };
     console.log(qresult);
@@ -45,8 +45,8 @@ class UnitReview extends Component {
   componentDidMount() {
     let user_id;
     let user_token;
-    let unit_id = this.props.unit_id;
-    let unit_name = this.props.unit_name;
+    let property_id = this.props.property_id;
+    let property_name = this.props.property_name;
     try {
       let localuser = JSON.parse(localStorage.getItem('user'));
       user_id = localuser.id;
@@ -59,11 +59,11 @@ class UnitReview extends Component {
       return;
     }
     get_user(user_id, user_token).then((res) => {
-      get_qmodel_by_type(UNIT_T).then((qmodel) => {
+      get_qmodel_by_type(PROPERTY_T).then((qmodel) => {
         get_qresults_by_user_id(user_id).then((qresults) => {
           qresults.forEach((result) => {
             //console.log(result);
-            if (result.review_of_id === unit_id) {
+            if (result.review_of_id === property_id) {
               this.setState({ enabled: false });
             }
           });
@@ -71,7 +71,7 @@ class UnitReview extends Component {
             this.setState({ 
               survey_json: qmodel.survey_json, 
               loading: false,
-              review_of_id: unit_id, 
+              review_of_id: property_id, 
               qmodel_id: qmodel._id 
             });
           }
@@ -123,4 +123,4 @@ class UnitReview extends Component {
   }
 }
 
-export default UnitReview;
+export default PropReview;
