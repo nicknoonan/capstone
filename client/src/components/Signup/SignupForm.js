@@ -9,6 +9,10 @@ import {
   Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button, Nav, Row, Col, Container
 } from 'react-bootstrap';
+import Aload from '../loading/loading';
+import '../../App.css';
+import UserContext from "../../UserProvider";
+
 
 export default function SignupForm(props) {
 
@@ -31,6 +35,8 @@ export default function SignupForm(props) {
   function handleName(event) { setName(event.target.value); }
   function handleEmail(event) { setEmail(event.target.value); }
   function handlePassword(event) { setPassword(event.target.value); }
+
+
   useEffect(() => {
     let localuser;
     try {
@@ -84,9 +90,10 @@ export default function SignupForm(props) {
   }
   if (loading) {
     return (
-      <>
-        <h3>loading..</h3>
-      </>
+      <div>
+        <h2 className='SignInText' align='center' margin='50'>Loading</h2>
+        <Aload />
+      </div>
     );
   }
   else if (isSession) {

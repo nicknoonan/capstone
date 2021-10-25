@@ -5,6 +5,8 @@ import {
   Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button, Nav, Row, Col, Container
 } from 'react-bootstrap';
+import Aload from '../loading/loading';
+import '../../App.css';
 
 class Property extends React.Component {
   render() {
@@ -81,7 +83,12 @@ class PropertyList extends React.Component {
         }).catch((err) => {
           console.log(err);
         });
-        return <div>loading properties...</div>;
+        return (
+          <div>
+            <h2 className='SignInText' align='center' margin='50'>Loading Local Housing Options</h2>
+            <Aload />
+          </div>
+        );
       }
       else {
         let { properties } = this.state;

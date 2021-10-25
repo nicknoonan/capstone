@@ -5,6 +5,8 @@ import {
   Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button, Nav, Row, Col, Container
 } from 'react-bootstrap';
+import Aload from '../loading/loading';
+import '../../App.css';
 
 class Unit extends React.Component {
 
@@ -18,7 +20,7 @@ class Unit extends React.Component {
           <Row className="justify-content-md-center">
             <Col md='auto'>
 
-              <Card border="primary" style={{ width: '42rem' }}>
+              <Card border="primary" style={{ width: '40rem' }}>
 
                 <Card.Img variant="top" src="https://via.placeholder.com/200x100" />
 
@@ -88,7 +90,12 @@ class UnitList extends React.Component {
         }).catch((err) => {
           console.log(err);
         });
-        return <div>loading units...</div>;
+        return (
+          <div>
+            <h2 className='SignInText' align='center' margin='50'>Loading Local Housing Options</h2>
+            <Aload />
+          </div>
+        );
       }
       else {
         let { units } = this.state;

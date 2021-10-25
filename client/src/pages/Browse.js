@@ -4,6 +4,7 @@ import { PropertyList } from "../components/Property/Property";
 import { UnitList } from "../components/Unit/Unit";
 // import { Dropdown } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../App.css';
 
 const options = [
   {
@@ -51,7 +52,7 @@ class Browse extends React.Component {
   render() {
     return (
       <div>
-        <h1>Browse Boone Housing Help</h1>
+        <h1 className='Pageheader1'>Browse Boone Housing Help</h1>
         <div className="select-container">
           <select value={this.state.item} onChange={this.handleFilterChange}>
             {options.map((option) => (
