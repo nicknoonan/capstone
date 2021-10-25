@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Ul, Li } from './NavBarStyles';
 import './NavBar.css';
 import { Button } from '../Button';
-import UserProfile from "../UserProfile/UserProfile";
+import UserProfile from "../../pages/UserProfile";
 
 
 function Navbar(props) {

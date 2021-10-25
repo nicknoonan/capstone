@@ -15,7 +15,7 @@ import Verify from './pages/Verify';
 import RecoverPassword from './pages/RecoverPassword';
 import { useEffect, useState } from 'react';
 import { get_user } from './api/User'
-import UserProfile from './components/UserProfile/UserProfile';
+import UserProfile from './pages/UserProfile';
 
 
 // Included home and about in App's div
@@ -36,21 +36,21 @@ function App() {
     }
     if (localuser) {
       get_user(localuser.id, localuser.token)
-      .then((res) => {
-        if (res.data._id) {
-          setIsLoggedIn(true);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        //this.setState({loading:false});
-      });
+        .then((res) => {
+          if (res.data._id) {
+            setIsLoggedIn(true);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          //this.setState({loading:false});
+        });
     }
     //this.setState({loading:false});
-  },[]);
+  }, []);
   return (
     <div className="App">
-      <NavBar isLoggedIn={isLoggedIn}/>
+      <NavBar isLoggedIn={isLoggedIn} />
       <Route classname="route" exact path="/" component={Home} />
       <Route classname="route" exact path="/about" component={About} />
       <Route classname="route" exact path="/browse" component={Browse} />

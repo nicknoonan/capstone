@@ -29,7 +29,7 @@ async function post_create_recover(req, res) {
             await new_recover.save();
             
             await send_recovery_email(email).then((res) => {
-              console.log(res);
+              //console.log(res);
             }).catch((err) => {
               console.log(err);
             });
@@ -103,7 +103,7 @@ async function post_update_password(req, res) {
       }
       else {
         error = true;
-        console.log(email);
+        //console.log(email);
         res.status(400).json({message: "user not found. "});
       }
     });

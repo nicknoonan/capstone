@@ -75,12 +75,12 @@ class UnitReview extends Component {
             });
           }
         }).catch((err) => {
-          alert("error check console");
+          //alert("error check console");
           console.log(err);
         });
         
       }).catch((err) => {
-        alert("error check console");
+        //alert("error check console");
         console.log(err);
       });
     }).catch((err) => {
