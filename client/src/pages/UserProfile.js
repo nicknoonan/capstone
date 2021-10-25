@@ -23,9 +23,6 @@ function UserProfile(props) {
   const [isVerified, setIsVerified] = useState(initialState.isVerified);
   const [isAuth, setIsAuth] = useState(initialState.isAuth);
 
-
-  
-
   useEffect(() => {
     let user_id;
     let user_token;
@@ -52,7 +49,7 @@ function UserProfile(props) {
         setIsVerified(user.data.verified);
         setIsAuth(true);
         setIsLoading(false);
-        
+
       }).catch((err) => {
         setIsLoading(false);
         console.log(err);
@@ -73,7 +70,7 @@ function UserProfile(props) {
     }, 500);
     return (
       <>
-      please log in to view your profile... redirecting to login.
+        please log in to view your profile... redirecting to login.
       </>
     )
   }
@@ -105,7 +102,7 @@ function UserProfile(props) {
           <Row>
             <Col>
               {profile_render}
-              <ReviewResultList list_type={'user_t'} user_id={user_id}/>
+              <ReviewResultList list_type={'user_t'} user_id={user_id} />
             </Col>
           </Row>
         </Box>

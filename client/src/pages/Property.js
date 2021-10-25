@@ -1,7 +1,7 @@
 import { get_property_by_name } from '../api/Property';
 import { useLocation } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
-import NewReviewForm from '../components/Review/NewReviewForm';
+
 import {
   Row, Col, Container
 } from 'react-bootstrap';
@@ -101,7 +101,6 @@ function Property(props) {
             </Row>
           </Col>
         </Container>
-        <NewReviewForm enabled={true} review_type={"agency_t"} review_of={id}></NewReviewForm>
 
       </>
     );

@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 async function new_qresult(qresult) {
-  const {qmodel_id, user_id, review_of_id, survey_result} = qresult;
+  const {qmodel_id, user_id, review_of_id, review_of_name, survey_result} = qresult;
   return new Promise(function(resolve, reject){
     axios.post('/api/qresult', {
-      qmodel_id, user_id, review_of_id, survey_result
+      qmodel_id, user_id, review_of_id, review_of_name, survey_result
     }).then(function(res) {
       resolve(res);
     }).catch(function(err){

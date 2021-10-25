@@ -2,7 +2,7 @@ import { get_agency_by_name } from '../api/Agency';
 import { useLocation } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import '../App.css';
-import NewReviewForm from '../components/Review/NewReviewForm';
+
 import {
   Row, Col, Container
 } from 'react-bootstrap';
@@ -108,8 +108,6 @@ function Agency(props) {
             </Row>
           </Col>
         </Container>
-        <NewReviewForm enabled={true} review_type={"agency_t"} review_of={id}></NewReviewForm>
-
       </>
     );
   }

@@ -16,6 +16,10 @@ const QresultSchema = new Schema({
     type: mongoose.ObjectId,
     required: true
   },
+  review_of_name: {
+    type: String,
+    required: true
+  },
   survey_result: {
     type: Object,
     required: true

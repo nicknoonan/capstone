@@ -1,7 +1,7 @@
 import { get_unit_by_name } from '../api/Unit';
 import { useLocation } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
-import NewReviewForm from '../components/Review/NewReviewForm';
+
 import {
   Row, Col, Container
 } from 'react-bootstrap';
@@ -106,11 +106,7 @@ function Unit(props) {
             </Row>
           </Col>
         </Container>
-        <NewReviewForm enabled={false} review_type={"agency_t"} review_of={id}></NewReviewForm>
-        
-        <UnitReview unit_id={id}/>
-        
-
+        <UnitReview unit_id={id} unit_name={name}/>
       </>
     );
   }

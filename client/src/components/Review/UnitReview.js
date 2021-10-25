@@ -28,6 +28,7 @@ class UnitReview extends Component {
       qmodel_id: this.state.qmodel_id,
       user_id: this.state.user_id,
       review_of_id: this.state.review_of_id,
+      review_of_name: this.props.unit_name,
       survey_result: survey_result
     };
     console.log(qresult);
@@ -46,6 +47,7 @@ class UnitReview extends Component {
     let user_id;
     let user_token;
     let unit_id = this.props.unit_id;
+    let unit_name = this.props.unit_name;
     try {
       let localuser = JSON.parse(localStorage.getItem('user'));
       user_id = localuser.id;

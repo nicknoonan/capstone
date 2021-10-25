@@ -5,8 +5,8 @@ const { qmodel_exists } = require('./Qmodel');
 const mongoose = require('mongoose');
 
 async function post_qresult(req, res) {
-  const {qmodel_id, user_id, review_of_id, survey_result} = req.body;
-  if (qmodel_id && user_id && review_of_id && survey_result) {
+  const {qmodel_id, user_id, review_of_id, review_of_name, survey_result} = req.body;
+  if (qmodel_id && user_id && review_of_id && survey_result && review_of_name) {
     Qresult.findOne({user_id: user_id, review_of_id: review_of_id}, function(err, qresult) {
       if (err){
         res.status(500).json({message: "server error. " + err});
@@ -26,7 +26,7 @@ async function post_qresult(req, res) {
               }
               else if (user) {
                 if (user.verified) {
-                  const new_qresult = new Qresult({qmodel_id, user_id, review_of_id, survey_result});
+                  const new_qresult = new Qresult({qmodel_id, user_id, review_of_id, review_of_name, survey_result});
                   new_qresult.save().then(function() {
                     res.status(201).json({message: "new qresult saved."});
                   }).catch(function(err) {

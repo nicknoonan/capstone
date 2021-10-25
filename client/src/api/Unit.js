@@ -46,4 +46,4 @@ async function get_unit_by_id(id) {
   });
 }
 
-export {get_all_units,get_unit_by_name}
+export {get_all_units,get_unit_by_name,get_unit_by_id}
