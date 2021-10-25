@@ -16,14 +16,22 @@ import RecoverPassword from './pages/RecoverPassword';
 import { useEffect, useState } from 'react';
 import { get_user } from './api/User'
 import UserProfile from './components/UserProfile/UserProfile';
+import { UserContext } from './UserContext';
 
 
 // Included home and about in App's div
 function App() {
+
+  
   const initialState = {
-    isLoggedIn: false
+    isLoggedIn: false,
   };
+
   const [isLoggedIn, setIsLoggedIn] = useState(initialState.isLoggedIn);
+  const [user_id, setUserID] = useState('');
+  const [token, setToken] = useState(''); 
+
+
   useEffect(() => {
     let localuser;
     try {
@@ -50,19 +58,23 @@ function App() {
   },[]);
   return (
     <div className="App">
-      <NavBar isLoggedIn={isLoggedIn}/>
-      <Route classname="route" exact path="/" component={Home} />
-      <Route classname="route" exact path="/about" component={About} />
-      <Route classname="route" exact path="/browse" component={Browse} />
-      <Route classname="route" exact path="/review" component={Review} />
-      <Route classname="route" exact path="/login" component={Login} />
-      <Route classname="route" exact path="/signup" component={Signup} />
-      <Route classname="route" exact path="/agency" component={Agency} />
-      <Route classname="route" exact path="/property" component={Property} />
-      <Route classname="route" exact path="/unit" component={Unit} />
-      <Route className="route" exact path='/userprofile' component={UserProfile} />
-      <Route classname="route" exact path="/verify" component={Verify} />
-      <Route classname="route" exact path="/recover" component={RecoverPassword} />
+      <UserContext.Provider value={{user_id, setUserID, token, setToken}}>
+        <NavBar isLoggedIn={isLoggedIn}/>
+
+        <Route classname="route" exact path="/" component={Home} />
+        <Route classname="route" exact path="/about" component={About} />
+        <Route classname="route" exact path="/browse" component={Browse} />
+        <Route classname="route" exact path="/review" component={Review} />
+        <Route classname="route" exact path="/login" component={Login} />
+        <Route classname="route" exact path="/signup" component={Signup} />
+        <Route classname="route" exact path="/agency" component={Agency} />
+        <Route classname="route" exact path="/property" component={Property} />
+        <Route classname="route" exact path="/unit" component={Unit} />
+        <Route className="route" exact path='/userprofile' component={UserProfile} />
+        <Route classname="route" exact path="/verify" component={Verify} />
+        <Route classname="route" exact path="/recover" component={RecoverPassword} />
+      
+      </UserContext.Provider>
       <Footer />
     </div>
   );

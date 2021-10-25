@@ -52,7 +52,6 @@ function UserProfile(props) {
         }
     }, []);
 
-
     if (isLoading) {
         return (
             <>
@@ -84,28 +83,6 @@ function UserProfile(props) {
                         </Col>
                     </Row>
                 </Box>
-
-                {/* <Container>
-                    <Row>
-                        <Col>
-                            <h1>User Profile</h1>
-                            <Form>     
-                                <Form.Group>
-                                    <Form.Label>Username: {username}</Form.Label>
-                                </Form.Group>
-
-                                <Form.Group>
-                                    <Form.Label>Email: {email}</Form.Label>
-                                </Form.Group>
-
-                                <Form.Group>
-                                    <Form.Label>Verified Status: Please check your email, you still need to varify your email! You will not be able to make a review until your account has been verified!</Form.Label>                                
-                                </Form.Group>
-
-                            </Form>
-                        </Col>
-                    </Row>
-                </Container> */}
             </>
         )
     }
@@ -133,29 +110,6 @@ function UserProfile(props) {
                     </Row>
                 </Box>
             </>
-
-            // <Container>
-            //     <Row>
-            //         <Col>
-            //             <h1>User Profile</h1>
-            //             <Form>     
-
-            //                 <Form.Group>
-            //                     <Form.Label>Username: {username}</Form.Label>
-            //                 </Form.Group>
-
-            //                 <Form.Group>
-            //                     <Form.Label>Email: {email}</Form.Label>
-            //                 </Form.Group>
-
-            //                 <Form.Group>
-            //                     <Form.Label>Verified Status: You are verified</Form.Label>
-            //                 </Form.Group>
-
-            //             </Form>
-            //         </Col>
-            //     </Row>
-            // </Container>
         )
     }
 }
