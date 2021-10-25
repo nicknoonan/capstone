@@ -17,6 +17,7 @@ import { useEffect, useState } from 'react';
 import { get_user } from './api/User'
 import UserProfile from './components/UserProfile/UserProfile';
 import { UserContext } from './UserContext';
+import UserProfile from './pages/UserProfile';
 
 
 // Included home and about in App's div
@@ -44,18 +45,18 @@ function App() {
     }
     if (localuser) {
       get_user(localuser.id, localuser.token)
-      .then((res) => {
-        if (res.data._id) {
-          setIsLoggedIn(true);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        //this.setState({loading:false});
-      });
+        .then((res) => {
+          if (res.data._id) {
+            setIsLoggedIn(true);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          //this.setState({loading:false});
+        });
     }
     //this.setState({loading:false});
-  },[]);
+  }, []);
   return (
     <div className="App">
       <UserContext.Provider value={{user_id, setUserID, token, setToken}}>

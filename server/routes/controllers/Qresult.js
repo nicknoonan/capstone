@@ -25,21 +25,26 @@ async function post_qresult(req, res) {
                 res.status(500).json({message: "server error. " + err});
               }
               else if (user) {
-                const new_qresult = new Qresult({qmodel_id, user_id, review_of_id, survey_result});
-                new_qresult.save().then(function() {
-                  res.status(200).json({message: "new qresult saved."});
-                }).catch(function(err) {
-                  res.status(400).json({message: "failed to save new qresult" + err});
-                });
+                if (user.verified) {
+                  const new_qresult = new Qresult({qmodel_id, user_id, review_of_id, survey_result});
+                  new_qresult.save().then(function() {
+                    res.status(201).json({message: "new qresult saved."});
+                  }).catch(function(err) {
+                    res.status(500).json({message: "failed to save new qresult" + err});
+                  });
+                }
+                else {
+                  res.status(401).json({message: "user found but is not verified"});
+                }
               }
               else {
-                res.status(400).json({message: "no matching user found. "});
+                res.status(409).json({message: "no matching user found. "});
               }
             });
             
           }
           else {
-            res.status(400).json({message: "no matching qmodel found. "});
+            res.status(404).json({message: "no matching qmodel found. "});
           }
         });
       }
@@ -103,7 +108,7 @@ async function get_qresult_by_id(id) {
       }
       else {
         let res = {
-          status: 400,
+          status: 404,
           message: "not matching qresult was found"
         };
         reject(res);
@@ -130,7 +135,7 @@ async function get_qresult_by_user(user) {
       }
       else {
         let res = {
-          status: 400,
+          status: 404,
           message: "not matching qresult was found"
         };
         reject(res);
@@ -157,7 +162,7 @@ async function get_qresult_by_qmodel(qmodel) {
       }
       else {
         let res = {
-          status: 400,
+          status: 404,
           message: "not matching qresult was found"
         };
         reject(res);
@@ -184,7 +189,7 @@ async function get_qresult_by_review_of(review_of) {
       }
       else {
         let res = {
-          status: 400,
+          status: 404,
           message: "not matching qresult was found"
         };
         reject(res);
