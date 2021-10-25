@@ -50,8 +50,9 @@ function UserProfile(props) {
         setUsername(user.data.name);
         setEmail(user.data.email);
         setIsVerified(user.data.verified);
-        setIsLoading(false);
         setIsAuth(true);
+        setIsLoading(false);
+        
       }).catch((err) => {
         setIsLoading(false);
         console.log(err);
@@ -67,9 +68,12 @@ function UserProfile(props) {
     )
   }
   else if (isAuth === false) {
+    setTimeout(() => {
+      window.location = '/login'
+    }, 500);
     return (
       <>
-      please log in to view your profile
+      please log in to view your profile... redirecting to login.
       </>
     )
   }
