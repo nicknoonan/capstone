@@ -163,7 +163,7 @@ export default function SignupForm(props) {
             <Col>
               <Box>
                 <Card>
-                  {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
+                  {/* <Card.Img variant="top" src="https://i.ibb.co/SBTXD7g/image0.jpg" /> */}
                 </Card>
               </Box>
             </Col>
