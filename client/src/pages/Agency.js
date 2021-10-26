@@ -2,10 +2,8 @@ import { get_agency_by_name } from '../api/Agency';
 import { useLocation } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import '../App.css';
-
-import {
-  Row, Col, Container
-} from 'react-bootstrap';
+import AgencyReview from '../components/Review/AgencyReview';
+import { Row, Col, Container } from 'react-bootstrap';
 
 function Agency(props) {
   const initialState = {
@@ -108,17 +106,10 @@ function Agency(props) {
             </Row>
           </Col>
         </Container>
+        <AgencyReview agency_id={id} agency_name={name}/>
       </>
     );
   }
 }
 
 export default Agency
-
-{/* <h1>{name}</h1>
-        {/* Picture */}
-        // <h3>{website}</h3>
-        // <h3>{address}</h3>
-        // <h3>{email}</h3>
-        // <h3>{phone}</h3>
-        // <h3>{est}</h3> */}
