@@ -111,6 +111,20 @@
   background-color: #F6832A;
 }
 
+/* UserProfile css */
+
+.UsernameText {
+  font-size: 25px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  color: #070000;
+}
+
+.ReivewListText {
+  font-size: 25px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  color: #070000;
+}
+
 /* .sign-up {
   background-image: url('https://via.placeholder.com/600');
   background-position: center;

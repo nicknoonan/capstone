@@ -4,6 +4,10 @@ import { get_user } from '../api/User';
 import Box from '@material-ui/core/Box';
 import { ReviewResult, ReviewResultList } from '../components/Review/ReviewResult';
 import SocialSentimentSatisfied from 'material-ui/svg-icons/social/sentiment-satisfied';
+import Aload from '../components/loading/loading';
+import Redir from '../components/loading/redirecting';
+import '../App.css';
+
 
 function UserProfile(props) {
   const initialState = {
@@ -59,9 +63,10 @@ function UserProfile(props) {
 
   if (isLoading) {
     return (
-      <>
-        <h3>loading....</h3>
-      </>
+      <div>
+        <h2 className='SignInText' align='center' margin='50'>Loading User Profile</h2>
+        <Aload />
+      </div>
     )
   }
   else if (isAuth === false) {
@@ -69,15 +74,16 @@ function UserProfile(props) {
       window.location = '/login'
     }, 500);
     return (
-      <>
-        please log in to view your profile... redirecting to login.
-      </>
+      <div>
+        <h2 className='SignInText' align='center'>Redirecting to login</h2>
+        <Redir />
+      </div>
     )
   }
   else {
     let verified_render = isVerified ? (
       <Row>
-        <h4>Verified Status: You are verified</h4>
+        <h4 className='UsernameText'>Verified Status: You are verified</h4>
       </Row>
     ) : (
       <Row>
@@ -87,23 +93,40 @@ function UserProfile(props) {
     );
     let profile_render =
       <Box>
-        <h1>User Profile</h1>
-        <Row>
-          <h4>Username: {username}</h4>
-        </Row>
-        <Row>
-          <h4>Email: {email}</h4>
-        </Row>
-        {verified_render}
+        <h2 className='Pageheader1' margin='30px'>User Profile</h2>
+        <Box
+          sx={{
+            bgcolor: 'rgb(238,238,228)',
+            boxShadow: 1,
+            borderRadius: 1,
+            p: 2,
+            minWidth: 'justify',
+            margin: 30,
+          }}
+        >
+          <Row>
+            <h4 className='UsernameText'>Username: {username}</h4>
+          </Row>
+          <Row>
+            <h4 className='UsernameText'>Email: {email}</h4>
+          </Row>
+          {verified_render}
+        </Box>
+
       </Box>
     return (
       <>
         <Box>
           <Row>
+
             <Col>
               {profile_render}
+            </Col>
+
+            <Col>
               <ReviewResultList list_type={'user_t'} user_id={user_id} />
             </Col>
+
           </Row>
         </Box>
       </>

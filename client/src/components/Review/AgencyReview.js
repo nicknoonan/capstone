@@ -16,7 +16,8 @@ class AgencyReview extends Component {
       enabled: true,
       user_id: "",
       qmodel_id: "",
-      review_of_id: ""
+      review_of_id: "",
+      verified: false
     }
     this.onCompleteComponent = this.onCompleteComponent.bind(this)
   }
@@ -47,6 +48,7 @@ class AgencyReview extends Component {
     let user_token;
     let agency_id = this.props.agency_id;
     let agency_name = this.props.agency_name;
+    let verified;
     try {
       let localuser = JSON.parse(localStorage.getItem('user'));
       user_id = localuser.id;

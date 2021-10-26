@@ -1,15 +1,16 @@
 import React from 'react';
-import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
+import PacmanLoader from "react-spinners/PacmanLoader";
 import Box from '@material-ui/core/Box';
 
     const redirecting = props => {
     const style = {textAlign: 'center'};
         return (
             <div style={style}>
-                <ClimbingBoxLoader 
+                <PacmanLoader 
                         color='#F6832A' 
-                        loading={loading} 
-                        size={20}
+                        loading={redirecting} 
+                        size={30}
+                        align='center'
                     />
                 <Box
                     sx={{

@@ -6,6 +6,12 @@ import { get_agency_by_id } from "../../api/Agency";
 import { get_property_by_id } from "../../api/Property";
 import { get_unit_by_id } from "../../api/Unit";
 import UnitReview from "./UnitReview";
+import Aload from '../loading/loading';
+import '../../App.css';
+import Box from '@material-ui/core/Box';
+import { Row, Col, Form } from 'react-bootstrap';
+
+
 const Questions = {
   agency: [
     'Have you rented from this apartment',
@@ -61,10 +67,10 @@ class ReviewResult extends Component {
         questions = Questions.unit;
       }
       else if (type === 'property_t') {
-        questions = Questions.unit;
+        questions = Questions.property;
       }
       else if (type === 'agency_t') {
-        questions = Questions.unit;
+        questions = Questions.agency;
       }
       //console.log(questions);
       let i = 0;
@@ -125,13 +131,16 @@ class ReviewResultList extends Component {
   render() {
     if (this.state.loading) {
       return (
-        <>loading...</>
+        <div>
+          <h2 className='SignInText' align='center' margin='50'>Loading Reviews</h2>
+          <Aload />
+        </div>
       );
     }
     else {
       let title = <h2>Review results:</h2>;
       if (this.props.list_type === 'user_t') {
-        title = <h2>Reviews you've posted: </h2>
+        title = <h2 className='Pageheader1'>Reviews you've posted: </h2>
       }
       //console.log(this.state.results);
       let results_render = this.state.results.map((item) => {
@@ -153,7 +162,17 @@ class ReviewResultList extends Component {
       return (
         <>
           {title}
-          <ul>{results_render}</ul>
+          <Box
+              sx={{
+              borderColor: 'rgb(238,238,228)',
+              boxShadow: 1,
+              borderRadius: 1,
+              p: 2,
+              minWidth: 'justify',
+              margin: 30,
+              }}>
+                <ul className='ReivewListText'>{results_render}</ul>
+            </Box>
         </>
       );
     }
