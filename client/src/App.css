@@ -125,6 +125,18 @@
   color: #070000;
 }
 
+/* Agency/Unit/Picture css */
+.FrontPage {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: 375px;
+  text-align: justify;
+  font-size: 75px;
+}
+
+
 /* .sign-up {
   background-image: url('https://via.placeholder.com/600');
   background-position: center;

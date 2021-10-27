@@ -16,6 +16,7 @@ function Agency(props) {
     est: "",
     id: "",
     isLoading: true,
+    im_url02: "",
     // isError: false
   };
 //  let errorMessage = '';
@@ -28,6 +29,7 @@ function Agency(props) {
   const [est, setEst] = useState(initialState.est);
   const [isLoading, setIsLoading] = useState(initialState.isLoading);
   const [id, setId] = useState(initialState.id);
+  const [im_url02, setIm_url02] = useState(initialState.im_url02);
 //   const [isError, setError] = useState(initialState.isError);
   const search = useLocation().search;
   const nameParam = new URLSearchParams(search).get('name');
@@ -53,6 +55,7 @@ function Agency(props) {
         setEst(agency.est);
         setId(agency._id);
         setIsLoading(false);
+        setIm_url02(agency.im_url02);
         // setError(false);
       }).catch((err) => {
         console.log(err);
@@ -76,7 +79,8 @@ function Agency(props) {
   else {
     return (
       <>
-        <h1 className='infoPage'>{name}</h1>;
+        <img className='FrontPage' src={im_url02}></img>
+        <h1>{name}</h1>;
         <Container>
           <Col>
 
