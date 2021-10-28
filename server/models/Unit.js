@@ -26,11 +26,19 @@ const unit = new mongoose.Schema({
   },
   rating: {
     type: Number,
-    required: true
+    required: false
   },
   date_created: {
     type: Date,
     default: Date.now
+  },
+  card_img_url: {
+    type: String,
+    required: false
+  },
+  page_img_url: {
+    type: String,
+    required: false
   }
 });
 

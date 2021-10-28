@@ -16,21 +16,41 @@ const agency = new mongoose.Schema({
     type: String,
     required: true
   },
-  phone: {
+  url: {
     type: String,
     required: true
+  },
+  phone_office: {
+    type: String,
+    required: true
+  },
+  phone_cell: {
+    type: String,
+    required: true
+  },
+  fax: {
+    type: String,
+    required: false
   },
   date_est: {
     type: Date,
     required: false
   },
-  rating: {
-    type: Number,
-    required: true
-  },
   date_created: {
     type: Date,
     default: Date.now
+  },
+  card_img_url: {
+    type: String,
+    required: false
+  },
+  page_img_url: {
+    type: String,
+    required: false
+  },
+  rating: {
+    type: Number,
+    required: false
   }
 });
 
