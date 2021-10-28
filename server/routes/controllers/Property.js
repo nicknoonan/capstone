@@ -154,7 +154,7 @@ async function get_property_by_id(id) {
  */
 post_property = async (req, res) => {
   //grab property name, agency name, and address from the request body
-  let { property_name, agency_name, address, website, email, phone, rating } = req.body;
+  let { property_name, agency_name, address, website, email, url, phone_office, phone_cell, fax} = req.body;
   //check that the request contained all fields
   if (property_name && agency_name && address) {
     //query the db for a property document matching the name field
@@ -179,7 +179,7 @@ post_property = async (req, res) => {
           else if (agency) { //request contained a valid agency
             //create new property
             let name = property_name;
-            const new_property = new Property({ name, agency_name, address, website, email, phone, rating });
+            const new_property = new Property({ name, agency_name, address, website, email, url, phone_office, phone_cell, fax });
             //save the property
             try {
               await new_property.save();

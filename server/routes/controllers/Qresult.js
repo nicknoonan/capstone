@@ -3,6 +3,7 @@ const Qmodel = require('../../models/Qmodel');
 const User = require('../../models/User');
 const { qmodel_exists } = require('./Qmodel');
 const mongoose = require('mongoose');
+const set_avg_rating = require('../../util/Rating');
 
 async function post_qresult(req, res) {
   const {qmodel_id, user_id, review_of_id, review_of_name, survey_result} = req.body;
@@ -28,6 +29,9 @@ async function post_qresult(req, res) {
                 if (user.verified) {
                   const new_qresult = new Qresult({qmodel_id, user_id, review_of_id, review_of_name, survey_result});
                   new_qresult.save().then(function() {
+                    set_avg_rating(review_of_id,qmodel.type).catch(err => {
+                      console.log(err);
+                    });
                     res.status(201).json({message: "new qresult saved."});
                   }).catch(function(err) {
                     res.status(500).json({message: "failed to save new qresult" + err});

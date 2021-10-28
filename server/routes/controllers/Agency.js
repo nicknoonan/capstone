@@ -156,7 +156,7 @@ async function get_agency_by_name(name) {
  */
 post_agency = async (req, res) => {
   //grab name and address from the request body
-  let { name, address, website, email, phone, rating } = req.body;
+  let { name, address, website, email, url, phone_office, phone_cell, fax, date_est, rating } = req.body;
   //make sure the request body contained name and address fields
   if (name && address) {
     //query the db for an agency document matching the name field
@@ -172,7 +172,7 @@ post_agency = async (req, res) => {
       }
       else { //agency does not exist
         //create new agency
-        const new_agency = new Agency({ name, address, website, email, phone, rating });
+        const new_agency = new Agency({ name, address, website, email, url, phone_office, phone_cell, fax, date_est, rating });
         //console.log('saving agency...');
         //save the agency
         try {
