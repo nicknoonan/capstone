@@ -5,9 +5,9 @@ import '../App.css';
 import AgencyReview from '../components/Review/AgencyReview';
 import { Row, Col, Container } from 'react-bootstrap';
 import Box from '@material-ui/core/Box';
-import { Link } from 'react-router-dom';
 import { ExternalLink } from 'react-external-link';
-
+import Aload from '../components/loading/loading';
+import ReviewButton from '../components/ReviewButton/ReviewButton';
 
 function Agency(props) {
   const initialState = {
@@ -80,9 +80,10 @@ function Agency(props) {
 
   if (isLoading) {
     return (
-      <>
-        <h3>loading...</h3>
-      </>
+      <div>
+        <h2 className='SignInText' align='center' margin='50'>Loading Local Housing Options</h2>
+        <Aload />
+      </div>
     );
   }
 //   else if(isError) {
@@ -114,9 +115,10 @@ function Agency(props) {
 
             <Row>
                 <Box>
-                <AgencyReview agency_id={id} agency_name={name}/>
+                    <ReviewButton agency_id={id} agency_name={name}/>
                 </Box>
-              </Row>
+                {/* <AgencyReview agency_id={id} agency_name={name}/> */}
+            </Row>
           </Col>
 
           <Col>

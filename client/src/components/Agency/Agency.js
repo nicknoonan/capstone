@@ -1,7 +1,5 @@
 import React from 'react';
-// import { Ul, Li } from './AgencyStyles';
 import { get_all_agencies } from '../../api/Agency';
-// import PropTypes from 'prop-types';
 import {
   Card, Nav, Row, Col, Container
 } from 'react-bootstrap';
