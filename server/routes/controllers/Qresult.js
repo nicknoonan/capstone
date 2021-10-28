@@ -3,7 +3,7 @@ const Qmodel = require('../../models/Qmodel');
 const User = require('../../models/User');
 const { qmodel_exists } = require('./Qmodel');
 const mongoose = require('mongoose');
-const set_avg_rating = require('../../util/Rating');
+const {set_avg_rating} = require('../../util/Rating');
 
 async function post_qresult(req, res) {
   const {qmodel_id, user_id, review_of_id, review_of_name, survey_result} = req.body;

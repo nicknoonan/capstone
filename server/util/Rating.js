@@ -1,11 +1,11 @@
-const Agency = require('../../models/Agency');
-const Property = require('../../models/Property');
-const Unit = require('../../models/Unit');
-const Qresult = require('../../models/Qresult');
+const Agency = require('../models/Agency');
+const Property = require('../models/Property');
+const Unit = require('../models/Unit');
+const Qresult = require('../models/Qresult');
 const UNIT_T = "unit_t";
 const PROPERTY_T = "property_t";
 const AGENCY_T = "agency_t";
-export default async function set_avg_rating(id, type) {
+async function set_avg_rating(id, type) {
   return new Promise((resolve, reject) => {
     Qresult.find({review_of_id: id}, async function(err, results) {
       if (err) {
@@ -106,3 +106,5 @@ async function set_avg_unit_rating(id, new_rating) {
     });
   });
 }
+
+module.exports = { set_avg_rating };
