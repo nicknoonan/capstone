@@ -30,8 +30,11 @@
     align-items: center;
 }
 
-.navbar-logo:hover {
+.navbar-logo:hover,
+.nav-item:hover
+.nav-links:hover {
     text-decoration: none;
+    color: #595622;
 }
 
 .navbar-logo,

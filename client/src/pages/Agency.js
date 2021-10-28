@@ -4,6 +4,10 @@ import React, { useState, useEffect } from 'react';
 import '../App.css';
 import AgencyReview from '../components/Review/AgencyReview';
 import { Row, Col, Container } from 'react-bootstrap';
+import Box from '@material-ui/core/Box';
+import { Link } from 'react-router-dom';
+import { ExternalLink } from 'react-external-link';
+
 
 function Agency(props) {
   const initialState = {
@@ -17,6 +21,8 @@ function Agency(props) {
     id: "",
     isLoading: true,
     im_url02: "",
+    cell_phone: "",
+    fax: "",
     // isError: false
   };
 //  let errorMessage = '';
@@ -30,6 +36,9 @@ function Agency(props) {
   const [isLoading, setIsLoading] = useState(initialState.isLoading);
   const [id, setId] = useState(initialState.id);
   const [im_url02, setIm_url02] = useState(initialState.im_url02);
+  const [cell_phone, setCell_phone] = useState(initialState.cell_phone);
+  const [fax, setFax] = useState(initialState.fax);
+
 //   const [isError, setError] = useState(initialState.isError);
   const search = useLocation().search;
   const nameParam = new URLSearchParams(search).get('name');
@@ -56,6 +65,8 @@ function Agency(props) {
         setId(agency._id);
         setIsLoading(false);
         setIm_url02(agency.im_url02);
+        setCell_phone(agency.phone_cell);
+        setFax(agency.fax);
         // setError(false);
       }).catch((err) => {
         console.log(err);
@@ -79,38 +90,58 @@ function Agency(props) {
   else {
     return (
       <>
-        <img className='FrontPage' src={im_url02}></img>
-        <h1>{name}</h1>;
-        <Container>
+        <img className='fImage' src={im_url02}></img>
+        <Box>
+          <Row>
           <Col>
+            <Box 
+            sx={{
+              bgcolor: 'rgb(238,238,228)',
+              boxShadow: 1,
+              borderRadius: 1,
+              p: 2,
+              minWidth: 300,
+              margin: 30,
+              }}>
+
+              <h2 className='APUName'>{name}</h2>
+              <h3 className='APULowLevelHeader'>Website: <ExternalLink className='websiteLink' href="https://boonerealestate.com/">{website}</ExternalLink></h3>
+              <h3 className='APULowLevelHeader'>Address: {address}</h3>
+            </Box>
 
             <Row>
-              <h3>{website}</h3>
-              <h3>{address}</h3>
-            </Row>
-
-            {/* <Row>
-              <h3>{address}</h3>
-            </Row> */}
-
+                <Box>
+                <AgencyReview agency_id={id} agency_name={name}/>
+                </Box>
+              </Row>
           </Col>
 
           <Col>
+            <Box
+            sx={{
+              boxShadow: 1,
+              borderRadius: 1,
+              p: 2,
+              minWidth: 300,
+              margin: 30,
+              }}>
+            <h2 className='APUName'>Contact Info:</h2>
+            <h3 className='APULowLevelHeader'>Email: {email}</h3>
+            <h3 className='APULowLevelHeader'>Office Phone: {phone}</h3>
+            <h3 className='APULowLevelHeader'>Cell Phone: {cell_phone}</h3>
+            <h3 className='APULowLevelHeader'>Fax: {fax}</h3>
+            </Box>
+
+            <Row>
+              <Box>
+                {/* HERE THE LIST OF REVIEWS WILL GO */}
+              </Box>
+            </Row>
+            
+          </Col>
+          </Row>
           
-            <Row>
-              <h3>{email}</h3>
-            </Row>
-
-            <Row>
-             <h3>{phone}</h3>
-            </Row>
-
-            <Row>
-            <h3>{rating}</h3>
-            </Row>
-          </Col>
-        </Container>
-        <AgencyReview agency_id={id} agency_name={name}/>
+        </Box>
       </>
     );
   }
