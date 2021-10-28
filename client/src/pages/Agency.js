@@ -13,6 +13,7 @@ function Agency(props) {
   const initialState = {
     name: "",
     website: "",
+    url: "",
     address: "",
     rating: 0,
     email: "",
@@ -38,6 +39,7 @@ function Agency(props) {
   const [im_url02, setIm_url02] = useState(initialState.im_url02);
   const [cell_phone, setCell_phone] = useState(initialState.cell_phone);
   const [fax, setFax] = useState(initialState.fax);
+  const [url, setUrl] = useState(initialState.url);
 
 //   const [isError, setError] = useState(initialState.isError);
   const search = useLocation().search;
@@ -67,6 +69,7 @@ function Agency(props) {
         setIm_url02(agency.im_url02);
         setCell_phone(agency.phone_cell);
         setFax(agency.fax);
+        setUrl(agency.url);
         // setError(false);
       }).catch((err) => {
         console.log(err);
@@ -105,7 +108,7 @@ function Agency(props) {
               }}>
 
               <h2 className='APUName'>{name}</h2>
-              <h3 className='APULowLevelHeader'>Website: <ExternalLink className='websiteLink' href="https://boonerealestate.com/">{website}</ExternalLink></h3>
+              <h3 className='APULowLevelHeader'>Website: <ExternalLink className='websiteLink' href={url}>{website}</ExternalLink></h3>
               <h3 className='APULowLevelHeader'>Address: {address}</h3>
             </Box>
 
@@ -137,7 +140,7 @@ function Agency(props) {
                 {/* HERE THE LIST OF REVIEWS WILL GO */}
               </Box>
             </Row>
-            
+
           </Col>
           </Row>
           
