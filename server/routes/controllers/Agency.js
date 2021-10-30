@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const { report } = require('process');
 const Agency = require('../../models/Agency');
 
 /*
@@ -7,9 +8,9 @@ const Agency = require('../../models/Agency');
  */
 async function get_agency(req, res) {
   //grab agency name from request body
-  let { name, id } = req.query;
-  
-  if (!(name || id)) {
+  const { name, id, field, regex } = req.query;
+
+  if (!(name || id || (field && regex))) {
     let message = 'invalid get agency request';
     //console.log(message);
     //console.log(req.query);
@@ -24,7 +25,7 @@ async function get_agency(req, res) {
     }).catch((response) => {
       return res.status(response.status).json({ message: response.message });
     });
-  } 
+  }
   //query db for agency matching name
   else if (name) {
     get_agency_by_name(name).then((response) => {
@@ -36,11 +37,18 @@ async function get_agency(req, res) {
 
   //request contained an id field
   //query db for agency matching id
-  if (id) {
+  else if (id) {
     get_agency_by_id(id).then((response) => {
       return res.status(response.status).json({ agency: response.agency });
     }).catch((response) => {
       return res.status(response.status).json({ message: response.message });
+    });
+  }
+  else if (field && regex) {
+    search_agencies(field, regex).then((agencies) => {
+      res.status(200).json({agencies});
+    }).catch((err) => {
+      res.status(err).json({});
     });
   }
 }
@@ -58,7 +66,7 @@ async function get_all_agencies() {
           message: 'server error'
         };
         reject(response);
-      } 
+      }
       else if (agency) { //query returned document(s)
         let response = {
           status: 200,
@@ -78,7 +86,7 @@ async function get_all_agencies() {
 }
 /*
  *  get_agency_by_id:
- */ 
+ */
 async function get_agency_by_id(id) {
   return new Promise((resolve, reject) => {
     //convert the id param to a mongoose object id
@@ -122,11 +130,11 @@ async function get_agency_by_id(id) {
 }
 /*
  *  get_agency_by_name:
- */ 
+ */
 async function get_agency_by_name(name) {
   return new Promise((resolve, reject) => {
     //query db for agency document matching name
-    Agency.findOne({name}, (err, agency) => {
+    Agency.findOne({ name }, (err, agency) => {
       if (err) { //server error occured
         let response = {
           status: 500,
@@ -164,11 +172,11 @@ post_agency = async (req, res) => {
       if (err) { //server error occured during query
         console.log(err);
         let message = 'server error occured. unable to post agency: ' + name;
-        res.status(500).json({message: message});
+        res.status(500).json({ message: message });
       }
       else if (agency) { //cannot create duplicate agencies
         let message = 'agency already exists: ' + name;
-        res.status(409).json({message: message});
+        res.status(409).json({ message: message });
       }
       else { //agency does not exist
         //create new agency
@@ -177,7 +185,7 @@ post_agency = async (req, res) => {
         //save the agency
         try {
           await new_agency.save();
-          res.status(201).json({id: new_agency._id});
+          res.status(201).json({ id: new_agency._id });
           //console.log('saved agency to db');
         }
         catch (error) { //server error occured trying to save the agency
@@ -189,7 +197,7 @@ post_agency = async (req, res) => {
   }
   //name and address fields dont exist in request body
   else {
-    res.status(400).json({ message: 'invalid agency request'});
+    res.status(400).json({ message: 'invalid agency request' });
   }
 }
 
@@ -213,7 +221,7 @@ async function delete_agency(req, res) {
 /*
  *  delete_agency_by_id: handles delete requests for /agency/id:<id>
  */
-async function delete_agency_by_id (id) {
+async function delete_agency_by_id(id) {
   return new Promise((resolve, reject) => {
     let review_id;
     let id_slice = id.slice(1);
@@ -247,6 +255,58 @@ async function delete_agency_by_id (id) {
       }
     });
   });
+}
+async function search_agencies(field, $regex) {
+  return new Promise((resolve, reject) => {
+    if (field && $regex) {
+      if (field === "name") {
+        Agency.find({ name: { $regex, $options: 'i' } }, (err, agencies) => {
+          if (err) {
+            reject(500);
+          }
+          else if (agencies) {
+            resolve(agencies);
+          }
+          else {
+            reject(404);
+          }
+        });
+      }
+      else if (field === "address") {
+        Agency.find({ address: { $regex, $options: 'i' } }, (err, agencies) => {
+          if (err) {
+            reject(500);
+          }
+          else if (agencies) {
+            resolve(agencies);
+          }
+          else {
+            reject(404);
+          }
+        });
+      }
+      else if (field === "website") {
+        Agency.find({ website: { $regex, $options: 'i' } }, (err, agencies) => {
+          if (err) {
+            reject(500);
+          }
+          else if (agencies) {
+            resolve(agencies);
+          }
+          else {
+            reject(404);
+          }
+        });
+      }
+      else {
+        reject(400);
+      }
+    }
+    else {
+      reject(400);
+    }
+  });
+
 }
 
 module.exports = { get_agency, post_agency, delete_agency };

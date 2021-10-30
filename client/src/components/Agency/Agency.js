@@ -8,8 +8,6 @@ import '../../App.css';
 
 class Agency extends React.Component {
   render() {
-    let spacetoU = this.props.agency.name;
-    spacetoU = spacetoU.replace(/ /g, "_");
     let linktoAgency = "http://localhost:3000/Agency?name=" + this.props.agency.name;
     return (
       <>
@@ -56,31 +54,35 @@ class AgencyList extends React.Component {
     super(props);
     this.state = {
       agencies: [],
-      isLoaded: false
+      loading: true
     };
   }
   componentDidMount() {
-    if (this.props.enabled) {
-
+    if (this.props.agencies) {
+      console.log(this.props.agencies);
+      let agencies = this.props.agencies;
+      this.setState({agencies, loading: false});
+    }
+    else {
+      get_all_agencies().then((all_agencies) => {
+        this.setState({
+          loading: false,
+          agencies: all_agencies
+        });
+      }).catch((err) => {
+        console.log(err);
+      });
     }
   }
   render() {
-    const { isLoaded } = this.state;
+    const { loading } = this.state;
     if (this.props.enabled == false) {
       return (
         <></>
       );
     }
     else {
-      if (!isLoaded) {
-        get_all_agencies().then((all_agencies) => {
-          this.setState({
-            isLoaded: true,
-            agencies: all_agencies
-          });
-        }).catch((err) => {
-          console.log(err);
-        });
+      if (loading) {
         return (
           <div>
             <h2 className='SignInText' align='center' margin='50'>Loading Local Housing Options</h2>

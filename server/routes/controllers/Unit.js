@@ -8,9 +8,9 @@ const mongoose = require('mongoose');
  */
 get_unit = async (req, res) => {
   //grab property name from request body
-  let { name, id } = req.query;
+  const { name, id, field, regex } = req.query;
 
-  if (!(name || id)) {
+  if (!(name || id || (field && regex))) {
     let message = 'invalid get unit request';
     return res.status(400).json({ message: message });
   }
@@ -35,13 +35,72 @@ get_unit = async (req, res) => {
 
   //unit request contained an id field
   //return units matching id
-  if (id) {
+  else if (id) {
     get_unit_by_id(id).then((response) => {
       return res.status(response.status).json({ unit: response.unit });
     }).catch((response) => {
       return res.status(response.status).json({ message: response.message });
     });
   }
+  else if (field && regex) {
+    search_units(field, regex).then((units) => {
+      res.status(200).json({units});
+    }).catch((err) => {
+      res.status(err).json({});
+    });
+  }
+}
+async function search_units(field, $regex) {
+  return new Promise((resolve, reject) => {
+    if (field && $regex) {
+      if (field === "name") {
+        Unit.find({ name: { $regex, $options: 'i' } }, (err, units) => {
+          if (err) {
+            reject(500);
+          }
+          else if (units) {
+            resolve(units);
+          }
+          else {
+            reject(404);
+          }
+        });
+      }
+      else if (field === "address") {
+        Unit.find({ address: { $regex, $options: 'i' } }, (err, units) => {
+          if (err) {
+            reject(500);
+          }
+          else if (units) {
+            resolve(units);
+          }
+          else {
+            reject(404);
+          }
+        });
+      }
+      else if (field === "website") {
+        Unit.find({ website: { $regex, $options: 'i' } }, (err, units) => {
+          if (err) {
+            reject(500);
+          }
+          else if (units) {
+            resolve(units);
+          }
+          else {
+            reject(404);
+          }
+        });
+      }
+      else {
+        reject(400);
+      }
+    }
+    else {
+      reject(400);
+    }
+  });
+
 }
 /*
  *  get_unit_by_name:

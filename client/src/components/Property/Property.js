@@ -61,28 +61,35 @@ class PropertyList extends React.Component {
     super(props);
     this.state = {
       properties: [],
-      isLoaded: false
+      loading: true
     };
   }
   componentDidMount() {
+    if (this.props.properties) {
+      
+      let properties = this.props.properties;
+      this.setState({properties, loading: false});
+    }
+    else {
+      get_all_properties().then((all_properties) => {
+        this.setState({
+          loading: false,
+          properties: all_properties
+        });
+      }).catch((err) => {
+        console.log(err);
+      });
+    }
   }
   render() {
-    const { isLoaded } = this.state;
+    const { loading } = this.state;
     if (this.props.enabled == false) {
       return (
         <></>
       );
     }
     else {
-      if (!isLoaded) {
-        get_all_properties().then((all_properties) => {
-          this.setState({
-            isLoaded: true,
-            properties: all_properties
-          });
-        }).catch((err) => {
-          console.log(err);
-        });
+      if (loading) {
         return (
           <div>
             <h2 className='SignInText' align='center' margin='50'>Loading Local Housing Options</h2>

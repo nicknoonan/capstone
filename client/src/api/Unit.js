@@ -46,4 +46,28 @@ async function get_unit_by_id(id) {
   });
 }
 
-export {get_all_units,get_unit_by_name,get_unit_by_id}
+async function search_units(field, query) {
+  return new Promise((resolve, reject) => {
+    console.log(field + " " + query);
+    if (field && query) {
+      let params = {
+        field: null,
+        regex: null
+      };
+      const regex = query.replace(/ /gi, "|");
+      console.log(regex);
+      params.field = field;
+      params.regex = regex;
+      axios.get('/api/unit', { params }).then((res) => {
+        resolve(res.data.units);
+      }).catch((err) => {
+        reject(err);
+      });
+    }
+    else {
+      reject();
+    }
+  });
+}
+
+export {get_all_units,get_unit_by_name,get_unit_by_id,search_units}

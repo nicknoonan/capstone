@@ -7,9 +7,9 @@ const mongoose = require('mongoose');
  */
 async function get_property(req, res) {
   //grab property name from request body
-  let { name, id } = req.query;
+  let { name, id, field, regex } = req.query;
 
-  if (!(name || id)) {
+  if (!(name || id || (field && regex))) {
     let message = 'invalid get property request';
     return res.status(400).json({ message: message });
   }
@@ -34,13 +34,71 @@ async function get_property(req, res) {
 
   //property contained an id field
   //query db for property document matching id
-  if (id) {
+  else if (id) {
     get_property_by_id(id).then((response) => {
       return res.status(response.status).json({ property: response.property });
     }).catch((response) => {
       return res.status(response.status).json({ message: response.message });
     });
   }
+  else if (field && regex) {
+    search_properties(field, regex).then((properties) => {
+      res.status(200).json({properties});
+    }).catch((err) => {
+      res.status(err).json({});
+    });
+  }
+}
+async function search_properties(field, $regex) {
+  return new Promise((resolve, reject) => {
+    if (field && $regex) {
+      if (field === "name") {
+        Property.find({ name: { $regex, $options: 'i' } }, (err, properties) => {
+          if (err) {
+            reject(500);
+          }
+          else if (properties) {
+            resolve(properties);
+          }
+          else {
+            reject(404);
+          }
+        });
+      }
+      else if (field === "address") {
+        Property.find({ address: { $regex, $options: 'i' } }, (err, properties) => {
+          if (err) {
+            reject(500);
+          }
+          else if (properties) {
+            resolve(properties);
+          }
+          else {
+            reject(404);
+          }
+        });
+      }
+      else if (field === "website") {
+        Property.find({ website: { $regex, $options: 'i' } }, (err, properties) => {
+          if (err) {
+            reject(500);
+          }
+          else if (properties) {
+            resolve(properties);
+          }
+          else {
+            reject(404);
+          }
+        });
+      }
+      else {
+        reject(400);
+      }
+    }
+    else {
+      reject(400);
+    }
+  });
 }
 /*
  * get_all_propeties returns a promise

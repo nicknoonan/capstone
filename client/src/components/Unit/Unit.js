@@ -68,28 +68,35 @@ class UnitList extends React.Component {
     super(props);
     this.state = {
       units: [],
-      isLoaded: false
+      loading: false
     };
   }
   componentDidMount() {
+    if (this.props.units) {
+      console.log(this.props.units);
+      let units = this.props.units;
+      this.setState({units, loading: false});
+    }
+    else {
+      get_all_units().then((all_units) => {
+        this.setState({
+          loading: false,
+          units: all_units
+        });
+      }).catch((err) => {
+        console.log(err);
+      });
+    }
   }
   render() {
-    const { isLoaded } = this.state;
+    const { loading } = this.state;
     if (this.props.enabled == false) {
       return (
         <></>
       );
     }
     else {
-      if (!isLoaded) {
-        get_all_units().then((all_units) => {
-          this.setState({
-            isLoaded: true,
-            units: all_units
-          });
-        }).catch((err) => {
-          console.log(err);
-        });
+      if (loading) {
         return (
           <div>
             <h2 className='SignInText' align='center' margin='50'>Loading Local Housing Options</h2>
