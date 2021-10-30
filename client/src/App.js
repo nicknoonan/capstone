@@ -16,7 +16,8 @@ import RecoverPassword from './pages/RecoverPassword';
 import { useEffect, useState } from 'react';
 import { get_user } from './api/User'
 import UserProfile from './pages/UserProfile';
-import { UserProvider } from './UserContext';
+import UserProvider from './context/Store';
+import TestContext from './TestContext';
 
 
 // Included home and about in App's div
@@ -55,7 +56,8 @@ function App() {
   return (
     <div className="App">
       <UserProvider>
-        <NavBar isLoggedIn={isLoggedIn}/>
+        <TestContext/>
+        <NavBar isLoggedIn={isLoggedIn} />
         <Route classname="route" exact path="/" component={Home} />
         <Route classname="route" exact path="/about" component={About} />
         <Route classname="route" exact path="/browse" component={Browse} />

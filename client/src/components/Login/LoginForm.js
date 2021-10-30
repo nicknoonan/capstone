@@ -1,5 +1,7 @@
 import { thisTypeAnnotation } from '@babel/types';
-import { login_user, get_user } from '../../api/User'
+import { login_user } from '../../api/User'
+import { UserContext } from "../../context/Store";
+
 import React from 'react';
 import {
   Card, CardImg, CardText, CardBody,
@@ -13,10 +15,9 @@ class LoginForm extends React.Component {
     this.state = {
       username: '',
       password: '',
-      isAuth: false,
-      isSessionAuth: false,
-      isWaiting: false,
       loading: true,
+      authenticating: false,
+      user: null,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -25,34 +26,11 @@ class LoginForm extends React.Component {
     this.handleClear = this.handleClear.bind(this);
   }
   componentDidMount() {
-    let localuser;
-    try {
-      localuser = JSON.parse(localStorage.getItem('user'));
-    }
-    catch (err) {
-      //console.log(err);
+    let [user, setUser] = this.context;
+    if (user) {
+      this.setState({user});
       this.setState({loading:false});
-      return;
     }
-    if (localuser) {
-      get_user(localuser.id, localuser.token)
-      .then((res) => {
-        if (res.data._id) {
-          this.setState({loading:false});
-          this.setState({isSessionAuth: true});
-          this.setState({isAuth: true});
-          setTimeout(() => {
-            window.location = '/';
-          }, 1500);
-        }
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-        this.setState({loading:false});
-      });
-    }
-    this.setState({loading:false});
   }
   handleChange(event) {
     this.setState({value: event.target.value});
@@ -66,11 +44,9 @@ class LoginForm extends React.Component {
   handleClear(event) {
     console.log('clear!');
     localStorage.setItem('user','');
-    this.setState({isAuth: false});
-    this.setState({isSessionAuth: false});
   }
   handleSubmit(event) {
-    this.setState({isWaiting: true});
+    this.setState({authenticating: true});
     //alert('login attempt submitted: ' + this.state.username + ' ' + this.state.password);
     login_user(this.state.username, this.state.password)
       .then((res) => {
@@ -83,15 +59,14 @@ class LoginForm extends React.Component {
           email: res.user.email
         };
         //console.log(user);
+        this.setState({authenticating: true});
         localStorage.setItem('user',JSON.stringify(user));
-        this.setState({isAuth: true});
-        this.setState({isWaiting: false});
-        if (this.state.isAuth) { window.location = '/'; }
+        window.location = '/';
       })
       .catch((err) => {
+        this.setState({authenticating: true});
         console.log(err);
         alert('error. please try again later.');
-        this.setState({isWaiting: false});
       });
     
     event.preventDefault();
@@ -104,14 +79,14 @@ class LoginForm extends React.Component {
         </>
       );
     }
-    else if (this.state.isWaiting) {
+    else if (this.state.authenticating) {
       return(
         <div>
           authenticating...
         </div>
       );
     }
-    else if (!this.state.isAuth) {
+    else if (!this.state.user.auth) {
       return(
 
         <div>
@@ -168,7 +143,7 @@ class LoginForm extends React.Component {
         </div>
       );
     }  
-    else if (this.state.isAuth) {
+    else if (this.state.user.auth) {
       return(
         <>
         redirecting home.
@@ -184,5 +159,6 @@ class LoginForm extends React.Component {
     }
   }
 }
+LoginForm.contextType = UserContext;
 
 export default LoginForm; 

@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import { get_user } from '../api/User';
 import Box from '@material-ui/core/Box';
 import { ReviewResult, ReviewResultList } from '../components/Review/ReviewResult';
 import SocialSentimentSatisfied from 'material-ui/svg-icons/social/sentiment-satisfied';
 import Aload from '../components/loading/loading';
 import Redir from '../components/loading/redirecting';
+import { UserContext } from "../context/Store";
 import '../App.css';
 
 
 function UserProfile(props) {
+  const [user] = useContext(UserContext);
   const initialState = {
-    user_id: "",
     username: "",
     email: "",
     verified: false,
@@ -20,7 +20,6 @@ function UserProfile(props) {
     isAuth: false
   };
 
-  const [user_id, setUser_id] = useState(initialState.user_id);
   const [username, setUsername] = useState(initialState.username);
   const [email, setEmail] = useState(initialState.email);
   const [isLoading, setIsLoading] = useState(initialState.isLoading);
@@ -28,40 +27,18 @@ function UserProfile(props) {
   const [isAuth, setIsAuth] = useState(initialState.isAuth);
 
   useEffect(() => {
-    let user_id;
-    let user_token;
-    try {
-      let localuser = JSON.parse(localStorage.getItem('user'));
-      user_id = localuser.id;
-      user_token = localuser.token;
-    }
-    catch (err) {
-      console.log(err);
-    }
     if (props.user) {
-      setUser_id(props.user.user_id);
       setUsername(props.user.username);
       setEmail(props.user.email);
       setIsVerified(true);
       setIsLoading(false);
     }
     else {
-      get_user(user_id, user_token).then((user) => {
-        setUser_id(user.data._id);
-        setUsername(user.data.name);
-        setEmail(user.data.email);
-        setIsVerified(user.data.verified);
-        setIsAuth(true);
-        setIsLoading(false);
 
-      }).catch((err) => {
-        setIsLoading(false);
-        console.log(err);
-      });
     }
   }, []);
 
-  if (isLoading) {
+  if (user.loading) {
     return (
       <div>
         <h2 className='SignInText' align='center' margin='50'>Loading User Profile</h2>
@@ -69,7 +46,7 @@ function UserProfile(props) {
       </div>
     )
   }
-  else if (isAuth === false) {
+  else if (user.auth === false) {
     setTimeout(() => {
       window.location = '/login'
     }, 500);
@@ -81,7 +58,7 @@ function UserProfile(props) {
     )
   }
   else {
-    let verified_render = isVerified ? (
+    let verified_render = user.verified ? (
       <Row>
         <h4 className='UsernameText'>Verified Status: You are verified</h4>
       </Row>
@@ -105,10 +82,10 @@ function UserProfile(props) {
           }}
         >
           <Row>
-            <h4 className='UsernameText'>Username: {username}</h4>
+            <h4 className='UsernameText'>Username: {user.name}</h4>
           </Row>
           <Row>
-            <h4 className='UsernameText'>Email: {email}</h4>
+            <h4 className='UsernameText'>Email: {user.email}</h4>
           </Row>
           {verified_render}
         </Box>
@@ -124,7 +101,7 @@ function UserProfile(props) {
             </Col>
 
             <Col>
-              <ReviewResultList list_type={'user_t'} user_id={user_id} />
+              <ReviewResultList list_type={'user_t'} user_id={user.id} />
             </Col>
 
           </Row>

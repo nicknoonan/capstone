@@ -1,11 +1,5 @@
 import { Component } from "react";
-import { get_qmodel_by_type } from "../../api/Qmodel";
 import { get_qresults_by_user_id, new_qresult } from "../../api/Qresult";
-import { get_user } from "../../api/User";
-import { get_agency_by_id } from "../../api/Agency";
-import { get_property_by_id } from "../../api/Property";
-import { get_unit_by_id } from "../../api/Unit";
-
 import Aload from '../loading/loading';
 import '../../App.css';
 import Box from '@material-ui/core/Box';

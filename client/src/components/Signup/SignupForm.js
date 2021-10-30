@@ -1,6 +1,7 @@
 import { thisTypeAnnotation } from '@babel/types';
-import { login_user, get_user } from '../../api/User'
-import React, { useState, useEffect } from 'react';
+import { login_user } from '../../api/User'
+import React, { useState, useEffect, useContext } from 'react';
+import { UserContext } from "../../context/Store";
 import { sign_up_user } from '../../api/User';
 import Signup from '../../pages/Signup';
 import Box from '@material-ui/core/Box';
@@ -15,7 +16,7 @@ import '../../App.css';
 
 
 export default function SignupForm(props) {
-
+  const [user, setUser] = useContext(UserContext);
   const initialState = {
     name: '',
     email: '',
@@ -35,36 +36,10 @@ export default function SignupForm(props) {
   function handleName(event) { setName(event.target.value); }
   function handleEmail(event) { setEmail(event.target.value); }
   function handlePassword(event) { setPassword(event.target.value); }
-
-
   useEffect(() => {
-    let localuser;
-    try {
-      localuser = JSON.parse(localStorage.getItem('user'));
+    if (user.auth) {
+      window.location = '/';
     }
-    catch (err) {
-      console.log(err);
-      setLoading(false);
-      return;
-    }
-    if (localuser) {
-      get_user(localuser.id, localuser.token)
-      .then((res) => {
-        if (res.data._id) {
-          setLoading(false);
-          setIsSession(true);
-          setTimeout(() => {
-            window.location = '/';
-          }, 1500);
-        }
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-        setLoading(false);
-      });
-    }
-    setLoading(false);
   })
   function handleClear() {
     setName(initialState.name);
@@ -88,7 +63,7 @@ export default function SignupForm(props) {
       setSubmitting(false);
     });
   }
-  if (loading) {
+  if (user.loading) {
     return (
       <div>
         <h2 className='SignInText' align='center' margin='50'>Loading</h2>
@@ -96,7 +71,7 @@ export default function SignupForm(props) {
       </div>
     );
   }
-  else if (isSession) {
+  else if (user.auth) {
     return (
       <>
         <h3>already logged in. redirecting to home...</h3>
