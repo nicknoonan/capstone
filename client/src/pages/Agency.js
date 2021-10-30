@@ -2,7 +2,6 @@ import { get_agency_by_name } from '../api/Agency';
 import { useLocation } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import '../App.css';
-import AgencyReview from '../components/Review/AgencyReview';
 import { Row, Col, Container } from 'react-bootstrap';
 import Box from '@material-ui/core/Box';
 import { ExternalLink } from 'react-external-link';
@@ -115,7 +114,7 @@ function Agency(props) {
 
             <Row>
                 <Box>
-                    <ReviewButton agency_id={id} agency_name={name}/>
+                    <ReviewButton review_of_id={id} type={"agency_t"} entity_name={name}/>
                 </Box>
                 {/* <AgencyReview agency_id={id} agency_name={name}/> */}
             </Row>

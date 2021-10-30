@@ -5,8 +5,9 @@ import React, { useState, useEffect } from 'react';
 import {
   Row, Col, Container
 } from 'react-bootstrap';
-import UnitReview from '../components/Review/UnitReview';
 
+//import EntityReview from '../components/Review/EntityReview';
+import ReviewButton from '../components/ReviewButton/ReviewButton';
 
 function Unit(props) {
   const initialState = {
@@ -106,7 +107,9 @@ function Unit(props) {
             </Row>
           </Col>
         </Container>
-        <UnitReview unit_id={id} unit_name={name}/>
+        {/*<UnitReview unit_id={id} unit_name={name}/>*/}
+        {/*<EntityReview type={"unit_t"} review_of_id={id} entity_name={name} />*/}
+        <ReviewButton review_of_id={id} type={"unit_t"} entity_name={name}/>
       </>
     );
   }

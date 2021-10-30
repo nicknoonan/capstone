@@ -1,7 +1,8 @@
 import { get_property_by_name } from '../api/Property';
 import { useLocation } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
-import PropReview from '../components/Review/PropReview'
+//import EntityReview from '../components/Review/EntityReview'
+import ReviewButton from '../components/ReviewButton/ReviewButton';
 
 import {
   Row, Col, Container
@@ -94,8 +95,9 @@ function Property(props) {
             </Row>
           </Col>
         </Container>
-        <PropReview property_id={id} property_name={name}/>
-
+        {/*<PropReview property_id={id} property_name={name}/>*/}
+        {/*<EntityReview type={"property_t"} review_of_id={id} entity_name={name} />*/}
+        <ReviewButton review_of_id={id} type={"unit_t"} entity_name={name}/>
       </>
     );
   }

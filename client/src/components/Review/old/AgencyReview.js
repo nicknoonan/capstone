@@ -1,22 +1,23 @@
 import { Component } from "react";
 import 'survey-react/survey.css';
 import * as Survey from "survey-react";
-import { get_qmodel_by_type } from "../../api/Qmodel";
-import { get_qresults_by_user_id, new_qresult } from "../../api/Qresult";
-import { get_user } from "../../api/User";
+import { get_qmodel_by_type } from "../../../api/Qmodel";
+import { get_qresults_by_user_id, new_qresult } from "../../../api/Qresult";
+import { get_user } from "../../../api/User";
 
-const UNIT_T = 'unit_t';
+const AGENCY_T = 'agency_t';
 
-class UnitReview extends Component {
+class AgencyReview extends Component {
   constructor(props) {
     super(props)
     this.state = {
       loading: true,
       survey_json: {},
-      enabled: true,
+      enabled: false,
       user_id: "",
       qmodel_id: "",
-      review_of_id: ""
+      review_of_id: "",
+      verified: false
     }
     this.onCompleteComponent = this.onCompleteComponent.bind(this)
   }
@@ -27,7 +28,7 @@ class UnitReview extends Component {
       qmodel_id: this.state.qmodel_id,
       user_id: this.state.user_id,
       review_of_id: this.state.review_of_id,
-      review_of_name: this.props.unit_name,
+      review_of_name: this.props.agency_name,
       survey_result: survey_result
     };
     console.log(qresult);
@@ -43,51 +44,57 @@ class UnitReview extends Component {
     
   }
   componentDidMount() {
-    let user_id;
-    let user_token;
-    let unit_id = this.props.unit_id;
-    let unit_name = this.props.unit_name;
-    try {
-      let localuser = JSON.parse(localStorage.getItem('user'));
-      user_id = localuser.id;
-      user_token = localuser.token;
-      this.setState({ user_id: localuser.id });
-    }
-    catch (err) {
-      console.log("no local user found " + err);
-      this.setState({ enabled: false });
-      return;
-    }
-    get_user(user_id, user_token).then((res) => {
-      get_qmodel_by_type(UNIT_T).then((qmodel) => {
-        get_qresults_by_user_id(user_id).then((qresults) => {
-          qresults.forEach((result) => {
-            //console.log(result);
-            if (result.review_of_id === unit_id) {
-              this.setState({ enabled: false });
-            }
-          });
-          if (this.state.enabled) {
-            this.setState({ 
-              survey_json: qmodel.survey_json, 
-              loading: false,
-              review_of_id: unit_id, 
-              qmodel_id: qmodel._id 
+    if (this.props.enabled) {
+      this.setState({enabled: true});
+      let user_id;
+      let user_token;
+      let agency_id = this.props.agency_id;
+      let agency_name = this.props.agency_name;
+      let verified;
+      try {
+        let localuser = JSON.parse(localStorage.getItem('user'));
+        user_id = localuser.id;
+        user_token = localuser.token;
+        this.setState({ user_id: localuser.id });
+      }
+      catch (err) {
+        console.log("no local user found " + err);
+        this.setState({ enabled: false });
+        return;
+      }
+      get_user(user_id, user_token).then((res) => {
+        get_qmodel_by_type(AGENCY_T).then((qmodel) => {
+          get_qresults_by_user_id(user_id).then((qresults) => {
+            qresults.forEach((result) => {
+              //console.log(result);
+              if (result.review_of_id === agency_id) {
+                this.setState({ enabled: false });
+              }
             });
-          }
+            if (this.state.enabled) {
+              this.setState({ 
+                survey_json: qmodel.survey_json, 
+                loading: false,
+                review_of_id: agency_id, 
+                qmodel_id: qmodel._id 
+              });
+            }
+          }).catch((err) => {
+            //alert("error check console");
+            console.log(err);
+          });
+          
         }).catch((err) => {
           //alert("error check console");
           console.log(err);
         });
-        
       }).catch((err) => {
-        //alert("error check console");
-        console.log(err);
+        this.setState({ enabled: false });
       });
-    }).catch((err) => {
-      this.setState({ enabled: false });
-    });
-    
+    }
+    else {
+      this.setState({enabled: false});
+    }
   }
   render() {
     if (this.state.enabled) {
@@ -123,4 +130,4 @@ class UnitReview extends Component {
   }
 }
 
-export default UnitReview;
+export default AgencyReview;

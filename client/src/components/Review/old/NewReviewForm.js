@@ -1,9 +1,9 @@
 import { thisTypeAnnotation } from '@babel/types';
-import { get_user } from '../../api/User'
+import { get_user } from '../../../api/User'
 import React, { useState, useEffect } from 'react';
 import { Button, ButtonGroup } from 'react-bootstrap';
-import { post_review } from '../../api/Review';
-import UnitReview from '../Review/UnitReview';
+import { post_review } from '../../../api/Review';
+import UnitReview from './UnitReview';
 
 export default function NewReviewForm(props) {
   const initialState = {
