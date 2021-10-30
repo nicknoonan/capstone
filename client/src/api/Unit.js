@@ -48,7 +48,7 @@ async function get_unit_by_id(id) {
 
 async function search_units(field, query) {
   return new Promise((resolve, reject) => {
-    console.log(field + " " + query);
+    //console.log(field + " " + query);
     if (field && query) {
       let params = {
         field: null,

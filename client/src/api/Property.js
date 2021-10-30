@@ -48,7 +48,7 @@ async function get_property_by_id(id) {
 
 async function search_properties(field, query) {
   return new Promise((resolve, reject) => {
-    console.log(field + " " + query);
+    //console.log(field + " " + query);
     if (field && query) {
       let params = {
         field: null,

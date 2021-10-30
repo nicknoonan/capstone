@@ -72,7 +72,7 @@ class Browse extends React.Component {
         this.setState({ entities: properties });
         this.setState({ loading_entities: false });
       }).catch((err) => {
-        console.log(err);
+        //console.log(err);
         this.setState({ loading_entities: false });
       });
     }
@@ -90,7 +90,7 @@ class Browse extends React.Component {
     }
   }
   handleFilterChange(event) {
-    console.log("Filter Applied");
+    //console.log("Filter Applied");
     let filter = [false, false, false];
     if (event.target.value == "agency") {
       filter[agency_t] = true;

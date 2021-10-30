@@ -26,7 +26,7 @@ class EntityReview extends Component {
   }
   onReviewComplete = (sender) => {
     let survey_result = sender.data;
-    console.log(survey_result);
+    //console.log(survey_result);
     let qresult = {
       qmodel_id: this.state.qmodel_id,
       user_id: this.state.user.id,

@@ -54,7 +54,7 @@ function Agency(props) {
       //get_agency_by_name returns a promise
       //getagency().then().catch();
       //handle loading state
-      console.log("name param: " + nameParam);
+      //console.log("name param: " + nameParam);
       get_agency_by_name(nameParam).then((agency) => {
         setName(agency.name);
         setWebsite(agency.website);

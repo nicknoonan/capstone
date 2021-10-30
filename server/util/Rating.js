@@ -100,7 +100,7 @@ async function set_avg_unit_rating(id, new_rating) {
         resolve(unit);
       }
       else {
-        let err = "failed to find unit" + err;
+        let err = "failed to find unit";
         reject(err);
       }
     });
