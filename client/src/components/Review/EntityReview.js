@@ -4,7 +4,7 @@ import * as Survey from "survey-react";
 import { get_qmodel_by_type } from "../../api/Qmodel";
 import { get_qresults_by_user_id, new_qresult } from "../../api/Qresult";
 import { UserContext } from "../../context/Store";
-import { set } from "mongoose";
+// import { set } from "mongoose";
 
 const UNIT_T = 'unit_t';
 const PROPERTY_T = 'property_t';

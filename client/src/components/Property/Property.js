@@ -21,7 +21,7 @@ class Property extends React.Component {
           <Row className="justify-content-md-center">
             <Col md='auto'>
               <Card border="primary" style={{ width: '40rem' }}>
-                <Card.Img variant="top" src="https://via.placeholder.com/200x100" />
+                <Card.Img variant="top" src={this.props.property.im_url01} />
                 <Card.Header>
                   <Nav variant="pills" defaultActiveKey="#first">
                     <Nav.Link href={linktoProperty}>
