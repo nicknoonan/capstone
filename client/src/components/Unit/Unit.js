@@ -22,7 +22,7 @@ class Unit extends React.Component {
 
               <Card border="primary" style={{ width: '40rem' }}>
 
-                <Card.Img variant="top" src="https://via.placeholder.com/200x100" />
+                <Card.Img variant="top" src={this.props.unit.card_image} />
 
                 <Card.Header>
                   <Nav variant="tabs" defaultActiveKey="#first">
