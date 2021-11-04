@@ -1,9 +1,9 @@
 import { Component } from "react";
-import { get_qresults_by_user_id, new_qresult } from "../../api/Qresult";
+import { get_qresults_by_user_id, new_qresult, get_qresults_by_review_of_id } from "../../api/Qresult";
 import Aload from '../loading/loading';
 import '../../App.css';
 import Box from '@material-ui/core/Box';
-import { Row, Col, Form } from 'react-bootstrap';
+import { Row, Col, Form, Card, Container } from 'react-bootstrap';
 
 
 const Questions = {
@@ -14,11 +14,11 @@ const Questions = {
     'Overall, how satisfied were you living here',
     'What is your reasoning for your rating'],
   property: [
-    'Have you rented from this apartment',
-    'Did you have to fill out any work orders while living here',
-    'If so, how efficiently were they carried out',
-    'Overall, how satisfied were you living here',
-    'What is your reasoning for your rating'],
+    'Have you rented from this Property?',
+    'Did you have to fill out any work orders while living here?',
+    'If so, how efficiently were they carried out?',
+    'Overall, how satisfied were you living here?',
+    'What is your reasoning for your rating?'],
   unit: [
     'Have you rented from this apartment',
     'Did you have to fill out any work orders while living here',
@@ -115,6 +115,19 @@ class ReviewResultList extends Component {
     }
     else if (this.props.list_type === 'agency_t' && this.props.review_of_id) {
       
+      this.setState({ list_type: this.props.list_type });
+
+      get_qresults_by_review_of_id(this.props.review_of_id).then((results) => {
+        
+        this.setState({ results: results });
+        
+        this.setState({ loading: false });
+
+      }).catch((err) => {
+        alert('error check console');
+        console.log(err);
+      });
+
     }
     else if (this.props.list_type === 'property_t' && this.props.review_of_id) {
 
@@ -135,6 +148,9 @@ class ReviewResultList extends Component {
       let title = <h2>Review results:</h2>;
       if (this.props.list_type === 'user_t') {
         title = <h2 className='Pageheader1'>Reviews you've posted: </h2>
+      }
+      else if (this.props.list_type === 'agency_t') {
+        title = <h2 className='Pageheader1'>Reviews Posted: </h2>
       }
       //console.log(this.state.results);
       let results_render = this.state.results.map((item) => {

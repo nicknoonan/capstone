@@ -99,8 +99,12 @@ function Unit(props) {
             </Box>
 
             <Row>
-                <Box>
-                    <ReviewButton review_of_id={id} type={"agency_t"} entity_name={name}/>
+                <Box
+                sx={{
+                  margin: 30,
+                  }}
+                >
+                    <ReviewButton review_of_id={id} type={"unit_t"} entity_name={name}/>
                 </Box>
             </Row>
           </Col>

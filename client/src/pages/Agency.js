@@ -7,6 +7,7 @@ import Box from '@material-ui/core/Box';
 import { ExternalLink } from 'react-external-link';
 import Aload from '../components/loading/loading';
 import ReviewButton from '../components/ReviewButton/ReviewButton';
+import { ReviewResult, ReviewResultList } from '../components/Review/ReviewResult';
 
 function Agency(props) {
   const initialState = {
@@ -61,7 +62,7 @@ function Agency(props) {
         setAddress(agency.address);
         setRating(agency.rating);
         setEmail(agency.email);
-        setPhone(agency.phone);
+        setPhone(agency.phone_office);
         setEst(agency.est);
         setId(agency._id);
         setIsLoading(false);
@@ -113,10 +114,14 @@ function Agency(props) {
             </Box>
 
             <Row>
-                <Box>
-                    <ReviewButton review_of_id={id} type={"agency_t"} entity_name={name}/>
+                <Box
+                  sx={{
+                    margin: 30,
+                    }}>
+
+                  <ReviewButton review_of_id={id} type={"agency_t"} entity_name={name}/>
+
                 </Box>
-                {/* <AgencyReview agency_id={id} agency_name={name}/> */}
             </Row>
           </Col>
 
@@ -138,7 +143,7 @@ function Agency(props) {
 
             <Row>
               <Box>
-                {/* HERE THE LIST OF REVIEWS WILL GO */}
+                <ReviewResultList />
               </Box>
             </Row>
 

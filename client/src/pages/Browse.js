@@ -9,6 +9,11 @@ import '../App.css';
 import { thisTypeAnnotation } from "@babel/types";
 import { search_properties } from "../api/Property";
 import { search_units } from "../api/Unit";
+import Box from '@material-ui/core/Box';
+import { Row, Col, Container, Form, FloatingLabel } from 'react-bootstrap';
+import Aload from '../components/loading/loading';
+import '../App.css';
+import Button from "@restart/ui/esm/Button";
 
 const options = [
   {
@@ -107,10 +112,11 @@ class Browse extends React.Component {
   render() {
     if (this.state.loading) {
       return (
-        <>
-          loading...
-        </>
-      )
+        <div>
+          <h2 className='SignInText' align='center' margin='50'>Loading Local Housing Options</h2>
+          <Aload />
+        </div>
+      );
     }
     else {
       let entity_list = null;
@@ -132,19 +138,49 @@ class Browse extends React.Component {
         <div>
           <h1 className='Pageheader1'>Browse Boone Housing Help</h1>
           <div className="select-container">
-            <select value={this.state.item} onChange={this.handleFilterChange}>
-              {options.map((option) => (
-                <option value={option.value}>{option.label}</option>
-              ))}
-            </select>
-            <input className="field" type="text" value={this.state.query} onChange={this.handleQuery} />
-            <button onClick={this.handleQuerySubmit}>search</button>
+            <Box>
+              <Row>
+                <Col>
+                  <Box sx={{margin: 10}}>
+                    {/* <input type="text" value={this.state.query} onChange={this.handleQuery} />
+                    <button onClick={this.handleQuerySubmit}>search</button> */}
 
+                    <Form.Group className='mb-3'>
+                      {/* <Form.Label>Search</Form.Label> */}
+                      <Form.Control type="text" value={this.state.query} onChange={this.handleQuery}></Form.Control>
+                      <Form.Text className='text-muted'>
+                        Search for a Housing Agency/Property/Unit
+                      </Form.Text>
+                    </Form.Group>
+                    <Button className='button' onClick={this.handleQuerySubmit}>
+                      Submit
+                    </Button>
+                  </Box>
+              </Col>
+
+                <Col>
+                  <Box sx={{margin: 10}}>
+                    {/* <select value={this.state.item} onChange={this.handleFilterChange}>
+                      {options.map((option) => (
+                        <option value={option.value}>{option.label}</option>
+                      ))}
+                    </select> */}
+
+                    <Form.Select value={this.state.item} onChange={this.handleFilterChange}>
+                    {options.map((option) => (
+                        <option value={option.value}>{option.label}</option>
+                      ))}
+                    </Form.Select>
+
+                  </Box>
+                </Col>
+              </Row>
+            </Box>
+            
           </div>
           {entity_list}
         </div>
       );
-      //}
     }
 
   }
