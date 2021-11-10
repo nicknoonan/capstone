@@ -12,6 +12,7 @@ import Agency from './pages/Agency';
 import Property from './pages/Property';
 import Unit from './pages/Unit';
 import Verify from './pages/Verify';
+import NewEntity from './pages/NewEntity';
 import RecoverPassword from './pages/RecoverPassword';
 import { useEffect, useState } from 'react';
 import { get_user } from './api/User'
@@ -70,8 +71,9 @@ function App() {
         <Route className="route" exact path='/userprofile' component={UserProfile} />
         <Route classname="route" exact path="/verify" component={Verify} />
         <Route classname="route" exact path="/recover" component={RecoverPassword} />
+        <Route classname="route" exact path="/new-entity" component={NewEntity} />
+        <Footer />
       </UserProvider>
-      <Footer />
     </div>
   );
 }
