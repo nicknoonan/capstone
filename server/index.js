@@ -35,7 +35,7 @@ async function init() {
   })
   .catch((err) => {
     console.log(err);
-    throw new err;
+    //throw new err;
   });
 
   //listen at PORT
