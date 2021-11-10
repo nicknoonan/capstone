@@ -9,6 +9,10 @@ const PORT = 8080;
 const app = express();
 app.use(express.json());
 app.use(cors());
+
+// Priority serve any static files.
+app.use(express.static(path.resolve(__dirname, '../client/build')));
+
 //use router module
 app.use('/', router);
 init();
