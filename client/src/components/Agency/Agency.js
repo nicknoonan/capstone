@@ -1,10 +1,10 @@
 import React from 'react';
 import { get_all_agencies } from '../../api/Agency';
-import {
-  Card, Nav, Row, Col, Container
-} from 'react-bootstrap';
+import { Card, Nav, Row, Col, Container} from 'react-bootstrap';
 import Aload from '../loading/loading';
 import '../../App.css';
+import { ExternalLink } from 'react-external-link';
+
 
 class Agency extends React.Component {
   render() {
@@ -30,12 +30,11 @@ class Agency extends React.Component {
                       <Col sm><Card.Text>Address: {this.props.agency.address}</Card.Text></Col>
                     </Row>
                     <Row>
-                      <Col sm><Card.Text>Website: {this.props.agency.website}</Card.Text></Col>
+                      <Col sm><Card.Text>Website: <ExternalLink href={this.props.agency.url}>{this.props.agency.website}</ExternalLink></Card.Text></Col>
                       <Col sm><Card.Text>Email: {this.props.agency.email}</Card.Text></Col>
                     </Row>
                     <Row>
-                      <Col sm><Card.Text>Phone: {this.props.agency.phone}</Card.Text></Col>
-                      <Col sm><Card.Text>Est: {this.props.agency.est}</Card.Text></Col>
+                      <Col sm><Card.Text>Office Phone: {this.props.agency.phone_office}</Card.Text></Col>
                     </Row>
                   </Container>
                 </Card.Body>

@@ -1,23 +1,21 @@
 import { get_unit_by_name } from '../api/Unit';
 import { useLocation } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
-
-import {
-  Row, Col, Container
-} from 'react-bootstrap';
-
-//import EntityReview from '../components/Review/EntityReview';
+import { Row, Col } from 'react-bootstrap';
+import Aload from '../components/loading/loading';
+import { ExternalLink } from 'react-external-link';
+import Box from '@material-ui/core/Box';
+import '../App.css';
 import ReviewButton from '../components/ReviewButton/ReviewButton';
 
 function Unit(props) {
   const initialState = {
     name: "",
-    website: "",
-    address: "",
-    rating: 0,
-    email: "",
-    phone: "",
-    est: "",
+    agencyName: "",
+    propertyName: "",
+    floorplan: "",
+    cost: "",
+    page_image: "",
     isLoading: true,
     id: ""
     // isError: false
@@ -25,12 +23,11 @@ function Unit(props) {
 
 //  let errorMessage = '';
   const [name, setName] = useState(initialState.name);
-  const [website, setWebsite] = useState(initialState.website);
-  const [address, setAddress] = useState(initialState.address);
-  const [rating, setRating] = useState(initialState.rating);
-  const [email, setEmail] = useState(initialState.email);
-  const [phone, setPhone] = useState(initialState.phone);
-  const [est, setEst] = useState(initialState.est);
+  const [agencyName, setAgencyName] = useState(initialState.agencyName);
+  const [propertyName, setPropertyName] = useState(initialState.propertyName);
+  const [floorplan, setFloorplan] = useState(initialState.floorplan);
+  const [cost, setCost] = useState(initialState.cost);
+  const [page_image, setPage_image] = useState(initialState.page_image);
   const [isLoading, setIsLoading] = useState(initialState.isLoading);
   const [id, setId] = useState(initialState.id);
 //   const [isError, setError] = useState(initialState.isError);
@@ -46,12 +43,11 @@ function Unit(props) {
       //console.log("name param: " + nameParam);
       get_unit_by_name(nameParam).then((unit) => {
         setName(unit.name);
-        setWebsite(unit.website);
-        setAddress(unit.address);
-        setRating(unit.rating);
-        setEmail(unit.email);
-        setPhone(unit.phone);
-        setEst(unit.est);
+        setAgencyName(unit.agency_name);
+        setPropertyName(unit.property_name);
+        setFloorplan(unit.Floorplans.Unit_A);
+        setCost(unit.Floorplans_Price.Unit_A);
+        setPage_image(unit.page_image);
         setId(unit._id);
         setIsLoading(false);
         // setError(false);
@@ -62,11 +58,16 @@ function Unit(props) {
   }, []);
  
 
+  let linktoAgency = "http://localhost:3000/Agency?name=" + agencyName;
+  let linktoProperty = "http://localhost:3000/Property?name=" + propertyName;
+
+
   if (isLoading) {
     return (
-      <>
-        <h3>loading...</h3>
-      </>
+      <div>
+        <h2 className='SignInText' align='center' margin='50'>Loading Local Housing Options</h2>
+        <Aload />
+      </div>
     );
   }
 //   else if(isError) {
@@ -75,43 +76,103 @@ function Unit(props) {
 //       </>
 //   }
   else {
+
     return (
       <>
-        <h1 className='infoPage'>{name}</h1>;
-        <Container>
+        <img className='fImage' src={page_image}></img>
+        <Box>
+          <Row>
           <Col>
+            <Box 
+            sx={{
+              bgcolor: 'rgb(238,238,228)',
+              boxShadow: 1,
+              borderRadius: 1,
+              p: 2,
+              minWidth: 300,
+              margin: 30,
+              }}>
+
+              <h2 className='APUName'>{name}</h2>
+              <h3 className='APULowLevelHeader'>Housing Agency: <ExternalLink className='websiteLink' href={linktoAgency}>{agencyName}</ExternalLink></h3>
+              <h3 className='APULowLevelHeader'>Housing Property: <ExternalLink className='websiteLink' href={linktoProperty}>{propertyName}</ExternalLink></h3>
+            </Box>
 
             <Row>
-              <h3>{website}</h3>
-              <h3>{address}</h3>
+                <Box
+                sx={{
+                  margin: 30,
+                  }}
+                >
+                    <ReviewButton review_of_id={id} type={"unit_t"} entity_name={name}/>
+                </Box>
             </Row>
-
-            {/* <Row>
-              <h3>{address}</h3>
-            </Row> */}
-
           </Col>
 
           <Col>
+            <Box
+            sx={{
+              boxShadow: 1,
+              borderRadius: 1,
+              p: 2,
+              minWidth: 300,
+              margin: 30,
+              }}>
+            <h2 className='APUName'>Unit Info:</h2>
+            <h3 className='APULowLevelHeader'>Unit List: {floorplan}</h3>
+            <h3 className='APULowLevelHeader'>Price: {cost}</h3>
+            </Box>
+
+            <Row>
+              <Box>
+                {/* HERE THE LIST OF REVIEWS WILL GO */}
+              </Box>
+            </Row>
+
+          </Col>
+          </Row>
           
-            <Row>
-              <h3>{email}</h3>
-            </Row>
-
-            <Row>
-             <h3>{phone}</h3>
-            </Row>
-
-            <Row>
-            <h3>{rating}</h3>
-            </Row>
-          </Col>
-        </Container>
-        {/*<UnitReview unit_id={id} unit_name={name}/>*/}
-        {/*<EntityReview type={"unit_t"} review_of_id={id} entity_name={name} />*/}
-        <ReviewButton review_of_id={id} type={"unit_t"} entity_name={name}/>
+        </Box>
       </>
     );
+
+    // return (
+    //   <>
+    //     <h1 className='infoPage'>{name}</h1>;
+    //     <Container>
+    //       <Col>
+
+    //         <Row>
+    //           <h3>{website}</h3>
+    //           <h3>{address}</h3>
+    //         </Row>
+
+    //         {/* <Row>
+    //           <h3>{address}</h3>
+    //         </Row> */}
+
+    //       </Col>
+
+    //       <Col>
+          
+    //         <Row>
+    //           <h3>{email}</h3>
+    //         </Row>
+
+    //         <Row>
+    //          <h3>{phone}</h3>
+    //         </Row>
+
+    //         <Row>
+    //         <h3>{rating}</h3>
+    //         </Row>
+    //       </Col>
+    //     </Container>
+    //     {/*<UnitReview unit_id={id} unit_name={name}/>*/}
+    //     {/*<EntityReview type={"unit_t"} review_of_id={id} entity_name={name} />*/}
+    //     <ReviewButton review_of_id={id} type={"unit_t"} entity_name={name}/>
+    //   </>
+    // );
   }
 }
 

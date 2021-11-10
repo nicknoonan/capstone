@@ -20,9 +20,9 @@ class Unit extends React.Component {
           <Row className="justify-content-md-center">
             <Col md='auto'>
 
-              <Card border="primary" style={{ width: '40rem' }}>
+              <Card border="warning" style={{ width: '40rem' }}>
 
-                <Card.Img variant="top" src="https://via.placeholder.com/200x100" />
+                <Card.Img variant="top" src={this.props.unit.card_image} />
 
                 <Card.Header>
                   <Nav variant="tabs" defaultActiveKey="#first">
@@ -36,17 +36,18 @@ class Unit extends React.Component {
                   <Container>
                     <Row>
                       <Col sm><Card.Text>Rating: {this.props.unit.rating}</Card.Text></Col>
-                      <Col sm><Card.Text>Address: {this.props.unit.address}</Card.Text></Col>
+                      <Col sm><Card.Text>Unit Options: {this.props.unit.Unit_options}</Card.Text></Col>
                     </Row>
 
                     <Row>
-                      <Col sm><Card.Text>Website: {this.props.unit.website}</Card.Text></Col>
-                      <Col sm><Card.Text>Email: {this.props.unit.email}</Card.Text></Col>
+                      <Col sm><Card.Text>Agency: {this.props.unit.agency_name}</Card.Text></Col>
+                      <Col sm><Card.Text>Cost: {this.props.unit.Cost_range}</Card.Text></Col>
+
                     </Row>
 
                     <Row>
-                      <Col sm><Card.Text>Phone: {this.props.unit.phone}</Card.Text></Col>
-                      <Col sm><Card.Text>Est: {this.props.unit.est}</Card.Text></Col>
+                      <Col sm><Card.Text>{this.props.unit.classification}: {this.props.unit.property_name}</Card.Text></Col>
+                      <Col sm><Card.Text>Resident: {this.props.unit.resident_range} Person(s) Per Room</Card.Text></Col>
                     </Row>
                   </Container>
                 </Card.Body>
