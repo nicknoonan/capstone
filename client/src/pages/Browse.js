@@ -37,7 +37,8 @@ const initial_state = {
   entities: null,
   loading: false,
   loading_entities: false,
-  query: ""
+  query: "",
+  filter_selection: ""
 };
 class Browse extends React.Component {
   constructor(props) {
@@ -50,6 +51,10 @@ class Browse extends React.Component {
   componentDidMount() {
     //this.setState({ loading: false });
     //this.setState({ loading_entities: false });
+    this.setState({filter_selection: "agency"});
+  }
+  componentWillUnmount() {
+    this.setState({filter_selection: "agency"});
   }
   handleQuery(event) {
     let query = event.target.value;
@@ -96,6 +101,7 @@ class Browse extends React.Component {
   }
   handleFilterChange(event) {
     //console.log("Filter Applied");
+    this.setState({filter_selection: event.target.value});
     let filter = [false, false, false];
     if (event.target.value == "agency") {
       filter[agency_t] = true;
@@ -165,13 +171,12 @@ class Browse extends React.Component {
                         <option value={option.value}>{option.label}</option>
                       ))}
                     </select> */}
-
-                    <Form.Select value={this.state.item} onChange={this.handleFilterChange}>
+                    
+                    <Form.Select onChange={this.handleFilterChange}>
                     {options.map((option) => (
                         <option value={option.value}>{option.label}</option>
                       ))}
                     </Form.Select>
-
                   </Box>
                 </Col>
               </Row>
