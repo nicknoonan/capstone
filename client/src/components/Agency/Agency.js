@@ -15,7 +15,7 @@ class Agency extends React.Component {
           <Row className="justify-content-md-center">
             <Col md='auto'>
               <Card border="primary" style={{ width: '40rem' }}>
-                <Card.Img variant="top" src={this.props.agency.im_url01} />
+                <Card.Img variant="top" src={this.props.agency.card_img_url} />
                 <Card.Header>
                   <Nav variant="pills" defaultActiveKey="#first">
                     <Nav.Link href={linktoAgency}>

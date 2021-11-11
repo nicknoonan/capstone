@@ -1,6 +1,7 @@
 import React from 'react';
 import './Footer.css';
 import { Link } from 'react-router-dom';
+import '../../App.css';
 
 function Footer() {
   return (
@@ -80,6 +81,7 @@ function Footer() {
               <i class='fab fa-linkedin' />
             </Link>
           </div>
+          <img src='https://i.ibb.co/PMCMy2K/Orange-Logo.png'/>
         </div>
       </section>
     </div>

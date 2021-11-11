@@ -66,7 +66,7 @@ function Agency(props) {
         setEst(agency.est);
         setId(agency._id);
         setIsLoading(false);
-        setIm_url02(agency.im_url02);
+        setIm_url02(agency.page_img_url);
         setCell_phone(agency.phone_cell);
         setFax(agency.fax);
         setUrl(agency.url);
@@ -143,7 +143,7 @@ function Agency(props) {
 
             <Row>
               <Box>
-                <ReviewResultList />
+                <ReviewResultList list_type={"agency_t"} review_of_id={id}/>
               </Box>
             </Row>
 

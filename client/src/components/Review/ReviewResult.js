@@ -3,6 +3,7 @@ import { get_qresults_by_user_id, new_qresult, get_qresults_by_review_of_id } fr
 import Aload from '../loading/loading';
 import '../../App.css';
 import Box from '@material-ui/core/Box';
+import { get_qmodel_by_type } from "../../api/Qmodel";
 import { Row, Col, Form, Card, Container } from 'react-bootstrap';
 
 
@@ -31,7 +32,6 @@ const Qmodels = {
   property_t: "61731b915412eac071e03c37",
   agency_t: "61731b805412eac071e03c35"
 };
-
 
 class ReviewResult extends Component {
   constructor(props) {
@@ -96,13 +96,13 @@ class ReviewResultList extends Component {
     this.state = {
       list_type: null,
       loading: true,
-      results: null,
+      results: [],
       results_render: null,
+      qmodel: null,
     };
   }
 
   componentDidMount() {
-    //console.log(this.props);
     if (this.props.list_type === 'user_t' && this.props.user_id) {
       this.setState({ list_type: this.props.list_type });
       get_qresults_by_user_id(this.props.user_id).then((results) => {
@@ -112,28 +112,77 @@ class ReviewResultList extends Component {
         alert('error check console');
         console.log(err);
       });
+    } else {
+      if (this.props.list_type && (this.props.user_id || this.props.review_of_id)){
+        get_qmodel_by_type(this.props.list_type).then((qmodel) => {
+          this.setState({ qmodel });
+          console.log(qmodel);
+  
+          if (this.props.list_type === 'agency_t' && this.props.review_of_id) {
+  
+            console.log("here");
+            
+            this.setState({ list_type: this.props.list_type });
+  
+            get_qresults_by_review_of_id(this.props.review_of_id).then((results) => {
+              
+              this.setState({ results });
+              
+              this.setState({ loading: false });
+  
+            }).catch((err) => {
+              this.setState({ loading: false });
+              alert('error check console');
+              console.log(err);
+            });
+  
+          }
+          else if (this.props.list_type === 'property_t' && this.props.review_of_id) {
+            console.log("here");
+            
+            this.setState({ list_type: this.props.list_type });
+  
+            get_qresults_by_review_of_id(this.props.review_of_id).then((results) => {
+              
+              this.setState({ results });
+              
+              this.setState({ loading: false });
+  
+            }).catch((err) => {
+              this.setState({ loading: false });
+              alert('error check console');
+              console.log(err);
+            });
+  
+          }
+          else if (this.props.list_type === 'unit_t' && this.props.review_of_id) {
+            console.log("here");
+            
+            this.setState({ list_type: this.props.list_type });
+  
+            get_qresults_by_review_of_id(this.props.review_of_id).then((results) => {
+              
+              this.setState({ results });
+              
+              this.setState({ loading: false });
+  
+            }).catch((err) => {
+              this.setState({ loading: false });
+              alert('error check console');
+              console.log(err);
+            });
+  
+          }
+  
+  
+        }).catch((err) => {
+          alert('error check console');
+          console.log(err);
+        });
+      }
     }
-    else if (this.props.list_type === 'agency_t' && this.props.review_of_id) {
-      
-      this.setState({ list_type: this.props.list_type });
-
-      get_qresults_by_review_of_id(this.props.review_of_id).then((results) => {
-        
-        this.setState({ results: results });
-        
-        this.setState({ loading: false });
-
-      }).catch((err) => {
-        alert('error check console');
-        console.log(err);
-      });
-
-    }
-    else if (this.props.list_type === 'property_t' && this.props.review_of_id) {
-
-    }
-    else if (this.props.list_type === 'unit_t' && this.props.review_of_id) {
-    }
+    
+    
   }
   render() {
     if (this.state.loading) {
@@ -149,7 +198,7 @@ class ReviewResultList extends Component {
       if (this.props.list_type === 'user_t') {
         title = <h2 className='Pageheader1'>Reviews you've posted: </h2>
       }
-      else if (this.props.list_type === 'agency_t') {
+      else {
         title = <h2 className='Pageheader1'>Reviews Posted: </h2>
       }
       //console.log(this.state.results);
