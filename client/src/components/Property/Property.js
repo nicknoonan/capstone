@@ -105,7 +105,7 @@ class PropertyList extends React.Component {
         );
         return (
           <div>
-            <h1>Property List</h1>
+            <h1 className='APUName'>Property List</h1>
             {listItems}
           </div>
         );

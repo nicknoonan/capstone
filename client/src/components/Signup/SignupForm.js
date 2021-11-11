@@ -73,23 +73,26 @@ export default function SignupForm(props) {
   }
   else if (user.auth) {
     return (
-      <>
-        <h3>already logged in. redirecting to home...</h3>
-      </>
+      <div>
+        <h2 className='SignInText' align='center' margin='50'>already logged in. redirecting to home...</h2>
+        <Aload />
+      </div>
     );
   }
   else if (userCreated) {
     return (
-      <>
-        <h3>user created successfully... redirecting to sign in</h3>
-      </>
+      <div>
+        <h2 className='SignInText' align='center' margin='50'>user created successfully... redirecting to sign in</h2>
+        <Aload />
+      </div>
     );
   }
   else if (submitting) {
     return (
-      <>
-        <h3>submitting...</h3>
-      </>
+      <div>
+        <h2 className='SignInText' align='center' margin='50'>submitting...</h2>
+        <Aload />
+      </div>
     );
   }
   else {
@@ -111,7 +114,7 @@ export default function SignupForm(props) {
 
               <form>
                 
-                <h4 className='SignInText'>Name</h4>
+                <h4 className='SignInText'>Username</h4>
                 <label>
                   <input className='field' type="text" value={name} onChange={handleName} />
                 </label>
@@ -138,7 +141,7 @@ export default function SignupForm(props) {
             <Col>
               <Box>
                 <Card>
-                  {/* <Card.Img variant="top" src="https://i.ibb.co/SBTXD7g/image0.jpg" /> */}
+                  {/* <Card.Img variant="top" src="https://i.ibb.co/n8G5srx/J-project-2.jpg" /> */}
                 </Card>
               </Box>
             </Col>
