@@ -7,15 +7,18 @@ import { ExternalLink } from 'react-external-link';
 import Box from '@material-ui/core/Box';
 import '../App.css';
 import ReviewButton from '../components/ReviewButton/ReviewButton';
+import { ReviewResult, ReviewResultList } from '../components/Review/ReviewResult';
 
 function Unit(props) {
   const initialState = {
     name: "",
     agencyName: "",
     propertyName: "",
-    floorplan: "",
-    cost: "",
-    page_image: "",
+    floorplan_n: "",
+    floorplan_cost: "",
+    page_image_url: "",
+    classs: "",
+    numberOfBedrooms: "",
     isLoading: true,
     id: ""
     // isError: false
@@ -25,9 +28,11 @@ function Unit(props) {
   const [name, setName] = useState(initialState.name);
   const [agencyName, setAgencyName] = useState(initialState.agencyName);
   const [propertyName, setPropertyName] = useState(initialState.propertyName);
-  const [floorplan, setFloorplan] = useState(initialState.floorplan);
-  const [cost, setCost] = useState(initialState.cost);
-  const [page_image, setPage_image] = useState(initialState.page_image);
+  const [floorplan_n, setFloorplan_name] = useState(initialState.floorplan_n);
+  const [floorplan_cost, setFloorplan_cost] = useState(initialState.floorplan_cost);
+  const [page_image_url, setPage_image_url] = useState(initialState.page_image_url);
+  const [classs, setClassification] = useState(initialState.classs);
+  const [numberOfBedrooms, setNumberOfBedrooms] = useState(initialState.numberOfBedrooms);
   const [isLoading, setIsLoading] = useState(initialState.isLoading);
   const [id, setId] = useState(initialState.id);
 //   const [isError, setError] = useState(initialState.isError);
@@ -45,9 +50,11 @@ function Unit(props) {
         setName(unit.name);
         setAgencyName(unit.agency_name);
         setPropertyName(unit.property_name);
-        setFloorplan(unit.Floorplans.Unit_A);
-        setCost(unit.Floorplans_Price.Unit_A);
-        setPage_image(unit.page_image);
+        setFloorplan_name(unit.floorplan_name);
+        setFloorplan_cost(unit.floorplan_cost);
+        setPage_image_url(unit.page_image_url);
+        setClassification(unit.classification);
+        setNumberOfBedrooms(unit.number_of_bedrooms);
         setId(unit._id);
         setIsLoading(false);
         // setError(false);
@@ -79,7 +86,7 @@ function Unit(props) {
 
     return (
       <>
-        <img className='fImage' src={page_image}></img>
+        <img className='fImage' src={page_image_url}></img>
         <Box>
           <Row>
           <Col>
@@ -119,13 +126,14 @@ function Unit(props) {
               margin: 30,
               }}>
             <h2 className='APUName'>Unit Info:</h2>
-            <h3 className='APULowLevelHeader'>Unit List: {floorplan}</h3>
-            <h3 className='APULowLevelHeader'>Price: {cost}</h3>
+            <h3 className='APULowLevelHeader'>Classification: {classs}</h3>
+            <h3 className='APULowLevelHeader'>Unit Name: {floorplan_n}</h3>
+            <h3 className='APULowLevelHeader'>Unit Cost Per Month: {floorplan_cost}</h3>
             </Box>
 
             <Row>
               <Box>
-                {/* HERE THE LIST OF REVIEWS WILL GO */}
+                <ReviewResultList list_type={"unit_t"} review_of_id={id}/>
               </Box>
             </Row>
 

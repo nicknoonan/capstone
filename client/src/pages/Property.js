@@ -7,6 +7,7 @@ import Aload from '../components/loading/loading';
 import { ExternalLink } from 'react-external-link';
 import Box from '@material-ui/core/Box';
 import { Row, Col, Nav } from 'react-bootstrap';
+import { ReviewResult, ReviewResultList } from '../components/Review/ReviewResult';
 import '../App.css';
 
 function Property(props) {
@@ -22,7 +23,6 @@ function Property(props) {
     id: "",
     isLoading: true,
     url: "",
-    card_image: "",
     page_image: "",
     // isError: false
   };
@@ -38,7 +38,6 @@ function Property(props) {
   const [id, setId] = useState(initialState.id);
   const [agencyName, setAgencyName] = useState(initialState.agencyName);
   const [url, setUrl] = useState(initialState.agencyName);
-  const [card_image, setCard_image] = useState(initialState.card_image);
   const [page_image, setPage_image] = useState(initialState.page_image);
 
 
@@ -63,8 +62,7 @@ function Property(props) {
         setIsLoading(false);
         setAgencyName(property.agency_name);
         setUrl(property.url);
-        setCard_image(property.im_url01);
-        setPage_image(property.im_url02);
+        setPage_image(property.page_img_url);
         // setError(false);
       }).catch((err) => {
         console.log(err);
@@ -139,7 +137,7 @@ function Property(props) {
 
             <Row>
               <Box>
-                {/* HERE THE LIST OF REVIEWS WILL GO */}
+              <ReviewResultList list_type={"property_t"} review_of_id={id}/>
               </Box>
             </Row>
 

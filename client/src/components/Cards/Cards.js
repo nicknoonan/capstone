@@ -8,8 +8,8 @@ function Cards() {
   const [user] = useContext(UserContext);
   let login_card = user.auth ? null :
     <CardItem
-      src='https://i.ibb.co/5YPLMqX/BHH03.jpg'
-      text="Make an account/Login"
+      src='https://i.ibb.co/LpsLc3F/J-project-3.jpg'
+      text="Login"
       label="Sign up/Login"
       path='/login'
     />
@@ -24,6 +24,13 @@ function Cards() {
               text="Browes local houseing agentices, units, and properties"
               label="Browse"
               path='/Browse'
+            />
+
+            <CardItem
+              src='https://i.ibb.co/C2BZg8L/J-project-4.jpg'
+              text="Read up on what our website has to offer!"
+              label="Info Page"
+              path='/about'
             />
             {login_card}
           </ul>

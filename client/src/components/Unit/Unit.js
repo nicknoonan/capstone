@@ -20,9 +20,9 @@ class Unit extends React.Component {
           <Row className="justify-content-md-center">
             <Col md='auto'>
 
-              <Card border="warning" style={{ width: '40rem' }}>
+              <Card border="primary" style={{ width: '40rem' }}>
 
-                <Card.Img variant="top" src={this.props.unit.card_image} />
+                <Card.Img variant="top" src={this.props.unit.card_image_url} />
 
                 <Card.Header>
                   <Nav variant="tabs" defaultActiveKey="#first">
@@ -36,18 +36,18 @@ class Unit extends React.Component {
                   <Container>
                     <Row>
                       <Col sm><Card.Text>Rating: {this.props.unit.rating}</Card.Text></Col>
-                      <Col sm><Card.Text>Unit Options: {this.props.unit.Unit_options}</Card.Text></Col>
+                      <Col sm><Card.Text>Unit Name: {this.props.unit.floorplan_name}</Card.Text></Col>
                     </Row>
 
                     <Row>
                       <Col sm><Card.Text>Agency: {this.props.unit.agency_name}</Card.Text></Col>
-                      <Col sm><Card.Text>Cost: {this.props.unit.Cost_range}</Card.Text></Col>
+                      <Col sm><Card.Text>Cost per month: {this.props.unit.floorplan_cost}</Card.Text></Col>
 
                     </Row>
 
                     <Row>
-                      <Col sm><Card.Text>{this.props.unit.classification}: {this.props.unit.property_name}</Card.Text></Col>
-                      <Col sm><Card.Text>Resident: {this.props.unit.resident_range} Person(s) Per Room</Card.Text></Col>
+                      <Col sm><Card.Text>Classification: {this.props.unit.classification}</Card.Text></Col>
+                      <Col sm><Card.Text>Number of bedrooms: {this.props.unit.number_of_bedrooms}</Card.Text></Col>
                     </Row>
                   </Container>
                 </Card.Body>
@@ -114,7 +114,7 @@ class UnitList extends React.Component {
         );
         return (
           <div>
-            <h1>Unit List</h1>
+            <h1 className='APUName'>Unit List</h1>
             {listItems}
           </div>
         );

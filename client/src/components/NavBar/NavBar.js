@@ -33,6 +33,7 @@ function Navbar(props) {
     return (
       <>
         <nav className='navbar'>
+        <img src='https://i.ibb.co/xsh2hyn/White-Logo.png'/>
           <div className='navbar-container'>
             <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
               Boone Housing Help
@@ -83,12 +84,12 @@ function Navbar(props) {
     return (
       <>
         <nav className='navbar'>
+          <img src='https://i.ibb.co/xsh2hyn/White-Logo.png'/>
           <div className='navbar-container'>
             <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
               Boone Housing Help
             </Link>
             <div className='menu-icon' onClick={handleClick}>
-              <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
             </div>
             <ul className={click ? 'nav-menu active' : 'nav-menu'}>
               <li className='nav-item'>

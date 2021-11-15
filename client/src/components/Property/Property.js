@@ -21,7 +21,7 @@ class Property extends React.Component {
           <Row className="justify-content-md-center">
             <Col md='auto'>
               <Card border="primary" style={{ width: '40rem' }}>
-                <Card.Img variant="top" src={this.props.property.im_url01} />
+                <Card.Img variant="top" src={this.props.property.card_img_url} />
                 <Card.Header>
                   <Nav variant="pills" defaultActiveKey="#first">
                     <Nav.Link href={linktoProperty}>
@@ -40,8 +40,7 @@ class Property extends React.Component {
                       <Col sm><Card.Text>email: {this.props.property.email}</Card.Text></Col>
                     </Row>
                     <Row>
-                      <Col sm><Card.Text>phone: {this.props.property.phone}</Card.Text></Col>
-                      <Col sm><Card.Text>est: {this.props.property.est}</Card.Text></Col>
+                      <Col sm><Card.Text>phone: {this.props.property.phone_office}</Card.Text></Col>
                     </Row>
                   </Container>
                   {/* <Card.Text>Agency phone: {this.props.property.agency}</Card.Text> */}
