@@ -14,10 +14,6 @@ const admin_auth = require('../middleware/admin_auth');
 const { post_qresult, get_qresult } = require('./controllers/Qresult');
 const router = express.Router();
 
-// / is currently the sample route
-router.post('/', post_sample_model);
-router.get('/', get_sample_model);
-
 //router handles agency post, delete, get request
 router.post('/api/agency', auth, post_agency);
 router.get('/api/agency', get_agency);

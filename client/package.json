@@ -1,4 +1,5 @@
 {
+  "homepage": "https://boonehousinghelp.herokuapp.com/",
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
@@ -55,9 +56,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+<<<<<<< HEAD
   },
   "proxy": "http://157.245.211.0:8080",
   "devDependencies": {
     "gh-pages": "^3.2.3"
+=======
+>>>>>>> d592eddfbfd8c8b5c43c47036919706c593dc984
   }
 }
