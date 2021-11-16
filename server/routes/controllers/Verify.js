@@ -71,7 +71,7 @@ async function send_verification_email(rec_email) {
       else if (verify) {
         //console.log(verify);
         token = verify.token;
-        verification_url = 'localhost:3000/verify?token=' + token;
+        verification_url = 'boonehousinghelp.com/verify?token=' + token;
         let transporter = nodemailer.createTransport({
           host: 'smtp.gmail.com',
           port: 587,

@@ -7,13 +7,16 @@ import {
 } from 'react-bootstrap';
 import Aload from '../loading/loading';
 import '../../App.css';
+import { get_domain } from '../../util';
 
 class Unit extends React.Component {
 
   render() {
     let spacetoU = this.props.unit.name;
     spacetoU = spacetoU.replace(/ /g, "_");
-    let linktoAgency = "http://localhost:3000/Unit?name=" + this.props.unit.name;
+    let linktoAgency = get_domain() + "/Unit?name=" + this.props.unit.name;
+    let agency_render = this.props.unit.agency_name ? <Col sm><Card.Text>Agency: {this.props.unit.agency_name}</Card.Text></Col> : null;
+    let rating_render = this.props.unit.rating ? <Col sm><Card.Text>Rating: {this.props.unit.rating}</Card.Text></Col> : null;
     return (
       <>
         <Container>
@@ -35,14 +38,13 @@ class Unit extends React.Component {
                 <Card.Body>
                   <Container>
                     <Row>
-                      <Col sm><Card.Text>Rating: {this.props.unit.rating}</Card.Text></Col>
+                      {rating_render}
                       <Col sm><Card.Text>Unit Name: {this.props.unit.floorplan_name}</Card.Text></Col>
                     </Row>
 
                     <Row>
-                      <Col sm><Card.Text>Agency: {this.props.unit.agency_name}</Card.Text></Col>
+                      {agency_render}
                       <Col sm><Card.Text>Cost per month: {this.props.unit.floorplan_cost}</Card.Text></Col>
-
                     </Row>
 
                     <Row>

@@ -7,14 +7,15 @@ import {
 } from 'react-bootstrap';
 import Aload from '../loading/loading';
 import '../../App.css';
+import { get_domain } from '../../util';
 
 class Property extends React.Component {
   render() {
-
     let spacetoU = this.props.property.name;
     spacetoU = spacetoU.replace(/ /g, "_");
-    let linktoProperty = "http://localhost:3000/Property?name=" + this.props.property.name;
-
+    let linktoProperty = get_domain() + "/Property?name=" + this.props.property.name;
+    let rating_render = this.props.property.rating ? <Col sm><Card.Text>Rating: {this.props.property.rating}</Card.Text></Col> : null;
+    let email_render = this.props.property.email ? <Col sm><Card.Text>email: {this.props.property.email}</Card.Text></Col> : null
     return (
       <>
         <Container>
@@ -32,12 +33,12 @@ class Property extends React.Component {
                 <Card.Body>
                   <Container>
                     <Row>
-                      <Col sm><Card.Text>Rating: {this.props.property.rating}</Card.Text></Col>
+                      {rating_render}
                       <Col sm><Card.Text>Address: {this.props.property.address}</Card.Text></Col>
                     </Row>
                     <Row>
                       <Col sm><Card.Text>Website: {this.props.property.website}</Card.Text></Col>
-                      <Col sm><Card.Text>email: {this.props.property.email}</Card.Text></Col>
+                      {email_render}
                     </Row>
                     <Row>
                       <Col sm><Card.Text>phone: {this.props.property.phone_office}</Card.Text></Col>
@@ -65,9 +66,9 @@ class PropertyList extends React.Component {
   }
   componentDidMount() {
     if (this.props.properties) {
-      
+
       let properties = this.props.properties;
-      this.setState({properties, loading: false});
+      this.setState({ properties, loading: false });
     }
     else {
       get_all_properties().then((all_properties) => {

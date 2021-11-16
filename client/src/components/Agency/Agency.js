@@ -1,14 +1,14 @@
 import React from 'react';
 import { get_all_agencies } from '../../api/Agency';
-import { Card, Nav, Row, Col, Container} from 'react-bootstrap';
+import { Card, Nav, Row, Col, Container } from 'react-bootstrap';
 import Aload from '../loading/loading';
 import '../../App.css';
 import { ExternalLink } from 'react-external-link';
-
+import { get_domain } from '../../util';
 
 class Agency extends React.Component {
   render() {
-    let linktoAgency = "http://localhost:3000/Agency?name=" + this.props.agency.name;
+    let linktoAgency = get_domain() + "/Agency?name=" + this.props.agency.name;
     return (
       <>
         <Container>
@@ -178,28 +178,28 @@ class NewAgency extends React.Component {
     return (
       <div>
         <p1>name: </p1>
-        <input className="field name" value={this.state.name} onChange={this.handleInputChange} /><br/>
+        <input className="field name" value={this.state.name} onChange={this.handleInputChange} /><br />
         <p1>address: </p1>
-        <input className="field address" value={this.state.address} onChange={this.handleInputChange} /><br/>
+        <input className="field address" value={this.state.address} onChange={this.handleInputChange} /><br />
         <p1>website: </p1>
-        <input className="field website" value={this.state.website} onChange={this.handleInputChange} /><br/>
+        <input className="field website" value={this.state.website} onChange={this.handleInputChange} /><br />
         <p1>email: </p1>
-        <input className="field email" value={this.state.email} onChange={this.handleInputChange} /><br/>
+        <input className="field email" value={this.state.email} onChange={this.handleInputChange} /><br />
         <p1>url: </p1>
-        <input className="field url" value={this.state.url} onChange={this.handleInputChange} /><br/>
+        <input className="field url" value={this.state.url} onChange={this.handleInputChange} /><br />
         <p1>phone_office: </p1>
-        <input className="field phone_office" value={this.state.phone_office} onChange={this.handleInputChange} /><br/>
+        <input className="field phone_office" value={this.state.phone_office} onChange={this.handleInputChange} /><br />
         <p1>phone_cell: </p1>
-        <input className="field phone_cell" value={this.state.phone_cell} onChange={this.handleInputChange} /><br/>
+        <input className="field phone_cell" value={this.state.phone_cell} onChange={this.handleInputChange} /><br />
         <p1>fax: </p1>
-        <input className="field fax" value={this.state.fax} onChange={this.handleInputChange} /><br/>
+        <input className="field fax" value={this.state.fax} onChange={this.handleInputChange} /><br />
         <p1>date_est: </p1>
-        <input className="field date_est" value={this.state.date_est} onChange={this.handleInputChange} /><br/>
+        <input className="field date_est" value={this.state.date_est} onChange={this.handleInputChange} /><br />
         <p1>card_img_url: </p1>
-        <input className="field card_img_url" value={this.state.card_img_url} onChange={this.handleInputChange} /><br/>
+        <input className="field card_img_url" value={this.state.card_img_url} onChange={this.handleInputChange} /><br />
         <p1>page_img_url: </p1>
         <input className="field page_img_url" value={this.state.page_img_url} onChange={this.handleInputChange} />
-        <hr/>
+        <hr />
         <button onClick={this.handleSubmit}>submit</button>
       </div>
     );

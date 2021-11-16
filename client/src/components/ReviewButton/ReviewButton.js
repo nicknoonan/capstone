@@ -11,19 +11,23 @@ import { get_qresults_by_user_id } from "../../api/Qresult";
 class ReviewButton extends React.Component {
   constructor(props) {
     super(props);
-    this.handelClick = this.handelClick.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.state = { 
       isToggleOn: false,
       enabled: true,
-      duplicate: false, 
+      duplicate: false,
+      submitted: false
     };
   }
 
-  handelClick() {
+  handleClick() {
     let currentToggle = this.state.isToggleOn
     this.setState({ isToggleOn: !currentToggle })
   }
-
+  handleSubmit() {
+    this.setState({submitted: true});
+  } 
   componentDidMount() {
     let type = this.props.type;
     let review_of_id = this.props.review_of_id;
@@ -58,14 +62,23 @@ class ReviewButton extends React.Component {
     });
   }
   render() {
+    let [user] = this.context;
     if (this.state.enabled) {
-      let button = this.state.isToggleOn ? <ToggleReviewOff onClick={this.handelClick} /> : <ToggleReviewOn onClick={this.handelClick} />;
+      let button = this.state.isToggleOn ? <ToggleReviewOff onClick={this.handleClick} /> : <ToggleReviewOn onClick={this.handleClick} />;
       let agency_review = this.state.isToggleOn ? 
-        <EntityReview review_of_id={this.props.review_of_id} type={this.props.type} entity_name={this.props.entity_name} /> 
+        <EntityReview on_success={this.handleSubmit} review_of_id={this.props.review_of_id} type={this.props.type} entity_name={this.props.entity_name} /> 
         : null;
       if (this.state.duplicate) {
         button = null
         agency_review = <>you've already reviewed this entity</>
+      }
+      else if (!user.auth) {
+        button = null
+        agency_review = <>you must be logged in to review this entity</>
+      }
+      else if (this.state.submitted) {
+        button = null
+        agency_review = <>you're review has been submitted. thanks!</>
       }
       return (
         <div>
@@ -78,7 +91,6 @@ class ReviewButton extends React.Component {
       return null;
     }
   }
-
 }
 ReviewButton.contextType = UserContext;
 

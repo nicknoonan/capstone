@@ -21,7 +21,6 @@ const UserProvider = ({ children }) => {
     console.log(err);
   }
   if (localuser) {
-    initialState.email = localuser.email;
     initialState.token = localuser.token;
     initialState.id = localuser.id;
   }
@@ -31,12 +30,14 @@ const UserProvider = ({ children }) => {
     let new_user = {...user};
     get_user(user.id, user.token).then((_user) => {
       new_user.auth = true;
-      if (_user.data.verified) {
+      console.log(_user);
+      if (_user.data.verified === true) {
         new_user.verified = true;
       }
       new_user.name = _user.data.name;
       new_user.email = _user.data.email;
       new_user.loading = false;
+      initialState = new_user;
       setUser(new_user);
     }).catch((err) => {
       console.log(err);

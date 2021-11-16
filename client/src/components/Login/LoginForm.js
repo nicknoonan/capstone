@@ -24,9 +24,11 @@ class LoginForm extends React.Component {
     this.handleUsername = this.handleUsername.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
     this.handleClear = this.handleClear.bind(this);
+    
   }
   componentDidMount() {
-    let [user, setUser] = this.context;
+    let [user] = this.context;
+    console.log(user);
     if (user) {
       this.setState({user});
       this.setState({loading:false});
@@ -72,12 +74,23 @@ class LoginForm extends React.Component {
     event.preventDefault();
   }
   render() {
+    let [user] = this.context;
+    if (user.auth === true) {
+      window.location = '/';
+    }
     if (this.state.loading) {
       return (
         <>
           loading...
         </>
       );
+    }
+    else if (user.auth) {
+      return (
+        <>
+        already logged in redirecting home...
+        </>
+      )
     }
     else if (this.state.authenticating) {
       return(
