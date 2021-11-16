@@ -127,7 +127,7 @@ async function send_recovery_email(rec_email) {
       else if (verify) {
         //console.log(verify);
         token = verify.token;
-        recover_url = 'localhost:3000/recover?token=' + token;
+        recover_url = 'boonehousinghelp.com/recover?token=' + token;
         let transporter = nodemailer.createTransport({
           host: 'smtp.gmail.com',
           port: 587,
