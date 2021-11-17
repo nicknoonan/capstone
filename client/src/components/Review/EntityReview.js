@@ -10,7 +10,7 @@ const UNIT_T = 'unit_t';
 const PROPERTY_T = 'property_t';
 const AGENCY_T = 'agency_t';
 
-//props: review_of_id, type, entity_name
+//props: review_of_id, type, entity_name, on_success
 
 class EntityReview extends Component {
   constructor(props) {
@@ -39,6 +39,7 @@ class EntityReview extends Component {
       this.setState({
         isComplete: true
       });
+      this.props.on_success();
     }).catch((err) => {
       alert("error check console");
       console.log(err);

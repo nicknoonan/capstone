@@ -23,6 +23,12 @@ post_new_user = async (req, res) => {
     let message = 'invaled new user request. must contain all fields';
     return res.status(400).json({ message: message});
   }
+  //check that the email is of the appstate domain
+  let email_domain = email.split('@')[1];
+  if (email_domain != "appstate.edu") {
+    let message = 'user must be of an appstate.edu account';
+    return res.status(400).json({message: message});
+  }
   //query db to check to see if a user with that email address already exists
   User.findOne({ email }, async (err, user) => {
     if (err) { //server error occured searching db for user

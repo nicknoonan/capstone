@@ -70,4 +70,8 @@ async function search_agencies(field, query) {
   });
 }
 
+async function post_agency(agency, token) {
+  
+}
+
 export { get_all_agencies, get_agency_by_id, get_agency_by_name, search_agencies };

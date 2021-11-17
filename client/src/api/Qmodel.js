@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const AGENCY_MODEL_ID = "61731b805412eac071e03c35";
-const PROPERTY_MODEL_ID = "61731b915412eac071e03c37";
+const PROPERTY_MODEL_ID = "61945f4739cb20f273aa0eb8";
 const UNIT_MODEL_ID = "61731ba95412eac071e03c39";
 
 
