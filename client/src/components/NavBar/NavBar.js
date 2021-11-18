@@ -84,8 +84,8 @@ function Navbar(props) {
     return (
       <>
         <nav className='navbar'>
-          <img src='https://i.ibb.co/xsh2hyn/White-Logo.png'/>
           <div className='navbar-container'>
+          <img src='https://i.ibb.co/xsh2hyn/White-Logo.png'/>
             <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
               Boone Housing Help
             </Link>

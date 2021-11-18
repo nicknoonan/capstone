@@ -56,9 +56,10 @@
     grid-gap: 10px;
     list-style: none;
     text-align: center;
-    width: 60vw;
+    width: 50vw;
     justify-content: end;
     margin-right: 2rem;
+    border: 2px solid green
 }
 
 .nav-item {
@@ -163,5 +164,8 @@
         background: #fff;
         color: #242424;
         transition: 250ms;
+    }
+    .navbar-logo {
+      display: none;
     }
 }
