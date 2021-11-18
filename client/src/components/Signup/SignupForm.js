@@ -107,7 +107,6 @@ export default function SignupForm(props) {
               bgcolor: 'rgb(238,238,228)',
               boxShadow: 1,
               borderRadius: 1,
-              p: 2,
               minWidth: 300,
               margin: 30,
               }}>
@@ -140,9 +139,7 @@ export default function SignupForm(props) {
 
             <Col>
               <Box>
-                <Card>
-                  {/* <Card.Img variant="top" src="https://i.ibb.co/n8G5srx/J-project-2.jpg" /> */}
-                </Card>
+                
               </Box>
             </Col>
 

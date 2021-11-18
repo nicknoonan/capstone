@@ -29,6 +29,11 @@ class ReviewResult extends Component {
     let results = this.props.results;
     //console.log(results);
 
+    if (!(titles && results)) {
+      return (
+        <></>
+      )
+    }
     let renderResults = results.map((result, i) => {
       if (result === true) {
         result = "Yes";
@@ -50,6 +55,7 @@ class ReviewResult extends Component {
       //console.log(result);
       // return <h1><h2>{this.props.qTitles[i]}</h2> <h2>{result}</h2></h1>
       // return <li>{titles[i]} {result}</li>
+      
       return (
         <div>
           <Box>
