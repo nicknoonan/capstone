@@ -1,38 +1,53 @@
 import { Component } from "react";
-import { get_qresults_by_user_id, new_qresult, get_qresults_by_review_of_id } from "../../api/Qresult";
+import { get_qresults_by_user_id, new_qresult, get_qresults_by_review_of_id, get_qresult_by_id } from "../../api/Qresult";
 import Aload from '../loading/loading';
 import '../../App.css';
 import Box from '@material-ui/core/Box';
-import { get_qmodel_by_type, AGENCY_MODEL_ID, PROPERTY_MODEL_ID, UNIT_MODEL_ID } from "../../api/Qmodel";
+import { get_qmodel_by_type, get_qmodel_by_id, AGENCY_MODEL_ID, PROPERTY_MODEL_ID, UNIT_MODEL_ID } from "../../api/Qmodel";
 import { Row, Col, Form, Card, Container } from 'react-bootstrap';
+import { thisTypeAnnotation } from "@babel/types";
 const Qmodels = {
   unit_t: UNIT_MODEL_ID,
   property_t: PROPERTY_MODEL_ID,
   agency_t: AGENCY_MODEL_ID
 };
 
+const unit_t = 0;
+const property_t = 1;
+const agency_t = 2;
+
 // Takes properties of qTitles and the resuts of those quesitons 
 class ReviewResult extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      
     }
   }
   render() {
     let titles = this.props.qTitles;
-    console.log(titles); 
+    //console.log(titles);
     let results = this.props.results;
-    console.log(results);
+    //console.log(results);
 
     let renderResults = results.map((result, i) => {
       if (result === true) {
-        result = "yes";
+        result = "Yes";
       }
       else if (result === false) {
-        result = "no";
+        result = "No";
       }
-      console.log(result); 
+      else if (typeof (result) === "object") {
+        let length = result.length;
+        if (length) {
+          result = result.map((item, j) => {
+            if (j < length - 1) {
+              item += ', ';
+            }
+            return item;
+          });
+        }
+      }
+      //console.log(result);
       // return <h1><h2>{this.props.qTitles[i]}</h2> <h2>{result}</h2></h1>
       // return <li>{titles[i]} {result}</li>
       return (
@@ -47,18 +62,14 @@ class ReviewResult extends Component {
         </div>
       )
     });
-    
-
     return (
-    <div>
-      {/* <h1>{this.props.qTitles[0]} {this.props.results[4]}</h1> */}
-      <ul>
-        {renderResults}
-      </ul>
-    </div>
-      
+      <div>
+        {/* <h1>{this.props.qTitles[0]} {this.props.results[4]}</h1> */}
+        <ul>
+          {renderResults}
+        </ul>
+      </div>
     )
-
   }
 }
 //takes in a user_id or review_of_id with an associated type
@@ -69,6 +80,7 @@ class ReviewResultList extends Component {
     this.state = {
       list_type: null,
       loading: true,
+      loading_models: true,
       results: [],
       results_render: null,
       qmodel: null,
@@ -77,103 +89,55 @@ class ReviewResultList extends Component {
   }
 
   componentDidMount() {
-    // Checking if the type is a user (for displaying on user profile)
-    if (this.props.list_type === 'user_t' && this.props.user_id) {
-      this.setState({ list_type: this.props.list_type });
-      get_qresults_by_user_id(this.props.user_id).then((results) => {
-        this.setState({ results: results });
-        this.setState({ loading: false });
+    //get all qtitles
+    let qmodel_ids = Object.values(Qmodels);
+    let qtitles = [];
+    qmodel_ids.forEach((id, i) => {
+      get_qmodel_by_id(id).then((qmodel) => {
+        //console.log(qmodel);
+        const model_titles = qmodel.survey_json.pages[0].elements.map((element) => {
+          return element.title;
+        });
+        qtitles[i] = model_titles;
+        if (i == 2) {
+          this.setState({ loading_models: false, qtitles });
+        }
       }).catch((err) => {
-        alert('error check console');
         console.log(err);
       });
-    } else {
-      // Here we are checking to make sure that we are receving a list type AND a userID or review of ID
-      if (this.props.list_type && (this.props.user_id || this.props.review_of_id)){
-        get_qmodel_by_type(this.props.list_type).then((qmodel) => {
-          this.setState({ qmodel });
-          console.log(qmodel);
+    });
 
-          const qtitles = qmodel.survey_json.pages[0].elements.map((element) => {
-            return element.title; 
-          });
-          this.setState({ qtitles })
-
-
-          // Here is our if statments if we are dealing with an agency/unit/property reveiw
-          if (this.props.list_type === 'agency_t' && this.props.review_of_id) {
-  
-            
-            
-            this.setState({ list_type: this.props.list_type });
-  
-            get_qresults_by_review_of_id(this.props.review_of_id).then((results) => {
-              
-              this.setState({ results });
-              console.log(results);
-
-              
-              this.setState({ loading: false });
-  
-            }).catch((err) => {
-              this.setState({ loading: false });
-              alert('error check console');
-              console.log(err);
-            });
-  
-          }
-          else if (this.props.list_type === 'property_t' && this.props.review_of_id) {
-            
-            
-            this.setState({ list_type: this.props.list_type });
-  
-            get_qresults_by_review_of_id(this.props.review_of_id).then((results) => {
-              
-              this.setState({ results });
-              console.log(results);
-              
-              this.setState({ loading: false });
-  
-            }).catch((err) => {
-              this.setState({ loading: false });
-              alert('error check console');
-              console.log(err);
-            });
-
-          }
-          else if (this.props.list_type === 'unit_t' && this.props.review_of_id) {
-            
-            
-            this.setState({ list_type: this.props.list_type });
-  
-            get_qresults_by_review_of_id(this.props.review_of_id).then((results) => {
-              
-              this.setState({ results });
-              console.log(results);
-
-              
-              this.setState({ loading: false });
-  
-            }).catch((err) => {
-              this.setState({ loading: false });
-              alert('error check console');
-              console.log(err);
-            });
-  
-          }
-  
-  
+    if (this.props.list_type && (this.props.user_id || this.props.review_of_id)) {
+      let list_type = this.props.list_type;
+      let user_id = this.props.user_id;
+      let review_of_id = this.props.review_of_id;
+      if (list_type === 'user_t' && user_id) {
+        get_qresults_by_user_id(user_id).then((results) => {
+          this.setState({ results });
+          //console.log(results);
+          this.setState({ loading: false });
+        }).catch((err) => {
+          alert('error check console');
+          console.log(err);
+        });
+      }
+      else if ((list_type === 'agency_t' ||
+        list_type === 'property_t' ||
+        list_type === 'unit_t') && review_of_id) {
+        //
+        get_qresults_by_review_of_id(review_of_id).then((results) => {
+          this.setState({ results });
+          console.log(results);
+          this.setState({ loading: false });
         }).catch((err) => {
           alert('error check console');
           console.log(err);
         });
       }
     }
-    
-    
   }
   render() {
-    if (this.state.loading) {
+    if (this.state.loading_models || this.state.loading) {
       return (
         <div>
           <h2 className='SignInText' align='center' margin='50'>Loading Reviews</h2>
@@ -182,26 +146,33 @@ class ReviewResultList extends Component {
       );
     }
     else {
+      console.log(this.state.qtitles);
       let title = <h2>Review results:</h2>;
-
       if (this.props.list_type === 'user_t') {
         title = <h2 className='Pageheader1'>Reviews you've posted: </h2>
       }
       else {
         title = <h2 className='Pageheader1'>Reviews Posted: </h2>
       }
-
       let results = this.state.results
       let renderResults = results.map((result, i) => {
         console.log(result);
         let resultArray = Object.values(result.survey_result)
-          return <ReviewResult qTitles={this.state.qtitles} results={resultArray}/> 
+        let title_type;
+        if (result.qmodel_id === Qmodels.unit_t) {
+          title_type = unit_t;
+        }
+        else if (result.qmodel_id === Qmodels.agency_t) {
+          title_type = agency_t;
+        }
+        else if (result.qmodel_id === Qmodels.property_t) {
+          title_type = property_t;
+        }
+        console.log(title_type);
+        console.log(this.state.qtitles[title_type]);
+        return <ReviewResult qTitles={this.state.qtitles[title_type]} results={resultArray} />
       });
 
-
-
-
-     
       return (
         <>
           {title}

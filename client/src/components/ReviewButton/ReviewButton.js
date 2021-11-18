@@ -5,6 +5,10 @@ import { ToggleReviewOn, ToggleReviewOff } from './button';
 import { UserContext } from "../../context/Store";
 import { get_qmodel_by_type } from "../../api/Qmodel";
 import { get_qresults_by_user_id } from "../../api/Qresult";
+import '../../App.css';
+import Aload from '../loading/loading';
+import Box from '@material-ui/core/Box';
+import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Nav, Row, Col, Container } from 'react-bootstrap';
 
 //props: review_of_id, type, entity_name
 
@@ -70,15 +74,72 @@ class ReviewButton extends React.Component {
         : null;
       if (this.state.duplicate) {
         button = null
-        agency_review = <>you've already reviewed this entity</>
+        agency_review = <>
+          <Box>
+          <Row>
+            <Col>
+              <Box sx={{
+            boxShadow: 1,
+            borderRadius: 1,
+            p: 2,
+            minWidth: 'justify',
+            margin: 30,
+            }}>
+                <h2 className='answerText'>You've already left a review here</h2>
+              </Box>
+            </Col>
+
+            <Col>
+            </Col>
+          </Row>
+        </Box>
+        </>
       }
       else if (!user.auth) {
         button = null
-        agency_review = <>you must be logged in to review this entity</>
+        agency_review = <>
+        <Box>
+          <Row>
+            <Col>
+              <Box sx={{
+            boxShadow: 1,
+            borderRadius: 1,
+            p: 2,
+            minWidth: 'justify',
+            margin: 30,
+            }}>
+                <h2 className='answerText'>You must be logged in to leave a review!</h2>
+              </Box>
+            </Col>
+
+            <Col>
+            </Col>
+          </Row>
+        </Box>
+        </>
       }
       else if (this.state.submitted) {
         button = null
-        agency_review = <>you're review has been submitted. thanks!</>
+        agency_review = <>
+        <Box>
+          <Row>
+            <Col>
+              <Box sx={{
+            boxShadow: 1,
+            borderRadius: 1,
+            p: 2,
+            minWidth: 'justify',
+            margin: 30,
+            }}>
+                <h2 className='answerText'>You're review has been submitted!</h2>
+              </Box>
+            </Col>
+
+            <Col>
+            </Col>
+          </Row>
+        </Box>
+        </>
       }
       return (
         <div>

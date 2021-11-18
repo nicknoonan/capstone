@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const AGENCY_MODEL_ID = "619599eada9e765848dd5ad2";
-const PROPERTY_MODEL_ID = "61945f4739cb20f273aa0eb8";
-const UNIT_MODEL_ID = "61959a0ada9e765848dd5ad4";
+const AGENCY_MODEL_ID = "6195a5dcfa98f58689c1de6d";
+const PROPERTY_MODEL_ID = "6195a5b3fa98f58689c1de67";
+const UNIT_MODEL_ID = "6195a503fa98f58689c1de36";
 
 
 async function get_qmodel_by_type(type) {
@@ -72,4 +72,4 @@ async function get_qmodel_by_name(name) {
 //  });
 //}
 //
-export {get_qmodel_by_type, AGENCY_MODEL_ID, PROPERTY_MODEL_ID, UNIT_MODEL_ID};
+export {get_qmodel_by_type, get_qmodel_by_id, AGENCY_MODEL_ID, PROPERTY_MODEL_ID, UNIT_MODEL_ID};
