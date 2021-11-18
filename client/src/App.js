@@ -57,7 +57,7 @@ function App() {
   return (
     <div className="App">
       <UserProvider>
-        <TestContext/>
+        {/* <TestContext/> */}
         <NavBar isLoggedIn={isLoggedIn} />
         <Route classname="route" exact path="/" component={Home} />
         <Route classname="route" exact path="/about" component={About} />
