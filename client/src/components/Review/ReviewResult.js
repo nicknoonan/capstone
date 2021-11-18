@@ -8,7 +8,7 @@ import { Row, Col, Form, Card, Container } from 'react-bootstrap';
 
 const Qmodels = {
   unit_t: "61731ba95412eac071e03c39",
-  property_t: "61731b915412eac071e03c37",
+  property_t: "61945f4739cb20f273aa0eb8",
   agency_t: "61731b805412eac071e03c35"
 };
 
@@ -34,14 +34,30 @@ class ReviewResult extends Component {
         result = "no";
       }
       console.log(result); 
-      return <li>{titles[i]} {result}</li>
+      // return <h1><h2>{this.props.qTitles[i]}</h2> <h2>{result}</h2></h1>
+      // return <li>{titles[i]} {result}</li>
+      return (
+        <div>
+          <Box>
+            <Row>
+              <Col>
+                <h1 className='questionText'>{this.props.qTitles[i]} <a className='answerText'> {result}</a></h1>
+              </Col>
+            </Row>
+          </Box>
+        </div>
+      )
     });
     
 
     return (
+    <div>
+      {/* <h1>{this.props.qTitles[0]} {this.props.results[4]}</h1> */}
       <ul>
         {renderResults}
       </ul>
+    </div>
+      
     )
 
   }
@@ -124,7 +140,7 @@ class ReviewResultList extends Component {
               alert('error check console');
               console.log(err);
             });
-  
+
           }
           else if (this.props.list_type === 'unit_t' && this.props.review_of_id) {
             console.log("here");
@@ -190,17 +206,7 @@ class ReviewResultList extends Component {
       return (
         <>
           {title}
-          <Box
-              sx={{
-              borderColor: 'rgb(238,238,228)',
-              boxShadow: 1,
-              borderRadius: 1,
-              p: 2,
-              minWidth: 'justify',
-              margin: 30,
-              }}>
-                <a className='ReivewListText'>{renderResults}</a>
-            </Box>
+          <a>{renderResults}</a>
         </>
       );
     }

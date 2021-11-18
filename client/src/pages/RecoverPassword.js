@@ -8,6 +8,7 @@ import {
 } from 'react-bootstrap';
 import Box from '@material-ui/core/Box';
 import '../App.css';
+import Aload from '../components/loading/loading';
 
 
 function RecoverPassword(props) {
@@ -86,43 +87,128 @@ function RecoverPassword(props) {
     if (conflict) {
       return (
         <>
-          Recovery request already sent.
+          <Box>
+          <Row>
+            <Col>
+              <Box sx={{
+            boxShadow: 1,
+            borderRadius: 1,
+            p: 2,
+            minWidth: 'justify',
+            margin: 30,
+            }}>
+                <h2 className='boxHeader1'>Recovery request already sent</h2>
+              </Box>
+            </Col>
+
+            <Col>
+            </Col>
+          </Row>
+        </Box>
         </>
       );
     }
     else if (badLink) {
       return (
         <>
-          invalid password recovery link
+        <Box>
+          <Row>
+            <Col>
+              <Box sx={{
+            boxShadow: 1,
+            borderRadius: 1,
+            p: 2,
+            minWidth: 'justify',
+            margin: 30,
+            }}>
+                <h2 className='boxHeader1'>Invalid password recovery link</h2>
+              </Box>
+            </Col>
+
+            <Col>
+            </Col>
+          </Row>
+        </Box>
         </>
       );
     }
     else {
       return (
         <>
-          Unable to submit recovery request.
+        <Box>
+          <Row>
+            <Col>
+              <Box sx={{
+            boxShadow: 1,
+            borderRadius: 1,
+            p: 2,
+            minWidth: 'justify',
+            margin: 30,
+            }}>
+                <h2 className='boxHeader1'>Unable to submit recovery request</h2>
+              </Box>
+            </Col>
+
+            <Col>
+            </Col>
+          </Row>
+        </Box>
         </>
       );
     }
   }
   else if (submitting) {
     return (
-      <>
-        submitting...
-      </>
+      <div>
+      <h2 className='SignInText' align='center' margin='50'>Submitting...</h2>
+      <Aload />
+    </div>
     );
   }
   else if (recoverComplete) {
     return (
       <>
-        password recovery email sent.
+        <Box>
+          <Row>
+            <Col>
+              <Box sx={{
+            boxShadow: 1,
+            borderRadius: 1,
+            p: 2,
+            minWidth: 'justify',
+            margin: 30,
+            }}>
+                <h2 className='boxHeader1'>Password recovery email sent!</h2>
+              </Box>
+            </Col>
+
+            <Col>
+            </Col>
+          </Row>
+        </Box>
       </>
     );
   }
   else if (changeComplete) {
     return (
-      <>
-        your password has been changed successfully.
+      <><Box>
+      <Row>
+        <Col>
+          <Box sx={{
+        boxShadow: 1,
+        borderRadius: 1,
+        p: 2,
+        minWidth: 'justify',
+        margin: 30,
+        }}>
+            <h2 className='boxHeader1'>Your password has been changed successfully!</h2>
+          </Box>
+        </Col>
+
+        <Col>
+        </Col>
+      </Row>
+    </Box>
       </>
     );
   }
@@ -152,7 +238,7 @@ function RecoverPassword(props) {
               <input className='field' type="text" value={confirmPassword} onChange={handleConfirmPassword} />
             </label>
             <h1></h1>
-            <Button className='button' onClick={handleChangeSubmit}>submit</Button>
+            <button className='button' onClick={handleChangeSubmit}>Submit</button>
             </form>
             </Box>
           </Col>
@@ -167,14 +253,35 @@ function RecoverPassword(props) {
   }
   else if (!tokenLink) {
     return (
-      <form>
-        <h3>recover password</h3>
-        <label>
-          email:
-          <input type="text" value={email} onChange={handleEmail} />
-        </label>
-        <button onClick={handleRecoverSubmit}>submit</button>
-      </form>
+      <Box>
+        <Row>
+          <Col>
+            <Box sx={{
+            bgcolor: 'rgb(238,238,228)',
+            boxShadow: 1,
+            borderRadius: 1,
+            p: 2,
+            minWidth: 'justify',
+            margin: 30,
+            }}>
+              <form>
+                <h2 className='SignInText'>Recover Password</h2>
+                <label className='answerText'>
+                Email:
+                <input className='field' type="text" value={email} onChange={handleEmail} />
+                </label>
+                <h1></h1>
+                <button className='button' onClick={handleRecoverSubmit}>submit</button>
+              </form>
+            </Box>
+          </Col>
+
+          <Col>
+          </Col>
+
+        </Row>
+      </Box>
+      
     );
   }
   else {
