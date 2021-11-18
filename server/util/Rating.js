@@ -57,8 +57,8 @@ async function set_avg_agency_rating(id, new_rating) {
   return new Promise((resolve, reject) => {
     Agency.findByIdAndUpdate(id, {rating: new_rating}, function(err, agency) {
       if (err) {
-        let err = "failed to find agency" + err;
-        reject(err);
+        let errmsg = "failed to find agency" + err;
+        reject(errmsg);
       }
       else if (agency) {
         resolve(agency);
@@ -75,8 +75,8 @@ async function set_avg_property_rating(id, new_rating) {
   return new Promise((resolve, reject) => {
     Property.findByIdAndUpdate(id, {rating: new_rating}, function(err, property) {
       if (err) {
-        let err = "failed to find property" + err;
-        reject(err);
+        let errmsg = "failed to find property" + err;
+        reject(errmsg);
       }
       else if (property) {
         resolve(property);
@@ -93,8 +93,8 @@ async function set_avg_unit_rating(id, new_rating) {
   return new Promise((resolve, reject) => {
     Unit.findByIdAndUpdate(id, {rating: new_rating}, function(err, unit) {
       if (err) {
-        let err = "failed to find unit" + err;
-        reject(err);
+        let errmsg = "failed to find unit" + err;
+        reject(errmsg);
       }
       else if (unit) {
         resolve(unit);

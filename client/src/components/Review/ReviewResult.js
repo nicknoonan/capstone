@@ -3,13 +3,12 @@ import { get_qresults_by_user_id, new_qresult, get_qresults_by_review_of_id } fr
 import Aload from '../loading/loading';
 import '../../App.css';
 import Box from '@material-ui/core/Box';
-import { get_qmodel_by_type } from "../../api/Qmodel";
+import { get_qmodel_by_type, AGENCY_MODEL_ID, PROPERTY_MODEL_ID, UNIT_MODEL_ID } from "../../api/Qmodel";
 import { Row, Col, Form, Card, Container } from 'react-bootstrap';
-
 const Qmodels = {
-  unit_t: "61731ba95412eac071e03c39",
-  property_t: "61945f4739cb20f273aa0eb8",
-  agency_t: "61731b805412eac071e03c35"
+  unit_t: UNIT_MODEL_ID,
+  property_t: PROPERTY_MODEL_ID,
+  agency_t: AGENCY_MODEL_ID
 };
 
 // Takes properties of qTitles and the resuts of those quesitons 
@@ -104,7 +103,7 @@ class ReviewResultList extends Component {
           // Here is our if statments if we are dealing with an agency/unit/property reveiw
           if (this.props.list_type === 'agency_t' && this.props.review_of_id) {
   
-            console.log("here");
+            
             
             this.setState({ list_type: this.props.list_type });
   
@@ -124,7 +123,7 @@ class ReviewResultList extends Component {
   
           }
           else if (this.props.list_type === 'property_t' && this.props.review_of_id) {
-            console.log("here");
+            
             
             this.setState({ list_type: this.props.list_type });
   
@@ -143,7 +142,7 @@ class ReviewResultList extends Component {
 
           }
           else if (this.props.list_type === 'unit_t' && this.props.review_of_id) {
-            console.log("here");
+            
             
             this.setState({ list_type: this.props.list_type });
   

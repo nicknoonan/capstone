@@ -72,4 +72,4 @@ async function get_qmodel_by_name(name) {
 //  });
 //}
 //
-export {get_qmodel_by_type};
+export {get_qmodel_by_type, AGENCY_MODEL_ID, PROPERTY_MODEL_ID, UNIT_MODEL_ID};
