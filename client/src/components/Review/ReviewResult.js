@@ -16,6 +16,29 @@ const unit_t = 0;
 const property_t = 1;
 const agency_t = 2;
 
+async function get_qtitles() {
+  return new Promise((resolve, reject) => {
+    let qmodel_ids = Object.values(Qmodels);
+    let qtitles = [];
+    let num_titles = 0;
+    qmodel_ids.forEach((id, i) => {
+      get_qmodel_by_id(id).then((qmodel) => {
+        //console.log(qmodel);
+        const model_titles = qmodel.survey_json.pages[0].elements.map((element) => {
+          return element.title;
+        });
+        qtitles[i] = model_titles;
+        if (i == 2) {
+          resolve(qtitles);
+        }
+      }).catch((err) => {
+        reject(err);
+        console.log(err);
+      });
+    });
+  });
+};
+
 // Takes properties of qTitles and the resuts of those quesitons 
 class ReviewResult extends Component {
   constructor(props) {
@@ -25,9 +48,9 @@ class ReviewResult extends Component {
   }
   render() {
     let titles = this.props.qTitles;
-    //console.log(titles);
+    console.log(titles);
     let results = this.props.results;
-    //console.log(results);
+    console.log(results);
 
     if (!(titles && results)) {
       return (
@@ -96,54 +119,59 @@ class ReviewResultList extends Component {
 
   componentDidMount() {
     //get all qtitles
-    let qmodel_ids = Object.values(Qmodels);
-    let qtitles = [];
-    qmodel_ids.forEach((id, i) => {
-      get_qmodel_by_id(id).then((qmodel) => {
-        //console.log(qmodel);
-        const model_titles = qmodel.survey_json.pages[0].elements.map((element) => {
-          return element.title;
-        });
-        qtitles[i] = model_titles;
-        if (i == 2) {
-          this.setState({ loading_models: false, qtitles });
+    //let qmodel_ids = Object.values(Qmodels);
+    //let qtitles = [];
+    //qmodel_ids.forEach((id, i) => {
+    //  get_qmodel_by_id(id).then((qmodel) => {
+    //    //console.log(qmodel);
+    //    const model_titles = qmodel.survey_json.pages[0].elements.map((element) => {
+    //      return element.title;
+    //    });
+    //    qtitles[i] = model_titles;
+    //    if (i == 2) {
+    //      this.setState({ loading_models: false, qtitles });
+    //    }
+    //  }).catch((err) => {
+    //    console.log(err);
+    //  });
+    //});
+    get_qtitles().then((qtitles) => {
+      
+      //this.setState(qtitles);
+      if (this.props.list_type && (this.props.user_id || this.props.review_of_id)) {
+        let list_type = this.props.list_type;
+        let user_id = this.props.user_id;
+        let review_of_id = this.props.review_of_id;
+        if (list_type === 'user_t' && user_id) {
+          get_qresults_by_user_id(user_id).then((results) => {
+            this.setState({ results });
+            //console.log(results);
+            this.setState({ loading: false, qtitles });
+          }).catch((err) => {
+            alert('error check console');
+            console.log(err);
+          });
         }
-      }).catch((err) => {
-        console.log(err);
-      });
-    });
-
-    if (this.props.list_type && (this.props.user_id || this.props.review_of_id)) {
-      let list_type = this.props.list_type;
-      let user_id = this.props.user_id;
-      let review_of_id = this.props.review_of_id;
-      if (list_type === 'user_t' && user_id) {
-        get_qresults_by_user_id(user_id).then((results) => {
-          this.setState({ results });
-          //console.log(results);
-          this.setState({ loading: false });
-        }).catch((err) => {
-          alert('error check console');
-          console.log(err);
-        });
+        else if ((list_type === 'agency_t' ||
+          list_type === 'property_t' ||
+          list_type === 'unit_t') && review_of_id) {
+          //
+          get_qresults_by_review_of_id(review_of_id).then((results) => {
+            this.setState({ results });
+            console.log(results);
+            this.setState({ loading: false, qtitles });
+          }).catch((err) => {
+            alert('error check console');
+            console.log(err);
+          });
+        }
       }
-      else if ((list_type === 'agency_t' ||
-        list_type === 'property_t' ||
-        list_type === 'unit_t') && review_of_id) {
-        //
-        get_qresults_by_review_of_id(review_of_id).then((results) => {
-          this.setState({ results });
-          console.log(results);
-          this.setState({ loading: false });
-        }).catch((err) => {
-          alert('error check console');
-          console.log(err);
-        });
-      }
-    }
+    }).catch((err) => {
+      console.log(err);
+    })
   }
   render() {
-    if (this.state.loading_models || this.state.loading) {
+    if (this.state.loading || !this.state.qtitles) {
       return (
         <div>
           <h2 className='SignInText' align='center' margin='50'>Loading Reviews</h2>
@@ -188,5 +216,6 @@ class ReviewResultList extends Component {
     }
   }
 }
+
 
 export { ReviewResult, ReviewResultList };
