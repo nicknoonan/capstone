@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const { DB_URL } = require('./secrets');
 const { router } = require('./routes/index.js');
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.BHH_PORT || 8080;
 //
 //middleware
 const app = express();
@@ -42,5 +42,4 @@ async function init() {
   //listen at PORT
   console.log('Listening on port ' + PORT + ' for requests');
   app.listen(PORT);
-  console.log("hello nick");
 }
