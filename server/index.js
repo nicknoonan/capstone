@@ -42,4 +42,5 @@ async function init() {
   //listen at PORT
   console.log('Listening on port ' + PORT + ' for requests');
   app.listen(PORT);
+  console.log("hello nick");
 }
