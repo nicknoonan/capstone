@@ -30,51 +30,58 @@ export BHH_PORT
 #pull fresh code from git repo
 if [ $DO_PULL = "y" ]
 then
+  git checkout production
+  #make sure that the pull was successfull
+  if [ $? -gt 0 ]
+  then
+    code=$?
+    echo "***************************************************"
+    echo "-----------------GIT--PULL--FAILED-----------------"
+    echo "***************************************************"
+    exit $code
+  fi
   git pull
+  #make sure that the pull was successfull
+  if [ $? -gt 0 ]
+  then
+    code=$?
+    echo "***************************************************"
+    echo "-----------------GIT--PULL--FAILED-----------------"
+    echo "***************************************************"
+    exit $code
+  fi
 else
   echo "**************************************************"
   echo "------------------SKIPPING--PULL------------------"
   echo "**************************************************"
 fi
-
-#make sure that the pull was successfull
-if [ $? -eq 0 ]
+#build the current source code
+if [ $DO_BUILD = "y" ]
+then
+  cd client
+  npm run build
+  if [ $? -gt 0 ]
   then
-    #build the current source code
-    if [ $DO_BUILD = "y" ]
-    then
-      cd client
-      npm run build
-    else
-      echo "***************************************************"
-      echo "------------------SKIPPING--BUILD------------------"
-      echo "***************************************************"
-    fi
-    #check that build ran successfully
-    if [ $? -eq 0 ]
-      then
-        #start up the pm2 process
-        pm2 start boonehousinghelp
-        #check that the pm2 process started successfully
-        if [ $? -eq 0 ]
-          then
-            echo "***************************************************"
-            echo "--------------------BHH--ONLINE--------------------"
-            echo "***************************************************"
-            echo "PORT : $BHH_PORT"
-            echo "DOMAIN : $BHH_DOMAIN_NAME"
-          else
-            echo "***************************************************"
-            echo "--------------------PM2--FAILED--------------------"
-            echo "***************************************************"
-        fi
-      else
-        echo "***************************************************"
-        echo "-------------------BUILD--FAILED-------------------"
-        echo "***************************************************"
-    fi
-  else
+    code=$?
     echo "***************************************************"
-    echo "-----------------GIT--PULL--FAILED-----------------"
+    echo "-------------------BUILD--FAILED-------------------"
     echo "***************************************************"
+    exit $code
+  fi
+else
+  echo "***************************************************"
+  echo "------------------SKIPPING--BUILD------------------"
+  echo "***************************************************"
+fi
+#start up the pm2 process
+pm2 start boonehousinghelp
+#check that the pm2 process started successfully
+if [ $? -eq 0 ]
+then
+  echo "PORT : $BHH_PORT"
+  echo "DOMAIN : $BHH_DOMAIN_NAME"
+else
+  echo "***************************************************"
+  echo "--------------------PM2--FAILED--------------------"
+  echo "***************************************************"
 fi
