@@ -1,11 +1,10 @@
-#first stop boonehousing pm2 process
-pm2 stop boonehousinghelp
 DO_PULL=y
 DO_BUILD=y
 DO_LOG=n
 #handle any arguements passed
 args_index=0
 args_array=( "$@" )
+usage="./publish [options]\n\t--no-build : skip the react build procedure\n\t--no-pull : skip the git pull procedure\n\t--log : display logging information (pm2 log)\n\t--help : display this help message"
 for arg in "${args_array[@]}";
 do
   #handle the no build arguement option
@@ -16,19 +15,31 @@ do
   elif [ $arg = "--no-pull" ]  
   then
     DO_PULL=n
-  #elif [ $arg = "--port" ]
-  #then
-  #  BHH_PORT=${args_array[$((args_index + 1))]}
   elif [ $arg = "--log" ]
   then
     DO_LOG=y
+  elif [ $arg = "--help" ]
+  then
+    echo -e $usage
+    exit 0
+  else
+    echo -e $usage
+    exit 1
   fi
 args_index=$((args_index + 1))
 done
+
+#navigate into capstone 
+cd capstone
+#set working dir
+WORKING_DIR=$(pwd)
+#kill the current boonehousing help process
+pm2 stop boonehousinghelp
+
 #pull fresh code from git repo
 if [ $DO_PULL = "y" ]
 then
-  git checkout production
+  git checkout main
   #make sure that the pull was successfull
   if [ $? -gt 0 ]
   then
@@ -56,7 +67,7 @@ fi
 #build the current source code
 if [ $DO_BUILD = "y" ]
 then
-  cd client
+  cd $WORKING_DIR/client
   npm run build
   if [ $? -gt 0 ]
   then
@@ -66,13 +77,14 @@ then
     echo "***************************************************"
     exit $code
   fi
+  cd $WORKING_DIR
 else
   echo "**************************************************"
   echo "------------------SKIPPING--BUILD-----------------"
   echo "**************************************************"
 fi
 #start up the pm2 process
-pm2 start server/index.js -i 1 --name boonehousinghelp
+pm2 start $WORKING_DIR/server/index.js -i 1 --name boonehousinghelp
 #check that the pm2 process started successfully
 if [ $? -eq 0 ]
 then
@@ -87,3 +99,4 @@ else
   echo "--------------------PM2--FAILED--------------------"
   echo "***************************************************"
 fi
+
