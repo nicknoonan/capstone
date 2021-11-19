@@ -31,6 +31,14 @@ done
 
 #navigate into capstone 
 cd capstone
+if [ $? -gt 0 ]
+then
+  code=$?
+  echo "***************************************************"
+  echo "--------------INVALID DIRECTORY SETUP--------------"
+  echo "***************************************************"
+  exit $code
+fi
 #set working dir
 WORKING_DIR=$(pwd)
 #kill the current boonehousing help process
