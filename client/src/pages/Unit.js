@@ -66,8 +66,8 @@ function Unit(props) {
   }, []);
  
 
-  let linktoAgency = get_domain() + "/Agency?name=" + agencyName;
-  let linktoProperty = get_domain() + "/Property?name=" + propertyName;
+  let linktoAgency = "/Agency?name=" + agencyName;
+  let linktoProperty = "/Property?name=" + propertyName;
 
 
   if (isLoading) {

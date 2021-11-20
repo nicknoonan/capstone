@@ -8,7 +8,7 @@ import { get_domain } from '../../util';
 
 class Agency extends React.Component {
   render() {
-    let linktoAgency = get_domain() + "/Agency?name=" + this.props.agency.name;
+    let linktoAgency = "/Agency?name=" + this.props.agency.name;
     return (
       <>
         <Container>

@@ -13,7 +13,7 @@ class Property extends React.Component {
   render() {
     let spacetoU = this.props.property.name;
     spacetoU = spacetoU.replace(/ /g, "_");
-    let linktoProperty = get_domain() + "/Property?name=" + this.props.property.name;
+    let linktoProperty = "/Property?name=" + this.props.property.name;
     let rating_render = this.props.property.rating ? <Col sm><Card.Text>Rating: {this.props.property.rating}</Card.Text></Col> : null;
     let email_render = this.props.property.email ? <Col sm><Card.Text>email: {this.props.property.email}</Card.Text></Col> : null
     return (

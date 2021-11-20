@@ -71,7 +71,7 @@ function Property(props) {
     }
   }, []);
  
-  let linktoAgency = get_domain() + "/Agency?name=" + agencyName;
+  let linktoAgency = "/Agency?name=" + agencyName;
 
   if (isLoading) {
     return (
