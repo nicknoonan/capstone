@@ -8,6 +8,7 @@ import Box from '@material-ui/core/Box';
 import '../App.css';
 import ReviewButton from '../components/ReviewButton/ReviewButton';
 import { ReviewResult, ReviewResultList } from '../components/Review/ReviewResult';
+import { get_domain } from '../util';
 
 function Unit(props) {
   const initialState = {
@@ -65,8 +66,8 @@ function Unit(props) {
   }, []);
  
 
-  let linktoAgency = "http://localhost:3000/Agency?name=" + agencyName;
-  let linktoProperty = "http://localhost:3000/Property?name=" + propertyName;
+  let linktoAgency = get_domain() + "/Agency?name=" + agencyName;
+  let linktoProperty = get_domain() + "/Property?name=" + propertyName;
 
 
   if (isLoading) {

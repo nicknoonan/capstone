@@ -26,7 +26,7 @@ do
     echo -e $usage
     exit 1
   fi
-args_index=$((args_index + 1))
+  args_index=$((args_index + 1))
 done
 
 #navigate into capstone 
@@ -47,7 +47,7 @@ pm2 stop boonehousinghelp
 #pull fresh code from git repo
 if [ $DO_PULL = "y" ]
 then
-  git checkout main
+  git checkout production
   #make sure that the pull was successfull
   if [ $? -gt 0 ]
   then
