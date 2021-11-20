@@ -9,6 +9,7 @@ import Box from '@material-ui/core/Box';
 import { Row, Col, Nav } from 'react-bootstrap';
 import { ReviewResult, ReviewResultList } from '../components/Review/ReviewResult';
 import '../App.css';
+import { get_domain } from '../util';
 
 function Property(props) {
   const initialState = {
@@ -70,7 +71,7 @@ function Property(props) {
     }
   }, []);
  
-  let linktoAgency = "http://localhost:3000/Agency?name=" + agencyName;
+  let linktoAgency = get_domain() + "/Agency?name=" + agencyName;
 
   if (isLoading) {
     return (
