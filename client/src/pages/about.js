@@ -21,7 +21,7 @@ function About() {
                             }}
                         >
                             <h1 className='pageHeader01'>About Us/Info Page</h1>
-                            <h4 className='basicText'>Welcome to Boone Housing Help, a website build by and for students that just want to find the best possible place to live while attending Appalachian State University.</h4>
+                            <h4 className='basicText'>Welcome to Boone Housing Help, a website built by and for students that just want to find the best possible place to live while attending Appalachian State University.</h4>
                             <h4 className='basicText'>This is our information page where you can get familiar with the housing terminology we use on our website to classify/group all of the different housing options.</h4>
                         </Box>
 
