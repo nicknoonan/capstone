@@ -17,6 +17,7 @@ class Unit extends React.Component {
     let linktoAgency = "/Unit?name=" + this.props.unit.name;
     let agency_render = this.props.unit.agency_name ? <Col sm><Card.Text>Agency: {this.props.unit.agency_name}</Card.Text></Col> : null;
     let rating_render = this.props.unit.rating ? <Col sm><Card.Text>Rating: {this.props.unit.rating}</Card.Text></Col> : null;
+    let maintenance_rating_render = this.props.unit.maintenance_rating ? <Row><Col sm><Card.Text>Maintenance Rating: {this.props.unit.maintenance_rating }</Card.Text></Col></Row> : null;
     return (
       <>
         <Container>
@@ -51,6 +52,7 @@ class Unit extends React.Component {
                       <Col sm><Card.Text>Classification: {this.props.unit.classification}</Card.Text></Col>
                       <Col sm><Card.Text>Number of bedrooms: {this.props.unit.number_of_bedrooms}</Card.Text></Col>
                     </Row>
+                    {maintenance_rating_render}
                   </Container>
                 </Card.Body>
 

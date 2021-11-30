@@ -6,7 +6,27 @@ const cors = require('cors');
 const { DB_URL } = require('./secrets');
 const { router } = require('./routes/index.js');
 const PORT = process.env.BHH_PORT || 8080;
-//
+const { set_avg_maintenance_rating } = require('./routes/controllers/Qresult');
+const Unit = require('./models/Unit');
+let unit_ids = [];
+// Unit.find({}, function(err, units) {
+//   if (err) {
+//     console.log(err);
+//   }
+//   else if (units) {
+//     //console.log(units);
+//     units.forEach(unit => {
+//       set_avg_maintenance_rating(unit._id.toString()).catch(err=> {
+//         console.log(err);
+//       });
+//     });
+
+//   }
+// });
+
+// set_avg_maintenance_rating("6184271f04f6d4150b2252e1").catch(err => {
+//   console.log(err);
+// })
 //middleware
 const app = express();
 app.use(express.json());
