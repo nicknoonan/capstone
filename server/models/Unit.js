@@ -39,6 +39,10 @@ const unit = new mongoose.Schema({
   page_img_url: {
     type: String,
     required: false
+  },
+  maintenance_rating: {
+    type: Number,
+    required: false
   }
 });
 
