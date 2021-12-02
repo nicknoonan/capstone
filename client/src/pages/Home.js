@@ -4,7 +4,7 @@ import Cards from '../components/Cards/Cards'
 function Home() {
   return (
     <>
-      <h1>Welcome to Boone Housing Help, Dr. Parry!</h1>
+      <h1>Welcome to Boone Housing Help</h1>
       <Cards />
       
     </>
